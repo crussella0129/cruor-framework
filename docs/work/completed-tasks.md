@@ -89,4 +89,4 @@
 - **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
 - **Completed:** 2026-11-23T19:13:03Z
 - **Files modified:** .github/workflows/ci.yml, tests/test_ci.py
-- **Commit:** PENDING
+- **Commit:** `88a7f9fb39fd7cb3739d3190ddf223580806c6eb`
