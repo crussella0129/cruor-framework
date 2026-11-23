@@ -75,4 +75,4 @@
 - **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
 - **Completed:** 2026-11-23T19:09:25Z
 - **Files modified:** .github/workflows/release.yml, tools/release-gate.sh, tests/test_release.py
-- **Commit:** PENDING
+- **Commit:** `82ce34cb6df433c9bb9bc4712171eae488f55a3d`
