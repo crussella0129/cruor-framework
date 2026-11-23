@@ -95,3 +95,37 @@ How each review is made:
     runner's latest Ubuntu is newer than the pinned browser driver knows;
     the workflow now names the release of Ubuntu it runs on. It is a
     correction to T-001's work, found by running it.
+
+### 3. 23 November 2026, before the third push of Build
+
+- **Commits covered:** `a6587d99dd6f99ce9051c21d6d554a804218f4a5` to
+  `a5969e5d98445fc4472d7096c3a8f86f05206f79`, sixteen commits: T-005 to
+  T-012, each with its commit of evidence. The commit that recorded entry 2
+  (`db6fad0`) changes this file alone.
+- **Also covered:** nothing; no font file is among these commits.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The new prose is the
+  README, the specimen page, the fetch example and the comments of the tool
+  and the workflows. The README says of Cruor that its letters are tall and
+  narrow with ornament of their own, and describes each family by what its
+  letters carry; nothing is said by comparison.
+- **Files against tasks:**
+  - T-005 (`a6587d9`): `src/main.rs`, `src/manifest.rs`,
+    `fonts/manifest.toml`, `tests/manifest.rs`.
+  - T-006 (`da7b5f5`): `tools/check_fonts.py`, `tools/run-guards.sh`,
+    `tests/test_check_fonts.py`, `tests/test_guards.py`.
+  - T-007 (`4e0bd53`): `fonts/specimen.html`, `tests/test_specimen.py`.
+  - T-008 (`9f1b755`): `src/main.rs`, `src/bundle.rs`, `tests/bundle.rs`,
+    and INT-0005, for its move to `active`.
+  - T-009 (`cfee3a0`): `examples/fetch-release.mjs`,
+    `tests/test_fetch_release.py`, `tests/helpers.py`,
+    `tests/test_specimen.py`. The last two gained and took up one shared
+    way of serving a folder to the tests.
+  - T-010 (`82ce34c`): `.github/workflows/release.yml`,
+    `tools/release-gate.sh`, `tests/test_release.py`.
+  - T-011 (`8c8938c`): `README.md`, `tests/test_readme.py`.
+  - T-012 (`88a7f9f`): `.github/workflows/ci.yml`, `tests/test_ci.py`.
+  - Each is in its task's Touches, with the Book's two ledgers beside it.
+    The eight commits of evidence change `docs/work/completed-tasks.md`
+    alone. Nothing is unaccounted for, and no file from the Cruor project
+    was added.
