@@ -6,7 +6,7 @@
 - **Work evidence:** [T-002, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
-- **Test evidence:** none
+- **Test evidence:** [Sprint 0 test report](../sprints/s0/sprint-tests/test-report.md)
 - **Documentation evidence:** none
 
 ## Intent
@@ -119,3 +119,9 @@ the kit be public while the project that draws Cruor is not.
   tool and its checks and how criterion 5 is kept (T-013).
 - 2026-11-23: `planned` to `active`. Sprint 0's Build reached T-002, the
   licences of the code.
+- 2026-11-23: Test evidence attached, still `active`. Sprint 0's Test
+  phase proved criteria 1 and 3 on `dev`, and found criterion 5 met with
+  a deviation the report tells: nothing in the history names another
+  typeface, but for three pushes the review's entry came after the push.
+  Criterion 1 is not yet true of the default branch, which waits for the
+  sprint's pull request to be merged. Criteria 2 and 4 wait for the look.

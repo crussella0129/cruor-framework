@@ -6,7 +6,7 @@
 - **Work evidence:** [T-008 to T-012, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-102 backlog](../work/tasks.md)
 - **Completion evidence:** none
 - **Code evidence:** none
-- **Test evidence:** none
+- **Test evidence:** [Sprint 0 test report](../sprints/s0/sprint-tests/test-report.md)
 - **Documentation evidence:** none
 
 ## Intent
@@ -96,3 +96,8 @@ checking shows only that the files and the manifest agree with each other.
   the Alternatives record the protected environment.
 - 2026-11-23: `planned` to `active`. Sprint 0's Build reached T-008, the
   command that puts a release together.
+- 2026-11-23: Test evidence attached, still `active`. Sprint 0's Test
+  phase proved criteria 1 to 4 and 6. Criterion 5 is built and tested
+  short of a real release; the release's own check of itself cannot run
+  until `v0.1.0` is pushed on the owner's word (backlog task T-102), and
+  the intent is not `realized` before that run has passed.
