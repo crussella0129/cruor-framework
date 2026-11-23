@@ -82,4 +82,4 @@
 - **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-23T19:11:44Z
 - **Files modified:** README.md, tests/test_readme.py
-- **Commit:** PENDING
+- **Commit:** `8c8938c4e036c3178c607b5363ed70054ee08676`
