@@ -158,3 +158,23 @@ How each review is made:
   - The four commits of the Research and Plan phases change the Book alone,
     but for two files: `.github/dependabot.yml`, which the project's first
     commit lays down with the Book, and `.gitignore`.
+
+### 5. 23 November 2026, in the Test phase, before its second push
+
+- **Commits covered:** `3ab351acdc88b786eabaa22e68ccc54cbdfe0b62`, one
+  commit: tests tightened and added after the Test phase's critique.
+- **Also covered:** nothing; no font file is in the commit.
+- **Pull requests:** still none, open or closed.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The new prose is the
+  comments of the tests.
+- **Files against tasks:** `3ab351a` changes seven files under `tests/` and
+  nothing else, and belongs to no task. It changes no file the tests
+  exercise.
+- **A note on entry 1.** The first push of the Build left `7c97e55` at the
+  head of `dev`. It carried two commits that entry 1's range does not hold:
+  `03ad441`, which adds entry 1 and also moves T-013 between the Book's two
+  ledgers, and `7c97e55`, which records that task's commit in the ledger.
+  Entry 2 says they were searched before that push; no entry was made for
+  them at the time. Entry 4's search of the whole history is the entry
+  that covers them.
