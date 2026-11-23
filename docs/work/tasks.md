@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-005 (sprint 0) [intent: INT-0002]: Write and check the manifest of checksums — touches: src/, fonts/manifest.toml, tests/
 - [ ] T-006 (sprint 0) [intent: INT-0002]: Check that each font agrees with its rule — touches: tools/check_fonts.py, tools/run-guards.sh, tests/
 - [ ] T-007 (sprint 0) [intent: INT-0002]: Make a page that sets a line in every face — touches: fonts/specimen.html, tests/
 - [ ] T-008 (sprint 0) [intent: INT-0005]: Put a release together with one command — touches: src/, tests/

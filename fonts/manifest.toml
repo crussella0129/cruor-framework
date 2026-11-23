@@ -1,0 +1,169 @@
+# The fonts as they were taken in: which build of Cruor they are, and each
+# file's size and SHA-256.
+#
+# It is made by the framework's tool (`manifest`), and `manifest --check`
+# fails if a font and this record disagree. Do not change it by hand.
+
+[source]
+# The commit of the Cruor project the fonts were built at.
+commit = "777120960fd302eb565806badf18a87b49beeffb"
+
+[[font]]
+file = "CruorSansRegular-Regular.woff2"
+size = 19308
+sha256 = "6cfa5e15aed070339d2ca75d70e2c8131aceecfd720a7ca90b6e1b9dde29107e"
+
+[[font]]
+file = "CruorSansRegular-Bold.woff2"
+size = 20748
+sha256 = "5a47de6a6c7d252fb792f072d05343fe20e0b7e8fe90976077a64475dec598f4"
+
+[[font]]
+file = "CruorSansRegular-Italic.woff2"
+size = 20976
+sha256 = "582c14b86d3326269db5b68e9558c46450b057a1415f12cf4acfe0ecca999eb8"
+
+[[font]]
+file = "CruorSansRegular-BoldItalic.woff2"
+size = 22300
+sha256 = "c4645e1e091969c05c0b3cd7bbb09869b628dfd3e6f7b4d047a7d1cbaf089b2b"
+
+[[font]]
+file = "CruorLiteRegular-Regular.woff2"
+size = 22488
+sha256 = "8c2dd170b22d0792d8c3930bf5b74a7e270865cf3e004e67ace582950c383e36"
+
+[[font]]
+file = "CruorLiteRegular-Bold.woff2"
+size = 25796
+sha256 = "22bcd40c0e162a9240e280d1f44e5095c0fc357932e77b6b0bef5c58a4069b3c"
+
+[[font]]
+file = "CruorLiteRegular-Italic.woff2"
+size = 24244
+sha256 = "1ec59fec93db97ac9198a215d2d895800251ceb496a9808d354eb79cbbc77f0c"
+
+[[font]]
+file = "CruorLiteRegular-BoldItalic.woff2"
+size = 27328
+sha256 = "31de214fae75f1281515bb5a77d89b5d0670ae81d16b5a4db26f7c33019559c8"
+
+[[font]]
+file = "CruorThornamentalRegular-Regular.woff2"
+size = 26176
+sha256 = "a4287249f08bfed64a70000d6eb21f421fc2ef2fa5274744842695ca9d58e521"
+
+[[font]]
+file = "CruorThornamentalRegular-Bold.woff2"
+size = 31220
+sha256 = "3a894fd50e501c3bbb37d096909547a679a9ecbb55ec7f600221c841ac46fc73"
+
+[[font]]
+file = "CruorThornamentalRegular-Italic.woff2"
+size = 28420
+sha256 = "51213f752b54d9f39f0d4d5173057f06df35929d06687833b97df465a5c85120"
+
+[[font]]
+file = "CruorThornamentalRegular-BoldItalic.woff2"
+size = 33272
+sha256 = "a452ca498c8fcafbe344a90af8cd8075f27cbb0645800370c91e1bf1f9fbfbf0"
+
+[[font]]
+file = "CruorSansMono-Regular.woff2"
+size = 23976
+sha256 = "087fd777ca94b1143be56962e7156b2d68b146a389727d188083a75c3a64848c"
+
+[[font]]
+file = "CruorSansMono-Bold.woff2"
+size = 25412
+sha256 = "263e9db0a973cc09b60ca395aba482d9bf555fe5d2183c594e4bd86deabe5fe5"
+
+[[font]]
+file = "CruorSansMono-Italic.woff2"
+size = 25668
+sha256 = "b912754aa0d95309de1b0ceb274c89e66fc818705867b08b567105acf0e6eb04"
+
+[[font]]
+file = "CruorSansMono-BoldItalic.woff2"
+size = 27016
+sha256 = "6df373de67d04e4777e7bd31688ee2f26b13f9f58b15ecbaa93fdedfcf3a5448"
+
+[[font]]
+file = "CruorLiteMono-Regular.woff2"
+size = 26808
+sha256 = "f1a605d5b7d205d37c14815dc2a77f44695d5903fc0666d77875bf6a5ce376d9"
+
+[[font]]
+file = "CruorLiteMono-Bold.woff2"
+size = 30236
+sha256 = "1b4416099ae7ffa3d760dfe8a886e85f8a714f57e50c22e0a49cfa98fb1561ed"
+
+[[font]]
+file = "CruorLiteMono-Italic.woff2"
+size = 28772
+sha256 = "1685a74a2186f6e35ceeeeebc383b26201b2a5694b3231ad8dd4b767c2d244ca"
+
+[[font]]
+file = "CruorLiteMono-BoldItalic.woff2"
+size = 31748
+sha256 = "a6c431c79b0bb97e765a4d58fe5a84130f77400ce215c0f7e370f8b347561e82"
+
+[[font]]
+file = "CruorThornamentalMono-Regular.woff2"
+size = 30976
+sha256 = "fa3501f3f21ea38d8e20fde591b526d630b41cb17fa07ca950b0be8e4a516109"
+
+[[font]]
+file = "CruorThornamentalMono-Bold.woff2"
+size = 35192
+sha256 = "2dbf17dba73c7198bfe0fa5725773e9a3079ea282e110eeeea2dcbc68ade48b1"
+
+[[font]]
+file = "CruorThornamentalMono-Italic.woff2"
+size = 33144
+sha256 = "6a625ffbf0ac2e53af162e14cfaa9435fc8bf4a888e270a168cbb567c116edbb"
+
+[[font]]
+file = "CruorThornamentalMono-BoldItalic.woff2"
+size = 37440
+sha256 = "d00863bb6f7f510392cb7fc371b7a29ecaa06ff60ca69d9451111832b29343c9"
+
+[[font]]
+file = "CruorSansPixelated-Regular.woff2"
+size = 12736
+sha256 = "cebc92abb41a0f5566992edc71cd2c5ebb710ad178a5e4d080ae7eee96be2c80"
+
+[[font]]
+file = "CruorSansPixelated-Bold.woff2"
+size = 12920
+sha256 = "7d2238a47c9d4e570581dbce20d71c864c8659bf8c81fda1dfd5fe4c528dbb03"
+
+[[font]]
+file = "CruorSansPixelated-Italic.woff2"
+size = 13444
+sha256 = "fd538232b82576de8aad89cc13bc0904cc3ac0382040f89ec0f4d739666a565f"
+
+[[font]]
+file = "CruorSansPixelated-BoldItalic.woff2"
+size = 13428
+sha256 = "349794b3f21519a7c7be4ddbcd176af1f7e0bd4208b0696b09cfe4d084c4a242"
+
+[[font]]
+file = "CruorPixelated-Regular.woff2"
+size = 14116
+sha256 = "aebe78edb305389b5c232c0c0305b4d7de9ffa5479651be644af5a818dec1398"
+
+[[font]]
+file = "CruorPixelated-Bold.woff2"
+size = 13812
+sha256 = "75ffa8004a694cb4098aa1659d73778c63dbbb3275b9fb75ab01dcb7f2e40c97"
+
+[[font]]
+file = "CruorPixelated-Italic.woff2"
+size = 14668
+sha256 = "bdd1edd779e0b82abbd01afbf1d25918cec0dd0826ba4308d7151c248ddeae26"
+
+[[font]]
+file = "CruorPixelated-BoldItalic.woff2"
+size = 14292
+sha256 = "687339bce40490b10e048d29c80e77b647976536aa5d4e86423bcbd1e56fea9d"
