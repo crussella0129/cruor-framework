@@ -76,3 +76,10 @@
 - **Completed:** 2026-11-23T19:09:25Z
 - **Files modified:** .github/workflows/release.yml, tools/release-gate.sh, tests/test_release.py
 - **Commit:** `82ce34cb6df433c9bb9bc4712171eae488f55a3d`
+
+## T-011 (sprint 0)
+- **Description:** Write the README
+- **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-23T19:11:44Z
+- **Files modified:** README.md, tests/test_readme.py
+- **Commit:** PENDING
