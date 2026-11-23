@@ -74,3 +74,24 @@ How each review is made:
   - The licence file's text is the SIL Open Font License 1.1 as its authors
     publish it, beneath the copyright line of INT-0002 criterion 2. The
     Apache License's text is the published one, byte for byte.
+
+### 2. 23 November 2026, before the second push of Build
+
+- **Commits covered:** `ff5eebf15500bba9090599cd3309655368f33f86` to
+  `446ceb5cc8418d1252d3af70f845013f725fd499`, three commits: T-004 with its
+  commit of evidence, and a correction to CI. The two commits that recorded
+  entry 1 (`03ad441`, `7c97e55`) were searched with the same list before
+  the first push; none was found in them.
+- **Also covered:** nothing; no font file is among these commits.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The stylesheet's
+  comments say of each family only how its characters are set.
+- **Files against tasks:**
+  - T-004 (`ff5eebf`): `src/main.rs`, `src/families.rs`, `src/css.rs`,
+    `fonts/fonts.css`, `tests/common/mod.rs`, `tests/css.rs`: all in the
+    task's Touches. Also the two ledgers.
+  - `446ceb5` changes `.github/workflows/ci.yml` alone and belongs to no
+    task. The first CI run stopped before any check, because the hosted
+    runner's latest Ubuntu is newer than the pinned browser driver knows;
+    the workflow now names the release of Ubuntu it runs on. It is a
+    correction to T-001's work, found by running it.
