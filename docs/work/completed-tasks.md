@@ -83,3 +83,10 @@
 - **Completed:** 2026-11-23T19:11:44Z
 - **Files modified:** README.md, tests/test_readme.py
 - **Commit:** `8c8938c4e036c3178c607b5363ed70054ee08676`
+
+## T-012 (sprint 0)
+- **Description:** Bundle in CI on every push and keep the result
+- **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
+- **Completed:** 2026-11-23T19:13:03Z
+- **Files modified:** .github/workflows/ci.yml, tests/test_ci.py
+- **Commit:** PENDING

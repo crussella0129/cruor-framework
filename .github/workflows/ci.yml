@@ -55,3 +55,16 @@ jobs:
 
       - name: Guards
         run: bash tools/run-guards.sh
+
+      # The release as it would be published, put together on every push and
+      # kept with the run: the same commit must give the same bytes here as
+      # on any other machine.
+      - name: Bundle
+        run: cargo run --release -- bundle --out dist
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: cruor-framework-bundle
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30

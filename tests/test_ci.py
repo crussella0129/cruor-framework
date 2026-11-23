@@ -29,3 +29,29 @@ def test_ci_workflow_runs_guards():
     assert uses["actions/setup-node"]["with"]["node-version"] == 20
 
     assert "bash tools/run-guards.sh" in commands
+
+
+def test_ci_workflow_keeps_bundle():
+    steps = steps_of(read_workflow("ci.yml"))
+    commands = [step.get("run", "") for step in steps]
+    guards = commands.index("bash tools/run-guards.sh")
+    bundle = commands.index("cargo run --release -- bundle --out dist")
+    assert guards < bundle
+
+    upload = [
+        index
+        for index, step in enumerate(steps)
+        if step.get("uses", "").startswith("actions/upload-artifact@")
+    ]
+    assert len(upload) == 1
+    assert bundle < upload[0]
+    kept = steps[upload[0]]["with"]
+    assert kept["path"] == "dist/"
+    assert kept["if-no-files-found"] == "error"
+
+
+def test_ci_workflow_cannot_write():
+    workflow = read_workflow("ci.yml")
+    assert workflow["permissions"] == {"contents": "read"}
+    for job in workflow["jobs"].values():
+        assert "permissions" not in job
