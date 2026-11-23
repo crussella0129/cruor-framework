@@ -41,3 +41,10 @@
 - **Completed:** 2026-11-23T18:56:42Z
 - **Files modified:** src/main.rs, src/manifest.rs, fonts/manifest.toml, tests/manifest.rs
 - **Commit:** `a6587d99dd6f99ce9051c21d6d554a804218f4a5`
+
+## T-006 (sprint 0)
+- **Description:** Check that each font agrees with its rule
+- **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
+- **Completed:** 2026-11-23T18:58:07Z
+- **Files modified:** tools/check_fonts.py, tools/run-guards.sh, tests/test_check_fonts.py, tests/test_guards.py
+- **Commit:** PENDING

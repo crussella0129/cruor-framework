@@ -20,6 +20,7 @@ CHECKS = [
     "cargo test",
     "ruff format --check",
     "ruff check",
+    "python -I tools/check_fonts.py fonts",
     "pytest",
 ]
 

@@ -24,6 +24,7 @@ step "The tool has no lints" cargo clippy --all-targets -- -D warnings
 step "The tool's tests" cargo test
 step "The checks are formatted" ruff format --check
 step "The checks have no lints" ruff check
+step "Each font agrees with its rule" python -I tools/check_fonts.py fonts
 step "The checks' tests" pytest
 
 printf '\n==> Every check passed\n'
