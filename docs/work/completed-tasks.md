@@ -20,3 +20,10 @@
 - **Completed:** 2026-11-23T18:49:24Z
 - **Files modified:** fonts/, tests/test_fonts_intake.py
 - **Commit:** `d4fdcfea61dd128cdaf68ce17d56701f05240fff`
+
+## T-013 (sprint 0)
+- **Description:** Record the first review that keeps the repository in its own terms
+- **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-23T18:51:08Z
+- **Files modified:** docs/sprints/s0/sprint-tests/own-terms-review.md
+- **Commit:** PENDING
