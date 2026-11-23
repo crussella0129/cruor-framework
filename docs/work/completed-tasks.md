@@ -33,4 +33,4 @@
 - **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
 - **Completed:** 2026-11-23T18:54:12Z
 - **Files modified:** src/main.rs, src/families.rs, src/css.rs, fonts/fonts.css, tests/common/mod.rs, tests/css.rs
-- **Commit:** PENDING
+- **Commit:** `ff5eebf15500bba9090599cd3309655368f33f86`
