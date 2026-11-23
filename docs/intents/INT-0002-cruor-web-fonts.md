@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0002
-- **State:** planned
+- **State:** active
 - **Work evidence:** [T-001, T-003 to T-007, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-101 backlog](../work/tasks.md)
 - **Completion evidence:** none
 - **Code evidence:** none
@@ -118,3 +118,5 @@ choice of terms.
   rest), and which build is taken in.
 - 2026-11-23: revised after the plan's second review, still `planned`. The
   Consequences no longer say in advance what the first intake covers.
+- 2026-11-23: `planned` to `active`. Sprint 0's Build began with T-001, the
+  ground the checks stand on.

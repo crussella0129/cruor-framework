@@ -3,3 +3,11 @@
 *.tmp
 /guards-report.ndjson
 # <<< sprint-loops <<<
+
+# What the tool and its checks build.
+/target/
+/dist/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/

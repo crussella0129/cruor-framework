@@ -1,0 +1,17 @@
+# What the checks need. The tool itself is the Rust crate and needs none of
+# these. Every package is pinned to one version, so that the formatter, the
+# linter and the browser do not change under the checks.
+
+# Reads a font's own names, weight and slant (tools/check_fonts.py).
+fonttools[woff]==4.62.1
+
+# Drives a browser, to see that every face loads. The browser itself is had
+# with `python -m playwright install chromium`.
+playwright==1.58.0
+
+# Reads the workflows as data.
+pyyaml==6.0.3
+
+# The tests and the lint.
+pytest==9.0.2
+ruff==0.15.7

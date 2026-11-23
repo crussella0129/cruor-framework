@@ -1,0 +1,6 @@
+# The one version of Rust the tool is built and judged with, here and in CI:
+# a newer formatter or linter may ask for more than the code was held to.
+[toolchain]
+channel = "1.99.1"
+profile = "minimal"
+components = ["rustfmt", "clippy"]
