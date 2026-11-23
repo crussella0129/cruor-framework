@@ -39,6 +39,17 @@ def test_readme_says_what_the_kit_is():
     assert "The first release, 0.1.0, holds the fonts alone" in FLOWED
 
 
+def test_readme_says_of_the_look_only_its_name():
+    # Until the look is in the kit, the paragraph that first names it says
+    # its name and what it is set in, and stops. The sprint that builds the
+    # look changes this test with the README.
+    first = " ".join(README.split("\n\n")[1].split())
+    assert first == (
+        "A kit that gives a web page the look called **Cruentous Atonement**, "
+        "set in Cruor."
+    )
+
+
 def test_readme_lists_eight_families():
     assert len(FAMILIES) == 8
     for family in FAMILIES:

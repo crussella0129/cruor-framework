@@ -58,19 +58,67 @@ def test_check_fonts_fails_on_swapped_fonts(copy_of_fonts):
     assert all("CruorLiteRegular-" in line for line in said[:-1]), result.stderr
 
 
-def test_check_fonts_fails_on_wrong_weight_in_rule(copy_of_fonts):
-    css = copy_of_fonts / "fonts.css"
+def test_check_fonts_fails_on_fonts_swapped_across_families(copy_of_fonts):
+    sans = copy_of_fonts / "CruorSansMono-Regular.woff2"
+    lite = copy_of_fonts / "CruorLiteMono-Regular.woff2"
+    held = sans.read_bytes()
+    sans.write_bytes(lite.read_bytes())
+    lite.write_bytes(held)
+
+    result = check_fonts(copy_of_fonts)
+    assert result.returncode != 0
+    said = result.stderr.splitlines()
+    # Each file now holds the other family's Regular, and says so of itself.
+    assert any(
+        line.startswith("CruorSansMono-Regular.woff2: family:")
+        and "the font says 'Cruor Lite Mono'" in line
+        for line in said
+    ), result.stderr
+    assert any(
+        line.startswith("CruorLiteMono-Regular.woff2: family:")
+        and "the font says 'Cruor Sans Mono'" in line
+        for line in said
+    ), result.stderr
+    # Their styles agree, so nothing but the family is at fault.
+    assert all(": family: " in line for line in said[:-1]), result.stderr
+
+
+def change_in_rule(folder, file: str, old: str, new: str) -> None:
+    """Change one declaration of the rule that names a font file."""
+    css = folder / "fonts.css"
     text = css.read_text(encoding="utf-8")
-    rule_start = text.index('src: url("CruorSansMono-Bold.woff2")')
+    rule_start = text.index(f'src: url("{file}")')
     block_start = text.rindex("@font-face", 0, rule_start)
     block = text[block_start:rule_start]
-    assert "font-weight: 700" in block
-    text = (
-        text[:block_start]
-        + block.replace("font-weight: 700", "font-weight: 400")
-        + text[rule_start:]
-    )
+    assert old in block
+    text = text[:block_start] + block.replace(old, new) + text[rule_start:]
     css.write_text(text, encoding="utf-8", newline="\n")
+
+
+def test_check_fonts_fails_on_wrong_family_in_rule(copy_of_fonts):
+    change_in_rule(
+        copy_of_fonts,
+        "CruorSansMono-Bold.woff2",
+        'font-family: "Cruor Sans Mono"',
+        'font-family: "Cruor Lite Mono"',
+    )
+
+    result = check_fonts(copy_of_fonts)
+    assert result.returncode != 0
+    faults = result.stderr.splitlines()[:-1]
+    assert (
+        "CruorSansMono-Bold.woff2: family: the font says 'Cruor Sans Mono', "
+        "its rule says 'Cruor Lite Mono'"
+    ) in faults, result.stderr
+
+
+def test_check_fonts_fails_on_wrong_weight_in_rule(copy_of_fonts):
+    change_in_rule(
+        copy_of_fonts,
+        "CruorSansMono-Bold.woff2",
+        "font-weight: 700",
+        "font-weight: 400",
+    )
 
     result = check_fonts(copy_of_fonts)
     assert result.returncode != 0

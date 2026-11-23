@@ -117,10 +117,24 @@ def test_release_workflow_withdraws_on_failed_check():
 
 
 STAND_IN_GH = """#!/usr/bin/env bash
-# A stand-in for the GitHub client. It reports the releases the test names,
-# one to a line: a tag, a tab, and whether it is a draft.
+# A stand-in for the GitHub client. It notes what it was asked, one argument
+# to a line, and reports the releases the test names, one to a line: a tag,
+# a tab, and whether it is a draft.
+printf '%s\\n' "$@" >> "$STAND_IN_CALLS"
 printf '%s' "$STAND_IN_RELEASES"
 """
+
+# What the gate must ask the GitHub client: every release of the repository,
+# drafts among them and however many pages they fill, each as its tag, a tab
+# and whether it is a draft. The stand-in answers in that shape whatever it
+# is asked, so the question itself is held here.
+THE_QUESTION = [
+    "api",
+    "--paginate",
+    "repos/{owner}/{repo}/releases",
+    "--jq",
+    r'.[] | "\(.tag_name)\t\(.draft)"',
+]
 
 
 def git(folder, *arguments: str) -> str:
@@ -173,6 +187,7 @@ def run_gate(
     environment = dict(os.environ)
     environment["PATH"] = str(stand_ins) + os.pathsep + environment["PATH"]
     environment["STAND_IN_RELEASES"] = releases
+    environment["STAND_IN_CALLS"] = (tmp_path / "asked-of-gh.txt").as_posix()
     return subprocess.run(
         [find_bash(), str(GATE), tag],
         cwd=checkout,
@@ -183,6 +198,12 @@ def run_gate(
     )
 
 
+def asked_of_gh(tmp_path) -> list[str]:
+    """Every argument the gate gave the stand-in, in order."""
+    noted = tmp_path / "asked-of-gh.txt"
+    return noted.read_text(encoding="utf-8").splitlines() if noted.exists() else []
+
+
 def test_release_gate_passes_on_main(checkout, tmp_path):
     clone, on_main, _ = checkout
     git(clone, "tag", "v0.1.0", on_main)
@@ -190,6 +211,17 @@ def test_release_gate_passes_on_main(checkout, tmp_path):
     result = run_gate(clone, tmp_path, "v0.1.0", "v0.0.9\tfalse\nv0.1.0-rc.1\ttrue\n")
     assert result.returncode == 0, result.stderr
     assert "may be released" in result.stdout
+    assert asked_of_gh(tmp_path) == THE_QUESTION
+
+
+def test_release_gate_asks_for_every_release(checkout, tmp_path):
+    clone, on_main, _ = checkout
+    git(clone, "tag", "v0.1.0", on_main)
+    for releases in ["", "v0.1.0\tfalse\n", "v0.1.0\ttrue\n"]:
+        (tmp_path / "asked-of-gh.txt").unlink(missing_ok=True)
+        run_gate(clone, tmp_path, "v0.1.0", releases)
+        # Asked once, and for every release: no filter that could hide a draft.
+        assert asked_of_gh(tmp_path) == THE_QUESTION
 
 
 def test_release_gate_refuses_off_main(checkout, tmp_path):

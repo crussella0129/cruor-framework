@@ -12,7 +12,7 @@ import subprocess
 
 import pytest
 
-from helpers import ROOT, serve
+from helpers import ROOT, redirect_to, serve
 
 EXAMPLE = ROOT / "examples" / "fetch-release.mjs"
 
@@ -63,6 +63,21 @@ def test_fetch_release_matches_repository(bundle, tmp_path):
         assert got[name] == (ROOT / "fonts" / name).read_bytes(), name
     for name in ["LICENSE-MIT", "LICENSE-APACHE"]:
         assert got[name] == (ROOT / name).read_bytes(), name
+
+
+def test_fetch_release_follows_a_redirect(bundle, tmp_path):
+    # A release's own address answers each file with a redirect to another.
+    fetched = tmp_path / "fetched"
+    with serve(bundle) as (address, asked), redirect_to(address) as first_address:
+        result = fetch(first_address, fetched)
+    assert result.returncode == 0, result.stderr
+
+    got = files_in(fetched)
+    assert len(got) == 37
+    for name, content in got.items():
+        assert content == (bundle / name).read_bytes(), name
+    # Every file was had by way of the redirect, from the address behind it.
+    assert sorted(asked) == sorted(f"/{name}" for name in got)
 
 
 def test_fetch_release_fails_on_tampered_file(bundle, tmp_path):

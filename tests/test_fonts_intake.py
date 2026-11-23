@@ -1,5 +1,6 @@
 """The fonts as they were taken in: which files, under which licence, and no others."""
 
+import hashlib
 import tomllib
 
 from helpers import ROOT, tracked_files
@@ -23,6 +24,8 @@ COPYRIGHT = (
     "Copyright (c) 2026, Charles Russella (https://github.com/crussella0129), "
     "with Reserved Font Name Cruor."
 )
+# The SHA-256 of `OFL.txt` from its second line to its end.
+OFL_BODY_SHA256 = "3e30b6b3044d4856ed99ccefb56c67e194aa1df1a66c7c56d73175999e54861f"
 
 
 def test_fonts_are_the_thirty_two():
@@ -51,6 +54,11 @@ def test_ofl_text_and_copyright_line():
     conditions = text[text.index("PERMISSION & CONDITIONS") : text.index("TERMINATION")]
     for number in range(1, 6):
         assert f"\n{number}) " in conditions
+    # Everything beneath the copyright line is the licence as its authors
+    # publish it, which the review of the intake set it against. Not a word
+    # of it may change.
+    body = (FONTS / "OFL.txt").read_bytes().split(b"\n", 1)[1]
+    assert hashlib.sha256(body).hexdigest() == OFL_BODY_SHA256
 
 
 def test_no_other_font_files_tracked():

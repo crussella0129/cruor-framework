@@ -91,6 +91,39 @@ class _QuietHandler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+class _RedirectHandler(http.server.BaseHTTPRequestHandler):
+    """Answers every request by pointing at the same path of another address."""
+
+    target: str
+
+    def do_GET(self):
+        self.send_response(302)
+        self.send_header("Location", self.target + self.path.lstrip("/"))
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
+    def log_message(self, format, *args):
+        pass
+
+
+@contextlib.contextmanager
+def redirect_to(target: str):
+    """Answer on a second address of this machine with redirects to `target`.
+
+    Gives the second address, ending in a slash. A release's own address
+    answers so: each file is had from somewhere else.
+    """
+    handler = type("Handler", (_RedirectHandler,), {"target": target})
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        yield f"http://127.0.0.1:{server.server_address[1]}/"
+    finally:
+        server.shutdown()
+        server.server_close()
+
+
 @contextlib.contextmanager
 def serve(folder):
     """Serve a folder over HTTP on this machine alone.

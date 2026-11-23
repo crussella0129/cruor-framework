@@ -30,6 +30,9 @@ def test_tracked_text_has_no_carriage_returns():
         check=False,
     )
     assert found.stdout.splitlines() == []
+    # Exit 1 is git's "none found". Any other code is a search that did not
+    # run, which finds nothing either.
+    assert found.returncode == 1, found.stderr
 
 
 def test_crate_version_is_first_release():
