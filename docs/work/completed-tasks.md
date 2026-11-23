@@ -68,4 +68,4 @@
 - **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
 - **Completed:** 2026-11-23T19:06:38Z
 - **Files modified:** examples/fetch-release.mjs, tests/test_fetch_release.py, tests/helpers.py, tests/test_specimen.py
-- **Commit:** PENDING
+- **Commit:** `cfee3a045c15c218b443c2336a5b514ab3543151`
