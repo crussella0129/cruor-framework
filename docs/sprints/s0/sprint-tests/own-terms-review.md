@@ -209,3 +209,27 @@ How each review is made:
   seven under `docs/sprints/s0/sprint-tests/` and the intents INT-0001,
   INT-0002 and INT-0005, which gain their Test evidence. It belongs to no
   task of the Build; it is the Test phase's own record.
+
+### 8. 23 November 2026, in the Loop phase, before the push that opens the pull request
+
+- **Commits covered:** `fc8b799cc8409e7f53d600c7c854e0184760b7ab` to
+  `001cbdbb3c5f9a4b7b7baef01092565cf962e0c0`, two commits: the Loop phase's
+  changes to the Book, and the sprint's close.
+- **Also covered:** the title and the body of the sprint's pull request, as
+  written before it is opened. The title is the sprint's summary from
+  `sprint-meta.md` after "Sprint 0:". The body says what the sprint adds,
+  how it was tested and what to know before merging.
+- **Pull requests:** none is open and none has been opened, so there is
+  still none of the updater's to search.
+- **Found:** none, in the two commits and in the pull request's text.
+- **Read for comparisons:** no line was picked out. The pull request's body
+  says of the fonts how many they are, what styles they come in and under
+  what terms; it describes no letter.
+- **Files against tasks:** both commits change the Book alone and belong to
+  no task. `fc8b799` changes the intents INT-0001, INT-0002 and INT-0005,
+  `sprint-meta.md`, the backlog and the confidence figure; `001cbdb`, made
+  by the helper that closes a sprint, changes `sprint-meta.md`.
+- **CI for the Test phase's last commit.** The test report left this to be
+  read here: run
+  [45268366399](https://github.com/crussella0129/cruor-framework/actions/runs/45268366399)
+  for `79d876e676b74bb0c48f832767bef48f0b040790` concluded `success`.
