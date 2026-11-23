@@ -61,4 +61,4 @@
 - **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
 - **Completed:** 2026-11-23T19:04:36Z
 - **Files modified:** src/main.rs, src/bundle.rs, tests/bundle.rs, docs/intents/INT-0005-versioned-releases.md
-- **Commit:** PENDING
+- **Commit:** `9f1b75518135175ffc4d883fa560818d911abcb5`
