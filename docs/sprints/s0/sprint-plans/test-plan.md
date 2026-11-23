@@ -1,3 +1,5 @@
+Finalized - DO NOT EDIT
+
 # Sprint 0 Test Plan
 
 Rust tests are named as plain identifiers; Python tests begin `test_`;
