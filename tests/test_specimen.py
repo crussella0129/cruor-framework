@@ -4,17 +4,14 @@ The fonts' folder is served over HTTP on this machine alone, and a headless
 Chromium opens the page as a reader's browser would.
 """
 
-import functools
-import http.server
 import re
-import threading
 import tomllib
 from html.parser import HTMLParser
 
 import pytest
 from playwright.sync_api import sync_playwright
 
-from helpers import ROOT
+from helpers import ROOT, serve
 
 FONTS = ROOT / "fonts"
 
@@ -111,16 +108,8 @@ def test_specimen_is_self_contained():
 @pytest.fixture(scope="module")
 def served_fonts():
     """The fonts' folder over HTTP, on this machine alone."""
-    handler = functools.partial(
-        http.server.SimpleHTTPRequestHandler, directory=str(FONTS)
-    )
-    handler.log_message = lambda *arguments: None
-    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    yield f"http://127.0.0.1:{server.server_address[1]}/"
-    server.shutdown()
-    server.server_close()
+    with serve(FONTS) as (address, _asked):
+        yield address
 
 
 @pytest.fixture(scope="module")

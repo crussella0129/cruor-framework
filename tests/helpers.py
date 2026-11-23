@@ -1,9 +1,13 @@
 """What the Python tests share: where the repository is, and how to run things."""
 
+import contextlib
+import functools
+import http.server
 import os
 import pathlib
 import shutil
 import subprocess
+import threading
 
 import yaml
 
@@ -72,3 +76,37 @@ def steps_of(workflow: dict) -> list[dict]:
 def commands_of(workflow: dict) -> str:
     """Every shell command a workflow runs, as one text."""
     return "\n".join(step.get("run", "") for step in steps_of(workflow))
+
+
+class _QuietHandler(http.server.SimpleHTTPRequestHandler):
+    """Serves a folder, notes each path asked for, and writes no log."""
+
+    asked: list[str]
+
+    def do_GET(self):
+        self.asked.append(self.path)
+        super().do_GET()
+
+    def log_message(self, format, *args):
+        pass
+
+
+@contextlib.contextmanager
+def serve(folder):
+    """Serve a folder over HTTP on this machine alone.
+
+    Gives the address, ending in a slash, and the list of paths asked for so
+    far, which grows as requests come in.
+    """
+    asked: list[str] = []
+    handler = functools.partial(
+        type("Handler", (_QuietHandler,), {"asked": asked}), directory=str(folder)
+    )
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        yield f"http://127.0.0.1:{server.server_address[1]}/", asked
+    finally:
+        server.shutdown()
+        server.server_close()

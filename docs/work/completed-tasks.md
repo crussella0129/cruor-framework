@@ -62,3 +62,10 @@
 - **Completed:** 2026-11-23T19:04:36Z
 - **Files modified:** src/main.rs, src/bundle.rs, tests/bundle.rs, docs/intents/INT-0005-versioned-releases.md
 - **Commit:** `9f1b75518135175ffc4d883fa560818d911abcb5`
+
+## T-009 (sprint 0)
+- **Description:** Show a build fetching a release and checking it
+- **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
+- **Completed:** 2026-11-23T19:06:38Z
+- **Files modified:** examples/fetch-release.mjs, tests/test_fetch_release.py, tests/helpers.py, tests/test_specimen.py
+- **Commit:** PENDING
