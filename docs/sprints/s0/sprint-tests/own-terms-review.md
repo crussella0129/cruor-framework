@@ -178,3 +178,17 @@ How each review is made:
   Entry 2 says they were searched before that push; no entry was made for
   them at the time. Entry 4's search of the whole history is the entry
   that covers them.
+
+### 6. 23 November 2026, in the Test phase, before its third push
+
+- **Commits covered:** `c2c6a8bfa75bc8e1fe4ab90b0f85fb606ebf20da`, one
+  commit: two tests of the workflows tightened after the Test phase's
+  second critique.
+- **Also covered:** nothing; no font file is in the commit.
+- **Pull requests:** still none, open or closed.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The new prose is two
+  comments in the tests.
+- **Files against tasks:** `c2c6a8b` changes `tests/test_ci.py` and
+  `tests/test_release.py` and nothing else, and belongs to no task. It
+  changes no file the tests exercise.
