@@ -1,0 +1,52 @@
+# The families of Cruor that the framework holds.
+#
+# Each family has four styles, Regular, Bold, Italic and Bold Italic, in the
+# files <stem>-Regular.woff2, <stem>-Bold.woff2, <stem>-Italic.woff2 and
+# <stem>-BoldItalic.woff2 beside this list. The tool writes the stylesheet
+# and the manifest from it.
+#
+# name   the family's name, exactly as the fonts give it
+# stem   what its files' names begin with
+# kind   "proportional": each letter at a width of its own
+#        "mono":         every character in one cell, in smooth outlines
+#        "pixel":        every character in one cell, on a lattice of squares
+
+[[family]]
+name = "Cruor Sans Regular"
+stem = "CruorSansRegular"
+kind = "proportional"
+
+[[family]]
+name = "Cruor Lite Regular"
+stem = "CruorLiteRegular"
+kind = "proportional"
+
+[[family]]
+name = "Cruor Thornamental Regular"
+stem = "CruorThornamentalRegular"
+kind = "proportional"
+
+[[family]]
+name = "Cruor Sans Mono"
+stem = "CruorSansMono"
+kind = "mono"
+
+[[family]]
+name = "Cruor Lite Mono"
+stem = "CruorLiteMono"
+kind = "mono"
+
+[[family]]
+name = "Cruor Thornamental Mono"
+stem = "CruorThornamentalMono"
+kind = "mono"
+
+[[family]]
+name = "Cruor Sans Pixelated"
+stem = "CruorSansPixelated"
+kind = "pixel"
+
+[[family]]
+name = "Cruor Pixelated"
+stem = "CruorPixelated"
+kind = "pixel"

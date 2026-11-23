@@ -13,3 +13,10 @@
 - **Completed:** 2026-11-23T18:46:57Z
 - **Files modified:** LICENSE-MIT, LICENSE-APACHE, Cargo.toml, Cargo.lock, tests/test_licences.py, docs/intents/INT-0001-the-cruor-framework.md
 - **Commit:** `6d3fdc9d4469f3128d81f08ad406a3b72188a920`
+
+## T-003 (sprint 0)
+- **Description:** Take in the web fonts of Cruor as built at its commit 7771209, with their licence and the list of families
+- **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
+- **Completed:** 2026-11-23T18:49:24Z
+- **Files modified:** fonts/, tests/test_fonts_intake.py
+- **Commit:** PENDING
