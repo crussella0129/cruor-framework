@@ -1,6 +1,11 @@
 # Summary
 - [Project Book](README.md)
 - [Intents](intents/README.md)
+  - [INT-0001 — The Cruor framework](intents/INT-0001-the-cruor-framework.md)
+  - [INT-0002 — Cruor's web fonts](intents/INT-0002-cruor-web-fonts.md)
+  - [INT-0003 — The Cruentous Atonement look](intents/INT-0003-cruentous-atonement-look.md)
+  - [INT-0004 — The look as a theme file](intents/INT-0004-the-look-as-a-theme-file.md)
+  - [INT-0005 — Versioned releases that a build fetches](intents/INT-0005-versioned-releases.md)
 - [Tasks](work/tasks.md)
 - [Completed tasks](work/completed-tasks.md)
 - [Sprint 0](sprints/s0/sprint-meta.md)
