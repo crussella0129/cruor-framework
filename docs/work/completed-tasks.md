@@ -47,4 +47,4 @@
 - **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
 - **Completed:** 2026-11-23T18:58:07Z
 - **Files modified:** tools/check_fonts.py, tools/run-guards.sh, tests/test_check_fonts.py, tests/test_guards.py
-- **Commit:** PENDING
+- **Commit:** `da7b5f5f1ecd316fe4f2f2f0b2da03a36f957373`
