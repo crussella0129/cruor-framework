@@ -1,7 +1,7 @@
 # The Cruor framework
 
-A kit that gives a web page the look called **Cruentous Atonement**: blood
-letters cut into obsidian, set in Cruor.
+A kit that gives a web page the look called **Cruentous Atonement**, set in
+Cruor.
 
 *Cruor* is Latin for blood that has been shed, and *cruentus* is its
 adjective. Cruor is a typeface family of tall, narrow letters with ornament
