@@ -192,3 +192,20 @@ How each review is made:
 - **Files against tasks:** `c2c6a8b` changes `tests/test_ci.py` and
   `tests/test_release.py` and nothing else, and belongs to no task. It
   changes no file the tests exercise.
+
+### 7. 23 November 2026, in the Test phase, before its last push
+
+- **Commits covered:** `1c6f1c9d186cb1b3ecf6d37bccae2d41515be0e3`, one
+  commit: the Test phase's evidence.
+- **Also covered:** nothing; no font file is in the commit.
+- **Pull requests:** still none, open or closed.
+- **Found:** none. The three critiques in the commit are another reader's
+  words, saved as written; they were searched with the rest, and the critic
+  was asked beforehand to name no other typeface.
+- **Read for comparisons:** no line was picked out. The new prose is the
+  three records of results, the three critiques with their responses, the
+  test report, and one line added to the history of each of three intents.
+- **Files against tasks:** `1c6f1c9` changes ten files, all in the Book:
+  seven under `docs/sprints/s0/sprint-tests/` and the intents INT-0001,
+  INT-0002 and INT-0005, which gain their Test evidence. It belongs to no
+  task of the Build; it is the Test phase's own record.
