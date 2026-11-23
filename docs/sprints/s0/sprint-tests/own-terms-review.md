@@ -129,3 +129,32 @@ How each review is made:
     The eight commits of evidence change `docs/work/completed-tasks.md`
     alone. Nothing is unaccounted for, and no file from the Cruor project
     was added.
+
+### 4. 23 November 2026, in the Test phase, before its first push
+
+- **Commits covered:** `27fc856bb4e47fcbf63fc1ab786c03e5ace6b6b1`, one
+  commit: a correction to the README.
+- **Also covered:** the whole history again, with the same list, from the
+  first commit `7832759a338869e3df639956315ebecd6a3c8953` to `27fc856`,
+  thirty-four commits. This puts in the record the commits no entry's range
+  held until now: the four of the Research and Plan phases (`7832759`,
+  `165d4a1`, `90bd2f1`, `6f2c638`), which were pushed before this record was
+  begun and were searched at the time without an entry, and the two that
+  recorded entry 1 (`03ad441`, `7c97e55`). The thirty-two fonts were opened
+  again: every name-table string and glyph name searched, and no font has a
+  WOFF2 metadata block or a private block.
+- **Pull requests:** none is open against the repository and none has been
+  opened, so there is none of the updater's to search.
+- **Found:** none, in the one commit and in the thirty-four.
+- **Read for comparisons:** in the whole history eight lines were picked
+  out: the line of `LICENSE-APACHE` that entry 1 quotes, and this record's
+  own quotation of it. The corrected sentence of the README says of the look
+  its name, and that the page is set in Cruor.
+- **Files against tasks:**
+  - `27fc856` changes `README.md` alone and belongs to no task. The Test
+    phase's reading of the README found that its first sentence said what
+    the look is, where the test plan allows the look's name and that it is
+    to come. It is a correction to T-011's work.
+  - The four commits of the Research and Plan phases change the Book alone,
+    but for two files: `.github/dependabot.yml`, which the project's first
+    commit lays down with the Book, and `.gitignore`.
