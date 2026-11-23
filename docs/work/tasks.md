@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-010 (sprint 0) [intent: INT-0005]: Publish a release when a version tag is pushed — touches: .github/workflows/release.yml, tools/release-gate.sh, tests/
 - [ ] T-011 (sprint 0) [intent: INT-0001]: Write the README — touches: README.md, tests/
 - [ ] T-012 (sprint 0) [intent: INT-0005]: Bundle in CI on every push and keep the result — touches: .github/workflows/ci.yml, tests/
 - [ ] T-101 (backlog) [intent: INT-0002]: take in a build of Cruor whose fonts carry their own copyright and licence text and an installable embedding field — touches: fonts/

@@ -69,3 +69,10 @@
 - **Completed:** 2026-11-23T19:06:38Z
 - **Files modified:** examples/fetch-release.mjs, tests/test_fetch_release.py, tests/helpers.py, tests/test_specimen.py
 - **Commit:** `cfee3a045c15c218b443c2336a5b514ab3543151`
+
+## T-010 (sprint 0)
+- **Description:** Publish a release when a version tag is pushed
+- **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
+- **Completed:** 2026-11-23T19:09:25Z
+- **Files modified:** .github/workflows/release.yml, tools/release-gate.sh, tests/test_release.py
+- **Commit:** PENDING
