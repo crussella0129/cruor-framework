@@ -1,0 +1,70 @@
+# Runs the repository's one guard script on every change to the two
+# long-lived branches. The script is the single list of checks; nothing is
+# checked here that it does not run.
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  guards:
+    # A named release of Ubuntu, not the latest: the browser the checks drive
+    # is pinned in tools/requirements.txt, and it runs only on the systems
+    # that version of it knows.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      # The version of Rust is the one rust-toolchain.toml names.
+      - name: Rust toolchain
+        run: rustup toolchain install
+
+      - uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: cargo-${{ runner.os }}-${{ hashFiles('Cargo.lock', 'Cargo.toml', 'rust-toolchain.toml') }}
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: The checks' Python packages
+        run: python -m pip install -r tools/requirements.txt
+
+      - name: The browser the checks drive
+        run: python -m playwright install --with-deps chromium
+
+      # The oldest Node the fetch example promises to run on.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+
+      - name: Guards
+        run: bash tools/run-guards.sh
+
+      # The release as it would be published, put together on every push and
+      # kept with the run: the same commit must give the same bytes here as
+      # on any other machine.
+      - name: Bundle
+        run: cargo run --release -- bundle --out dist
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: cruor-framework-bundle
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,15 @@
+# Settings for the Python checks only. The tool itself is the Rust crate; see
+# Cargo.toml. The packages the checks need are in tools/requirements.txt.
+
+[tool.ruff]
+target-version = "py311"
+src = ["tools", "tests"]
+
+[tool.ruff.lint]
+# Stated outright, so that a newer ruff with other defaults checks the same
+# things. The version itself is pinned in tools/requirements.txt.
+select = ["E", "F", "I", "B", "UP", "RUF"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tools", "tests"]

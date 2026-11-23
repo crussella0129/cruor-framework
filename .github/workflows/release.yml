@@ -1,0 +1,102 @@
+# Publishes a release of the framework when a version tag is pushed.
+#
+# A tag is pushed only on the owner's word. Even so, nothing is published
+# unless the tagged commit is on main, no release exists for the tag, every
+# guard passes, and the tag is the crate's own version. The release is made
+# as a draft, given every file, and only then made public; and once public
+# it must prove itself, by being fetched from its own address and checked,
+# or it is returned to a draft.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    # A named release of Ubuntu, as in CI, and for the same reason.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      # To publish the release, and for nothing else.
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ github.ref_name }}
+    steps:
+      # The whole history, so that the gate can see whether the tagged
+      # commit is on main.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: The tag may be released
+        run: bash tools/release-gate.sh "$TAG"
+
+      # The version of Rust is the one rust-toolchain.toml names.
+      - name: Rust toolchain
+        run: rustup toolchain install
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: The checks' Python packages
+        run: python -m pip install -r tools/requirements.txt
+
+      - name: The browser the checks drive
+        run: python -m playwright install --with-deps chromium
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+
+      - name: Guards
+        run: bash tools/run-guards.sh
+
+      # Fails unless the tag is `v` and the crate's version.
+      - name: Bundle
+        run: cargo run --release -- bundle --out dist --tag "$TAG"
+
+      - name: Draft the release with every file
+        run: >
+          gh release create "$TAG" dist/*
+          --draft
+          --verify-tag
+          --title "Cruor framework $TAG"
+          --notes "The files of the Cruor framework $TAG: Cruor's web fonts with their stylesheet and licence, and a manifest of checksums. The README says how a build fetches and checks them."
+
+      - name: Make the release public
+        run: gh release edit "$TAG" --draft=false
+
+      # The release's files, fetched from its own address as a page's build
+      # would fetch them, and checked against the manifest this run built.
+      # A new release can take a moment to be served, so it is tried a few
+      # times before it is held to have failed.
+      - name: The release proves itself
+        id: proof
+        run: |
+          manifest_sha256=$(sha256sum dist/manifest.json | cut -d ' ' -f 1)
+          address="https://github.com/$GH_REPO/releases/download/$TAG/"
+          for attempt in 1 2 3 4 5; do
+            rm -rf "$RUNNER_TEMP/fetched"
+            if node examples/fetch-release.mjs "$address" "$RUNNER_TEMP/fetched" --manifest-sha256 "$manifest_sha256"; then
+              exit 0
+            fi
+            sleep 15
+          done
+          exit 1
+
+      - name: Withdraw a release that did not prove itself
+        if: failure() && steps.proof.conclusion == 'failure'
+        run: |
+          gh release edit "$TAG" --draft=true
+          echo "::error::The release for $TAG did not prove itself and has been returned to a draft. The draft is left for the owner: nothing here removes it, and the tag cannot be released again while it is there."

@@ -1,0 +1,249 @@
+/*
+ * The faces of Cruor: each family under its own name, in four styles.
+ *
+ * This file is offered under MIT OR Apache-2.0. The fonts it names are
+ * offered under the SIL Open Font License 1.1; see OFL.txt beside it.
+ *
+ * It is made by the framework's tool from families.toml. Change the
+ * list and run `css`; do not change this file by hand.
+ */
+
+/* Cruor Sans Regular: each letter at a width of its own */
+@font-face {
+  font-family: "Cruor Sans Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorSansRegular-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Regular";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorSansRegular-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Regular";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorSansRegular-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Regular";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorSansRegular-BoldItalic.woff2") format("woff2");
+}
+
+/* Cruor Lite Regular: each letter at a width of its own */
+@font-face {
+  font-family: "Cruor Lite Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorLiteRegular-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Lite Regular";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorLiteRegular-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Lite Regular";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorLiteRegular-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Lite Regular";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorLiteRegular-BoldItalic.woff2") format("woff2");
+}
+
+/* Cruor Thornamental Regular: each letter at a width of its own */
+@font-face {
+  font-family: "Cruor Thornamental Regular";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorThornamentalRegular-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Thornamental Regular";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorThornamentalRegular-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Thornamental Regular";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorThornamentalRegular-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Thornamental Regular";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorThornamentalRegular-BoldItalic.woff2") format("woff2");
+}
+
+/* Cruor Sans Mono: every character in one cell */
+@font-face {
+  font-family: "Cruor Sans Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorSansMono-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorSansMono-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorSansMono-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Mono";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorSansMono-BoldItalic.woff2") format("woff2");
+}
+
+/* Cruor Lite Mono: every character in one cell */
+@font-face {
+  font-family: "Cruor Lite Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorLiteMono-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Lite Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorLiteMono-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Lite Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorLiteMono-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Lite Mono";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorLiteMono-BoldItalic.woff2") format("woff2");
+}
+
+/* Cruor Thornamental Mono: every character in one cell */
+@font-face {
+  font-family: "Cruor Thornamental Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorThornamentalMono-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Thornamental Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorThornamentalMono-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Thornamental Mono";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorThornamentalMono-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Thornamental Mono";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorThornamentalMono-BoldItalic.woff2") format("woff2");
+}
+
+/* Cruor Sans Pixelated: every character in one cell, on a lattice of squares */
+@font-face {
+  font-family: "Cruor Sans Pixelated";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorSansPixelated-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Pixelated";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorSansPixelated-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Pixelated";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorSansPixelated-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Sans Pixelated";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorSansPixelated-BoldItalic.woff2") format("woff2");
+}
+
+/* Cruor Pixelated: every character in one cell, on a lattice of squares */
+@font-face {
+  font-family: "Cruor Pixelated";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorPixelated-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Pixelated";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorPixelated-Bold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Pixelated";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("CruorPixelated-Italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cruor Pixelated";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("CruorPixelated-BoldItalic.woff2") format("woff2");
+}

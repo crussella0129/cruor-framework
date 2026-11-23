@@ -1,0 +1,7 @@
+# Every text file is kept and checked out with line feeds, on every system:
+# the stylesheet, the licences and the manifest of a release must be the same
+# bytes wherever they are made.
+* text=auto eol=lf
+
+# The fonts are never to be touched.
+*.woff2 binary

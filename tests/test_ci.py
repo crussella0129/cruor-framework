@@ -1,0 +1,67 @@
+"""The CI workflow, read as data: what starts it and what it runs."""
+
+from helpers import commands_of, read_workflow, steps_of
+
+
+def test_ci_workflow_runs_guards():
+    workflow = read_workflow("ci.yml")
+
+    triggers = workflow["on"]
+    assert sorted(triggers["push"]["branches"]) == ["dev", "main"]
+    assert "pull_request" in triggers
+
+    commands = commands_of(workflow)
+    uses = {
+        step["uses"].split("@")[0]: step
+        for step in steps_of(workflow)
+        if "uses" in step
+    }
+
+    # The toolchain rust-toolchain.toml pins.
+    assert "rustup toolchain install" in commands
+    # Python, with the checks' packages at their pinned versions.
+    assert "actions/setup-python" in uses
+    assert "pip install -r tools/requirements.txt" in commands
+    # The browser the checks drive.
+    assert "playwright install" in commands
+    assert "chromium" in commands
+    # The oldest Node the fetch example promises to run on.
+    assert uses["actions/setup-node"]["with"]["node-version"] == 20
+
+    # The guards are one step, the command whole, and a failure of any step
+    # fails the run: none is told to carry on, and the guards are not skipped.
+    steps = steps_of(workflow)
+    guards = [step for step in steps if "run-guards.sh" in step.get("run", "")]
+    assert len(guards) == 1
+    assert guards[0]["run"] == "bash tools/run-guards.sh"
+    assert "if" not in guards[0]
+    for job in workflow["jobs"].values():
+        assert "continue-on-error" not in job
+    for step in steps:
+        assert "continue-on-error" not in step, step
+
+
+def test_ci_workflow_keeps_bundle():
+    steps = steps_of(read_workflow("ci.yml"))
+    commands = [step.get("run", "") for step in steps]
+    guards = commands.index("bash tools/run-guards.sh")
+    bundle = commands.index("cargo run --release -- bundle --out dist")
+    assert guards < bundle
+
+    upload = [
+        index
+        for index, step in enumerate(steps)
+        if step.get("uses", "").startswith("actions/upload-artifact@")
+    ]
+    assert len(upload) == 1
+    assert bundle < upload[0]
+    kept = steps[upload[0]]["with"]
+    assert kept["path"] == "dist/"
+    assert kept["if-no-files-found"] == "error"
+
+
+def test_ci_workflow_cannot_write():
+    workflow = read_workflow("ci.yml")
+    assert workflow["permissions"] == {"contents": "read"}
+    for job in workflow["jobs"].values():
+        assert "permissions" not in job
