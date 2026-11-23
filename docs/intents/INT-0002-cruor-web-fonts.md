@@ -3,11 +3,11 @@
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0002
 - **State:** active
-- **Work evidence:** [T-001, T-003 to T-007, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-101 backlog](../work/tasks.md)
-- **Completion evidence:** none
-- **Code evidence:** none
+- **Work evidence:** [T-001, T-003 to T-007, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-101 and T-103 backlog](../work/tasks.md)
+- **Completion evidence:** [T-001, T-003 to T-007, T-011 and T-013, completed tasks](../work/completed-tasks.md)
+- **Code evidence:** [fonts/fonts.css](../../fonts/fonts.css), [fonts/manifest.toml](../../fonts/manifest.toml), [fonts/OFL.txt](../../fonts/OFL.txt), [fonts/specimen.html](../../fonts/specimen.html), [tools/check_fonts.py](../../tools/check_fonts.py)
 - **Test evidence:** [Sprint 0 test report](../sprints/s0/sprint-tests/test-report.md)
-- **Documentation evidence:** none
+- **Documentation evidence:** [README](../../README.md)
 
 ## Intent
 

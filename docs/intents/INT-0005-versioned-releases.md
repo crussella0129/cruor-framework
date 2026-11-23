@@ -4,10 +4,10 @@
 - **Intent ID:** INT-0005
 - **State:** active
 - **Work evidence:** [T-008 to T-012, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-102 backlog](../work/tasks.md)
-- **Completion evidence:** none
-- **Code evidence:** none
+- **Completion evidence:** [T-008 to T-012, completed tasks](../work/completed-tasks.md)
+- **Code evidence:** [src/bundle.rs](../../src/bundle.rs), [examples/fetch-release.mjs](../../examples/fetch-release.mjs), [.github/workflows/release.yml](../../.github/workflows/release.yml), [tools/release-gate.sh](../../tools/release-gate.sh)
 - **Test evidence:** [Sprint 0 test report](../sprints/s0/sprint-tests/test-report.md)
-- **Documentation evidence:** none
+- **Documentation evidence:** [README](../../README.md)
 
 ## Intent
 

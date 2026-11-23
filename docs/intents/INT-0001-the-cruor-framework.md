@@ -3,11 +3,11 @@
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0001
 - **State:** active
-- **Work evidence:** [T-002, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md)
-- **Completion evidence:** none
-- **Code evidence:** none
+- **Work evidence:** [T-002, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-103 backlog](../work/tasks.md)
+- **Completion evidence:** [T-002, T-011 and T-013, completed tasks](../work/completed-tasks.md)
+- **Code evidence:** [LICENSE-MIT](../../LICENSE-MIT), [LICENSE-APACHE](../../LICENSE-APACHE)
 - **Test evidence:** [Sprint 0 test report](../sprints/s0/sprint-tests/test-report.md)
-- **Documentation evidence:** none
+- **Documentation evidence:** [README](../../README.md)
 
 ## Intent
 
@@ -108,6 +108,17 @@ the kit be public while the project that draws Cruor is not.
 - Criterion 5 is kept by a review made from outside the repository before
   every push, since a check kept inside would have to hold the names it
   forbids.
+- The review's record began with Sprint 0's Build, and its first entries
+  left some commits out of their ranges; that sprint's test report tells
+  it. The rule since: an entry is made before every push, and its range
+  holds every commit the push carries, those that record an earlier entry
+  among them. A pull request the owner did not write, such as the
+  dependency updater's, is searched and read in the same way before it is
+  merged.
+- An intent whose criteria speak of what the repository holds is `realized`
+  when the default branch holds it, not on the work branch's evidence
+  alone. Sprint 0's test report chose this, for this intent's criterion 1
+  and for [INT-0002](INT-0002-cruor-web-fonts.md).
 
 ## Transition history
 - 2026-11-23: created as `proposed` in Sprint 0's Research, from the owner's
