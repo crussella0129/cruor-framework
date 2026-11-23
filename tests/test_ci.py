@@ -28,7 +28,17 @@ def test_ci_workflow_runs_guards():
     # The oldest Node the fetch example promises to run on.
     assert uses["actions/setup-node"]["with"]["node-version"] == 20
 
-    assert "bash tools/run-guards.sh" in commands
+    # The guards are one step, the command whole, and a failure of any step
+    # fails the run: none is told to carry on, and the guards are not skipped.
+    steps = steps_of(workflow)
+    guards = [step for step in steps if "run-guards.sh" in step.get("run", "")]
+    assert len(guards) == 1
+    assert guards[0]["run"] == "bash tools/run-guards.sh"
+    assert "if" not in guards[0]
+    for job in workflow["jobs"].values():
+        assert "continue-on-error" not in job
+    for step in steps:
+        assert "continue-on-error" not in step, step
 
 
 def test_ci_workflow_keeps_bundle():

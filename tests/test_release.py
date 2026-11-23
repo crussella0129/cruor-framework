@@ -36,7 +36,11 @@ def test_release_workflow_runs_guards_then_bundle_then_publish():
     bundle = index_of(steps, "bundle --out dist")
     publish = index_of(steps, "gh release create")
     assert guards < bundle < publish
-    assert '--tag "$TAG"' in steps[bundle]["run"]
+    # Each command whole: nothing after it that would forgive a failure.
+    assert steps[guards]["run"] == "bash tools/run-guards.sh"
+    assert (
+        steps[bundle]["run"] == 'cargo run --release -- bundle --out dist --tag "$TAG"'
+    )
     assert 'gh release create "$TAG" dist/*' in " ".join(steps[publish]["run"].split())
     assert workflow["jobs"]["release"]["env"]["TAG"] == "${{ github.ref_name }}"
 
