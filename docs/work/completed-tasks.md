@@ -27,3 +27,10 @@
 - **Completed:** 2026-11-23T18:51:08Z
 - **Files modified:** docs/sprints/s0/sprint-tests/own-terms-review.md
 - **Commit:** `03ad4411ccd2e0ee72757634f2a1e679d62c933b`
+
+## T-004 (sprint 0)
+- **Description:** Write and check the stylesheet of the fonts from the list of families
+- **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
+- **Completed:** 2026-11-23T18:54:12Z
+- **Files modified:** src/main.rs, src/families.rs, src/css.rs, fonts/fonts.css, tests/common/mod.rs, tests/css.rs
+- **Commit:** PENDING
