@@ -40,4 +40,4 @@
 - **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
 - **Completed:** 2026-11-23T18:56:42Z
 - **Files modified:** src/main.rs, src/manifest.rs, fonts/manifest.toml, tests/manifest.rs
-- **Commit:** PENDING
+- **Commit:** `a6587d99dd6f99ce9051c21d6d554a804218f4a5`
