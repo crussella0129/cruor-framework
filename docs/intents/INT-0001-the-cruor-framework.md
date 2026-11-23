@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0001
-- **State:** planned
+- **State:** active
 - **Work evidence:** [T-002, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
@@ -117,3 +117,5 @@ the kit be public while the project that draws Cruor is not.
   says that the first release holds the fonts alone and the first version is
   whole when the look is in; the Consequences record the languages of the
   tool and its checks and how criterion 5 is kept (T-013).
+- 2026-11-23: `planned` to `active`. Sprint 0's Build reached T-002, the
+  licences of the code.

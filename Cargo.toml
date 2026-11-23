@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2024"
 description = "The tool of the Cruor framework: writes the stylesheet of Cruor's web fonts, their manifest, and a release"
 repository = "https://github.com/crussella0129/cruor-framework"
+# The terms of the code. The fonts have terms of their own: fonts/OFL.txt.
+license = "MIT OR Apache-2.0"
 publish = false
 
 # This crate is its own workspace root, so a manifest in a parent directory is

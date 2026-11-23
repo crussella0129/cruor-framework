@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-002 (sprint 0) [intent: INT-0001]: Add the code's licences — touches: LICENSE-MIT, LICENSE-APACHE, Cargo.toml, tests/
 - [ ] T-003 (sprint 0) [intent: INT-0002]: Take the fonts in, with their licence and the list of families — touches: fonts/*.woff2, fonts/OFL.txt, fonts/families.toml, tests/
 - [ ] T-013 (sprint 0) [intent: INT-0001]: Keep the repository in its own terms, by review before every push — touches: docs/sprints/s0/sprint-tests/own-terms-review.md
 - [ ] T-004 (sprint 0) [intent: INT-0002]: Write and check the stylesheet from the list of families — touches: src/, fonts/fonts.css, tests/
