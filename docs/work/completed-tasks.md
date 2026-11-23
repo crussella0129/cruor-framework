@@ -55,3 +55,10 @@
 - **Completed:** 2026-11-23T19:01:13Z
 - **Files modified:** fonts/specimen.html, tests/test_specimen.py
 - **Commit:** `4e0bd53466ae397c8a8db6600a92004268fee374`
+
+## T-008 (sprint 0)
+- **Description:** Put a release together with one command
+- **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md)
+- **Completed:** 2026-11-23T19:04:36Z
+- **Files modified:** src/main.rs, src/bundle.rs, tests/bundle.rs, docs/intents/INT-0005-versioned-releases.md
+- **Commit:** PENDING

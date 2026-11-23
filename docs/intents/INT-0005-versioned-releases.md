@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0005
-- **State:** planned
+- **State:** active
 - **Work evidence:** [T-008 to T-012, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-102 backlog](../work/tasks.md)
 - **Completion evidence:** none
 - **Code evidence:** none
@@ -94,3 +94,5 @@ checking shows only that the files and the manifest agree with each other.
 - 2026-11-23: revised after the plan's second review, still `planned`. The
   Rationale now says that the checksum a build pins is the manifest's, and
   the Alternatives record the protected environment.
+- 2026-11-23: `planned` to `active`. Sprint 0's Build reached T-008, the
+  command that puts a release together.

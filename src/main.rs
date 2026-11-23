@@ -2,8 +2,9 @@
 //!
 //! It writes the stylesheet of Cruor's web fonts from the list of families,
 //! writes and checks the manifest of their checksums, and puts a release
-//! together. Each command is built by its own task; until then it says so.
+//! together.
 
+mod bundle;
 mod css;
 mod families;
 mod manifest;
@@ -49,7 +50,15 @@ enum Command {
     /// Check that the stylesheet and the manifest are current
     Check,
     /// Put a release together in a folder
-    Bundle,
+    Bundle {
+        /// The folder to put it in; it must be absent or empty
+        #[arg(long, value_name = "DIR")]
+        out: PathBuf,
+
+        /// Fail unless this is the tag of the framework's version, as v0.1.0 is
+        #[arg(long, value_name = "TAG")]
+        tag: Option<String>,
+    },
 }
 
 fn run(cli: &Cli) -> Result<(), String> {
@@ -62,7 +71,7 @@ fn run(cli: &Cli) -> Result<(), String> {
             source_commit,
         } => manifest::write(&cli.root, source_commit.as_deref()),
         Command::Check => check(&cli.root),
-        Command::Bundle => Err("`bundle` is not built yet".to_string()),
+        Command::Bundle { out, tag } => bundle::bundle(&cli.root, out, tag.as_deref()),
     }
 }
 
