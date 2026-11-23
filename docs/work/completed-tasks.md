@@ -19,4 +19,4 @@
 - **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
 - **Completed:** 2026-11-23T18:49:24Z
 - **Files modified:** fonts/, tests/test_fonts_intake.py
-- **Commit:** PENDING
+- **Commit:** `d4fdcfea61dd128cdaf68ce17d56701f05240fff`
