@@ -2,8 +2,8 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0002
-- **State:** proposed
-- **Work evidence:** none
+- **State:** planned
+- **Work evidence:** [T-001, T-003 to T-007, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-101 backlog](../work/tasks.md)
 - **Completion evidence:** none
 - **Code evidence:** none
 - **Test evidence:** none
@@ -30,7 +30,8 @@ Bold Italic, so the framework holds thirty-two `.woff2` files:
 | Cruor Pixelated | the Lite letters on the same lattice |
 
 Asked the same day under what terms the fonts are offered, the owner
-answered "SIL Open Font License 1.1".
+answered "SIL Open Font License 1.1". Asked whether the licence reserves a
+font name, they answered: 'Reserve "Cruor"'.
 
 Boundaries:
 
@@ -45,8 +46,9 @@ Boundaries:
    above, named by family and style (as `CruorLiteMono-BoldItalic.woff2`
    is).
 2. The text of the SIL Open Font License 1.1 stands beside the fonts with
-   the owner's copyright line, and the README says the fonts are offered
-   under it.
+   the copyright line "Copyright (c) 2026, Charles Russella
+   (https://github.com/crussella0129), with Reserved Font Name Cruor.", and
+   the README says the fonts are offered under it.
 3. One stylesheet declares every family under its own name with its four
    styles joined, so that a page asking a family for its bold or its italic
    is given that file.
@@ -83,15 +85,36 @@ choice of terms.
 
 - Once published, the font files can be had by anyone, and the licence lets
   them be used, changed and passed on.
-- Whether the name Cruor is reserved under the licence (so that a changed
-  version must take another name) is settled when the licence file is
-  written.
-- The fonts' own name tables carry no copyright or licence text today; that
-  is set where the fonts are built, not here. The licence file beside the
-  fonts is what states their terms.
+- The name Cruor is reserved under the licence. Anyone may use, change and
+  pass on the fonts, but a changed version must take another name, and that
+  includes a subset made to save bytes. The owner's own releases keep the
+  name.
+- The fonts' own name tables carry no copyright or licence text today, and
+  their embedding field says "preview and print" where a font under an open
+  licence usually says "installable". Both are set where the fonts are
+  built, not here. The fonts are taken in as they are built; the licence
+  file beside them is what states their terms, and the README says so. A
+  later build of Cruor that sets these fields is taken in as a later
+  version (backlog task T-101).
+- Which build is taken in: a clean build at the head of the Cruor
+  project's working branch at the time, with its commit recorded in the
+  manifest. The owner approved this with Sprint 0's plan. Cruor's next
+  characters are still being drawn; what the first intake holds is what
+  that build holds, and the manifest and the review of the intake say what
+  that is.
 - A newer build of Cruor (more characters, kerning) is taken in as a new
   version of the framework, with a new manifest.
 
 ## Transition history
 - 2026-11-23: created as `proposed` in Sprint 0's Research, from the owner's
   answers that day.
+- 2026-11-23: revised during Sprint 0's Plan, still `proposed`. The owner
+  chose to reserve the font name Cruor; criterion 2 and the Consequences now
+  say so.
+- 2026-11-23: `proposed` to `planned`. The owner approved Sprint 0's plan, which takes the fonts in and builds their licence file, stylesheet, manifest, checks and specimen page (T-001, T-003 to T-007).
+- 2026-11-23: revised after the plan's review, still `planned`. Criterion 2
+  now gives the copyright line as written; the Consequences record the
+  fonts' embedding field, that the fonts go in as built (T-101 carries the
+  rest), and which build is taken in.
+- 2026-11-23: revised after the plan's second review, still `planned`. The
+  Consequences no longer say in advance what the first intake covers.

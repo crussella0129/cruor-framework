@@ -54,8 +54,8 @@ To be settled when a sprint plans it. The outline:
 4. Changing a heading level's font, weight, slant, underline or size in the
    theme file changes that heading on the page once the tokens are made
    again.
-5. The theme file is in each release
-   ([INT-0005](INT-0005-versioned-releases.md)).
+5. The theme file is in each release from the one that first holds the
+   look ([INT-0005](INT-0005-versioned-releases.md)).
 
 ## Rationale
 
@@ -80,3 +80,5 @@ cannot drift from it, and another program can read the same file.
 ## Transition history
 - 2026-11-23: created as `proposed` in Sprint 0's Research, from the owner's
   answer that day.
+- 2026-11-23: revised after Sprint 0's plan review, still `proposed`.
+  Criterion 5 now allows for the first release, which holds the fonts alone.

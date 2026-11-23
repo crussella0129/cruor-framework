@@ -8,6 +8,6 @@
 - **Bundle version:** 0.22.0
 - **Exit status:** in-progress
 - **Token count:** (filled at Loop Phase if observable)
-- **Summary:** (one-line description of sprint goal, filled after Plan Phase)
-- **Intents:** (filled after Plan Phase)
+- **Summary:** Hold Cruor's thirty-two web fonts with their licence, stylesheet and manifest, and make the framework ready to release them.
+- **Intents:** [INT-0001](../../intents/INT-0001-the-cruor-framework.md), [INT-0002](../../intents/INT-0002-cruor-web-fonts.md), [INT-0005](../../intents/INT-0005-versioned-releases.md)
 - **Completion evidence:** (filled at Loop Phase)

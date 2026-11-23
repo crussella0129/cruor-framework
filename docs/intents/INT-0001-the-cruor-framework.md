@@ -2,8 +2,8 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0001
-- **State:** proposed
-- **Work evidence:** none
+- **State:** planned
+- **Work evidence:** [T-002, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
 - **Test evidence:** none
@@ -39,6 +39,11 @@ The owner's decisions, all of 23 November 2026:
 - **Terms for the code.** The stylesheets, tokens, theme files and tools are
   offered under `MIT OR Apache-2.0`. The fonts have terms of their own
   ([INT-0002](INT-0002-cruor-web-fonts.md)).
+
+Releases begin before the first version is whole. The first release,
+0.1.0, holds the fonts alone, so that pages can set their text in Cruor at
+once; the first version is complete with the release that first holds the
+look and its theme file.
 
 Boundaries:
 
@@ -93,7 +98,22 @@ the kit be public while the project that draws Cruor is not.
   takes in a newer build of the fonts, that is a new version of the
   framework.
 - Scripted components, if they come, are a later intent.
+- The repository's tool (it writes the stylesheet of the fonts, the
+  manifest and a release, and later the tokens) is written in Rust, the
+  owner's usual choice. The checks that must open a font or drive a browser
+  are written in Python, with fontTools and Playwright, as the project that
+  draws Cruor checks its own fonts. Python alone was considered, since the
+  checks need it anyway; Rust was kept for the tool because later work
+  leans on it.
+- Criterion 5 is kept by a review made from outside the repository before
+  every push, since a check kept inside would have to hold the names it
+  forbids.
 
 ## Transition history
 - 2026-11-23: created as `proposed` in Sprint 0's Research, from the owner's
   words and their answers that day.
+- 2026-11-23: `proposed` to `planned`. The owner approved Sprint 0's plan, which gives the framework its licences (T-002) and its README (T-011); the look, and so criteria 2 and 4, wait for a later sprint.
+- 2026-11-23: revised after the plan's review, still `planned`. The Intent now
+  says that the first release holds the fonts alone and the first version is
+  whole when the look is in; the Consequences record the languages of the
+  tool and its checks and how criterion 5 is kept (T-013).
