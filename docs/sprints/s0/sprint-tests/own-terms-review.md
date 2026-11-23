@@ -233,3 +233,20 @@ How each review is made:
   read here: run
   [45268366399](https://github.com/crussella0129/cruor-framework/actions/runs/45268366399)
   for `79d876e676b74bb0c48f832767bef48f0b040790` concluded `success`.
+
+### 9. 23 November 2026, after the pull request was opened, before the push that follows it
+
+- **Commits covered:** `4640e819b26ecfbf7d82a44278cf6a073c63b36e`, one
+  commit, made by the helper that opens the pull request: it writes the
+  pull request's address into `sprint-meta.md`. The commit that recorded
+  entry 8 (`1f5e7a6`) changes this file alone.
+- **Also covered:** the pull request as GitHub shows it,
+  [number 1](https://github.com/crussella0129/cruor-framework/pull/1): its
+  title and body were read back and are the text entry 8 searched.
+- **Pull requests:** that one, which is the sprint's own. None of the
+  updater's.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out; the commit adds one
+  line, an address.
+- **Files against tasks:** `4640e81` changes `sprint-meta.md` alone and
+  belongs to no task.
