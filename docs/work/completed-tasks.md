@@ -54,4 +54,4 @@
 - **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
 - **Completed:** 2026-11-23T19:01:13Z
 - **Files modified:** fonts/specimen.html, tests/test_specimen.py
-- **Commit:** PENDING
+- **Commit:** `4e0bd53466ae397c8a8db6600a92004268fee374`
