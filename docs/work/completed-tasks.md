@@ -48,3 +48,10 @@
 - **Completed:** 2026-11-23T18:58:07Z
 - **Files modified:** tools/check_fonts.py, tools/run-guards.sh, tests/test_check_fonts.py, tests/test_guards.py
 - **Commit:** `da7b5f5f1ecd316fe4f2f2f0b2da03a36f957373`
+
+## T-007 (sprint 0)
+- **Description:** Make a page that sets a line in every face
+- **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md)
+- **Completed:** 2026-11-23T19:01:13Z
+- **Files modified:** fonts/specimen.html, tests/test_specimen.py
+- **Commit:** PENDING
