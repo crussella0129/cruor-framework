@@ -12,4 +12,4 @@
 - **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-23T18:46:57Z
 - **Files modified:** LICENSE-MIT, LICENSE-APACHE, Cargo.toml, Cargo.lock, tests/test_licences.py, docs/intents/INT-0001-the-cruor-framework.md
-- **Commit:** PENDING
+- **Commit:** `6d3fdc9d4469f3128d81f08ad406a3b72188a920`
