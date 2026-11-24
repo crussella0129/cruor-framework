@@ -152,4 +152,4 @@
 - **Intent:** [INT-0006](../intents/INT-0006-the-furniture.md)
 - **Completed:** 2026-11-24T05:39:16Z
 - **Files modified:** look/furniture.css, tests/parts.py, tests/test_furniture.py, tests/pages/controls.html, tests/browser.py, tests/test_browser_means.py
-- **Commit:** PENDING
+- **Commit:** `8e4268925ae2139255c76381555b3ef1071e82e7`
