@@ -1,0 +1,101 @@
+/*
+ * Cruentous Atonement: blood letters cut into obsidian.
+ *
+ * A page takes the look on by linking this file after tokens.css (and
+ * fonts.css before both) and setting the class on <body>:
+ *
+ *   <body class="cruentous-atonement">
+ *
+ * Every rule here is nested beneath that class, so a page that does not set
+ * it is untouched. Every colour, family and measure is named by a token of
+ * tokens.css, which the framework's tool makes from theme.toml; none is
+ * written out here, save inside a drawing, which cannot read a token.
+ *
+ * This file is offered under MIT OR Apache-2.0.
+ */
+
+.cruentous-atonement {
+  /* ---------------------------------------------------------------- */
+  /* The stone                                                         */
+  /* ---------------------------------------------------------------- */
+
+  /* The page is obsidian. The two layers below lie between this ground and
+     the page's content, and never above the content. */
+  isolation: isolate;
+  min-height: 100vh;
+  background-color: var(--cruor-page);
+
+  /* The surface: broad glassy glints and sparse streaks of iron, drawn by a
+     filter and tiled. No image file. Its opacity bounds the sheen, and is
+     what the theme file's contrast is tested against. */
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='720'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0022 0.0034' numOctaves='4' seed='7' stitchTiles='stitch' result='swell'/%3E%3CfeSpecularLighting in='swell' surfaceScale='20' specularConstant='1.2' specularExponent='18' lighting-color='%23ffffff' result='lit'%3E%3CfeDistantLight azimuth='235' elevation='38'/%3E%3C/feSpecularLighting%3E%3CfeComponentTransfer in='lit' result='glint'%3E%3CfeFuncR type='table' tableValues='0 0.114 0.182 0.227'/%3E%3CfeFuncG type='table' tableValues='0 0.083 0.132 0.165'/%3E%3CfeFuncB type='table' tableValues='0 0.086 0.138 0.173'/%3E%3CfeFuncA type='table' tableValues='0 0.4 0.9 1'/%3E%3C/feComponentTransfer%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.0011 0.017' numOctaves='2' seed='29' stitchTiles='stitch' result='vein'/%3E%3CfeColorMatrix in='vein' type='matrix' values='0 0 0 0 0.29 0 0 0 0 0.09 0 0 0 0 0.063 5 0 0 0 -3.3' result='iron'/%3E%3CfeComposite in='glint' in2='iron' operator='over'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23g%29'/%3E%3C/svg%3E");
+    background-size: 720px 720px;
+    opacity: var(--cruor-stone-sheen-opacity);
+  }
+
+  /* Candle-dim: a faint warm glow from above, and darkness at the edges. */
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        80% 55% at 50% -8%,
+        color-mix(
+          in srgb,
+          var(--cruor-stone-candle) calc(var(--cruor-stone-candle-opacity) * 100%),
+          transparent
+        ),
+        transparent 70%
+      ),
+      radial-gradient(120% 120% at 50% 38%, transparent 48%, var(--cruor-vignette) 100%);
+    animation: cruor-candle 9s steps(1, end) infinite;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Stillness                                                         */
+  /* ---------------------------------------------------------------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      animation: none;
+    }
+  }
+}
+
+/* The candle gutters now and then. It is never brighter than when still. */
+@keyframes cruor-candle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  11% {
+    opacity: 0.9;
+  }
+  13% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 0.94;
+  }
+  44% {
+    opacity: 0.86;
+  }
+  47% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 0.92;
+  }
+  74% {
+    opacity: 1;
+  }
+}

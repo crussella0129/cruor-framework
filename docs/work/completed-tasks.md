@@ -132,3 +132,10 @@
 - **Completed:** 2026-11-24T05:22:30Z
 - **Files modified:** tests/browser.py, tests/test_browser_means.py, docs/intents/INT-0006-the-furniture.md
 - **Commit:** `59a231490fffc213cb0aea35b1102b76bc8c3a1b`
+
+## T-204 (sprint 1)
+- **Description:** Lay the look's ground in look/cruentous-atonement.css: the stone, the candle and the dark at the edges, with every bound on the stone held against the stone as drawn
+- **Intent:** [INT-0003](../intents/INT-0003-cruentous-atonement-look.md), [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md)
+- **Completed:** 2026-11-24T05:25:43Z
+- **Files modified:** look/cruentous-atonement.css, tests/test_look_css.py, tests/test_look_ground.py, tests/pages/bare.html
+- **Commit:** PENDING
