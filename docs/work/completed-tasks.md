@@ -208,4 +208,4 @@
 - **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md), [INT-0006](../intents/INT-0006-the-furniture.md), [INT-0005](../intents/INT-0005-versioned-releases.md)
 - **Completed:** 2026-11-24T12:51:15Z
 - **Files modified:** assets/readme/text.md, assets/readme/page.svg, tests/test_readme.py
-- **Commit:** PENDING
+- **Commit:** `4f6f2adc86a0d12bdb3a4099dcedc759d6070c73`
