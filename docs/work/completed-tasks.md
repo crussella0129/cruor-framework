@@ -159,4 +159,4 @@
 - **Intent:** [INT-0006](../intents/INT-0006-the-furniture.md)
 - **Completed:** 2026-11-24T05:49:57Z
 - **Files modified:** look/furniture.css, look/cruentous-atonement.css, tests/parts.py, tests/test_furniture.py, tests/test_look_page.py, tests/browser.py, tests/pages/containers.html
-- **Commit:** PENDING
+- **Commit:** `565e6061f2266810ebd88170fccefb141b038065`
