@@ -140,11 +140,13 @@ look's name now says whose it is.
   the inscription's crimson, and it is never the colour of lettering.
 - Nesting was chosen over `@scope` to keep the rules beneath the class,
   because it is read by every engine a reader of Tome is likely to have.
-- Lifting the foot of a carved heading to `#c21b1b` would bring it to 3:1
-  on the stone at its brightest. The owner was told on 24 November 2026.
-  Their answer is asked for when the showroom first stands, where the
-  heading can be seen on the stone (Sprint 1, T-209), and criterion 3 is
-  amended to what they then say.
+- Lifting the foot of a carved heading to `#c31b1b` would bring it to 3:1
+  on the stone at its brightest: it stands at 3.01 there. The owner was
+  first told `#c21b1b` on 24 November 2026; that colour stands at 2.99
+  there, which is short of 3:1 when nothing is rounded, as nothing is. The
+  figure was corrected the same day, when the showroom first stood, and
+  the owner was shown the heading both ways and asked (Sprint 1, T-209).
+  Criterion 3 is amended to what they then say.
 
 ## Transition history
 - 2026-11-23: created as `proposed` in Sprint 0's Research, from the owner's
@@ -160,3 +162,6 @@ look's name now says whose it is.
   named as a colour of the look; criterion 3 says on which ground each
   bound is held, and tells the one place a carved heading falls short.
 - 2026-11-24: `planned` to `active`. Sprint 1's Build reached T-203, the test of the contrast the look promises.
+- 2026-11-24: corrected, still `active`. The Consequences named `#c21b1b` as the
+  lift that brings a carved heading's foot to 3:1 on the stone at its
+  brightest. Worked out again with nothing rounded, it is `#c31b1b`.
