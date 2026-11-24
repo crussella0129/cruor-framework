@@ -1,4 +1,6 @@
-"""The README: that it says what it must, and names nothing that is not there."""
+"""The front page's words: that they say what they must, and name nothing
+that is not there. The words are kept as text beside the picture README.md
+shows; see test_readme_pictures.py for the picture."""
 
 import re
 import subprocess
@@ -6,7 +8,7 @@ import tomllib
 
 from helpers import ROOT
 
-README = (ROOT / "README.md").read_text(encoding="utf-8")
+README = (ROOT / "assets" / "readme" / "text.md").read_text(encoding="utf-8")
 # The README with its lines joined, so a sentence can be found across them.
 FLOWED = " ".join(README.split())
 
@@ -32,7 +34,7 @@ def sentences() -> list[str]:
 
 
 def test_readme_says_what_the_kit_is():
-    assert README.startswith("# The Cruor framework\n")
+    assert README.startswith("# The Cruor Framework\n")
     assert "gives a web page the look called **Cruentous Atonement**" in FLOWED
     assert "Cruentous Atonement" in FLOWED
     assert "is not in the kit yet" in FLOWED
@@ -145,13 +147,29 @@ def test_readme_states_terms():
 
 def test_readme_names_existing_paths_and_commands():
     # Every path of the repository that the README gives in code marks.
-    roots = ("fonts/", "examples/", "src/", "tools/", "docs/", "tests/", ".github/")
+    roots = (
+        "fonts/",
+        "examples/",
+        "src/",
+        "tools/",
+        "assets/",
+        "docs/",
+        "tests/",
+        ".github/",
+    )
     files_at_root = {path.name for path in ROOT.iterdir() if path.is_file()}
     named = set()
     for span in code_spans():
         if span.startswith(roots) or span in files_at_root:
             named.add(span)
-    assert {"fonts/fonts.css", "examples/fetch-release.mjs", "LICENSE-MIT"} <= named
+    assert {
+        "fonts/fonts.css",
+        "examples/fetch-release.mjs",
+        "tools/draw_readme.py",
+        "assets/readme/",
+        "assets/readme/text.md",
+        "LICENSE-MIT",
+    } <= named
     for path in sorted(named):
         assert (ROOT / path).exists(), path
 
