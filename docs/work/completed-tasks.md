@@ -174,3 +174,10 @@
 - **Completed:** 2026-11-24T06:12:42Z
 - **Files modified:** showroom/index.html, showroom/showroom.css, tests/test_showroom.py, docs/intents/INT-0007-the-showroom.md
 - **Commit:** `e559965f7aa7e1fd6b5cce4dc02abc6efee2a2f9`
+
+## T-212 (sprint 1)
+- **Description:** Make a release carry the look, and make the version 0.2.0.
+- **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md), [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-24T06:19:40Z
+- **Files modified:** src/bundle.rs, src/main.rs, Cargo.toml, Cargo.lock, tests/bundle.rs, tests/common/mod.rs, tests/test_repository.py, tests/test_fetch_release.py, tests/test_release_look.py, tests/test_release.py, .github/workflows/release.yml
+- **Commit:** PENDING

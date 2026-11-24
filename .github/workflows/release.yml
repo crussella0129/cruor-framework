@@ -72,7 +72,7 @@ jobs:
           --draft
           --verify-tag
           --title "Cruor framework $TAG"
-          --notes "The files of the Cruor framework $TAG: Cruor's web fonts with their stylesheet and licence, and a manifest of checksums. The README says how a build fetches and checks them."
+          --notes "The files of the Cruor framework $TAG: Cruor's web fonts with their stylesheet and licence; the look, Cruentous Atonement, as its stylesheets and the theme file its tokens are made from; and a manifest of checksums. The README says how a build fetches and checks them."
 
       - name: Make the release public
         run: gh release edit "$TAG" --draft=false

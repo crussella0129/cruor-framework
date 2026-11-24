@@ -35,5 +35,5 @@ def test_tracked_text_has_no_carriage_returns():
     assert found.returncode == 1, found.stderr
 
 
-def test_crate_version_is_first_release():
-    assert cargo_manifest()["package"]["version"] == "0.1.0"
+def test_crate_version_is_second_release():
+    assert cargo_manifest()["package"]["version"] == "0.2.0"

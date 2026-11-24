@@ -32,10 +32,11 @@ pub fn said(output: &Output) -> String {
 }
 
 /// A copy, in a folder of its own, of what the tool reads: the fonts'
-/// folder, the look's folder and the two licences of the code.
+/// folder, the look's folder and the two licences of the code. The showroom
+/// is copied too, which the tool does not read: no release holds it.
 pub fn copy_of_repository() -> TempDir {
     let copy = tempfile::tempdir().expect("a temporary folder");
-    for folder in ["fonts", "look"] {
+    for folder in ["fonts", "look", "showroom"] {
         let from = repository().join(folder);
         if !from.is_dir() {
             continue;

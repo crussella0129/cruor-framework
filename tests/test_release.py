@@ -57,6 +57,17 @@ def test_release_workflow_runs_guards_then_bundle_then_publish():
             assert writes == [], path.name
 
 
+def test_release_notes_tell_of_the_look():
+    # What a release says of itself names what it holds: the fonts, and the
+    # look with its theme file.
+    steps = release_steps()
+    notes = steps[index_of(steps, "gh release create")]["run"]
+    assert "--notes" in notes
+    said = notes.split("--notes", 1)[1]
+    for told in ("web fonts", "Cruentous Atonement", "stylesheets", "theme file"):
+        assert told in said, told
+
+
 def test_release_workflow_calls_gate():
     steps = release_steps()
     gate = index_of(steps, "tools/release-gate.sh")

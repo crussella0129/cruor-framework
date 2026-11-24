@@ -55,13 +55,33 @@ fn font_names() -> Vec<String> {
     names
 }
 
-/// What a release holds beside its manifest, its archive and the archive's
-/// checksum: the fonts, their stylesheet and licence, the code's licences.
-fn carried_names() -> Vec<String> {
+/// The look's four files: its theme file, the tokens made from it, and its
+/// two stylesheets.
+const LOOK: [&str; 4] = [
+    "theme.toml",
+    "tokens.css",
+    "cruentous-atonement.css",
+    "furniture.css",
+];
+
+/// What a release of 0.1.0 holds beside its manifest, its archive and the
+/// archive's checksum: the fonts, their stylesheet and licence, the code's
+/// licences.
+fn first_release_names() -> Vec<String> {
     let mut names = font_names();
     for name in ["fonts.css", "OFL.txt", "LICENSE-MIT", "LICENSE-APACHE"] {
         names.push(name.to_string());
     }
+    names.sort();
+    names
+}
+
+/// What a release holds now beside those three: a first release's files,
+/// and the look's four.
+fn carried_names() -> Vec<String> {
+    let mut names = first_release_names();
+    assert_eq!(names.len(), 36);
+    names.extend(LOOK.iter().map(|name| name.to_string()));
     names.sort();
     names
 }
@@ -79,16 +99,50 @@ fn a_bundle() -> (TempDir, TempDir) {
 }
 
 #[test]
-fn bundle_holds_expected_files() {
-    let (_copy, out) = a_bundle();
+fn bundle_holds_exactly_a_release_with_the_look() {
+    let (copy, out) = a_bundle();
     let mut expected = carried_names();
     expected.push("manifest.json".to_string());
     expected.push(archive_name());
     expected.push(format!("{}.sha256", archive_name()));
     expected.sort();
-    let found: Vec<String> = files_in(out.path()).into_keys().collect();
+    let files = files_in(out.path());
+    let found: Vec<String> = files.keys().cloned().collect();
     assert_eq!(found, expected);
-    assert_eq!(found.len(), 39);
+    assert_eq!(found.len(), 43);
+
+    // Each of the look's four is the repository's, byte for byte.
+    for name in LOOK {
+        assert_eq!(
+            files[name],
+            fs::read(repository().join("look").join(name)).unwrap(),
+            "{name} is the repository's"
+        );
+    }
+
+    // The copy the bundle was made from holds a showroom, and the release
+    // holds nothing of it.
+    let showroom = files_in(&copy.path().join("showroom"));
+    assert!(showroom.contains_key("index.html"));
+    for name in showroom.keys() {
+        assert!(!files.contains_key(name), "{name} is the showroom's");
+    }
+}
+
+#[test]
+fn bundle_manifest_lists_the_look() {
+    let (_copy, out) = a_bundle();
+    let files = files_in(out.path());
+    let manifest: serde_json::Value = serde_json::from_slice(&files["manifest.json"]).unwrap();
+    let listed = manifest["files"].as_array().unwrap();
+    for name in LOOK {
+        let entries: Vec<&serde_json::Value> =
+            listed.iter().filter(|file| file["name"] == name).collect();
+        assert_eq!(entries.len(), 1, "{name} is listed once");
+        let bytes = fs::read(repository().join("look").join(name)).unwrap();
+        assert_eq!(entries[0]["size"].as_u64().unwrap(), bytes.len() as u64);
+        assert_eq!(entries[0]["sha256"].as_str().unwrap(), sha256_hex(&bytes));
+    }
 }
 
 #[test]
@@ -184,7 +238,7 @@ fn bundle_carries_the_repository_files_unchanged() {
 }
 
 #[test]
-fn bundle_is_reproducible() {
+fn bundle_is_byte_identical_twice() {
     let (_first_copy, first) = a_bundle();
     let (_second_copy, second) = a_bundle();
     let (first, second) = (files_in(first.path()), files_in(second.path()));
@@ -231,6 +285,33 @@ fn bundle_refuses_when_a_check_fails() {
         "{}",
         said(&output)
     );
+    assert!(!out.exists(), "nothing is written");
+}
+
+#[test]
+fn bundle_refuses_when_tokens_are_stale() {
+    // Tokens that are not what the theme file gives.
+    let copy = copy_of_repository();
+    let tokens = copy.path().join("look/tokens.css");
+    let stale = fs::read_to_string(&tokens)
+        .unwrap()
+        .replacen("#0a0708", "#0b0708", 1);
+    assert_ne!(stale, fs::read_to_string(&tokens).unwrap());
+    fs::write(&tokens, stale).unwrap();
+    let out = tempfile::tempdir().unwrap();
+    let output = run(
+        copy.path(),
+        &["bundle", "--out", out.path().to_str().unwrap()],
+    );
+    assert!(!output.status.success());
+    assert!(said(&output).contains("tokens.css"), "{}", said(&output));
+    assert!(files_in(out.path()).is_empty(), "nothing is written");
+
+    // The same, into a folder that does not exist yet.
+    let parent = tempfile::tempdir().unwrap();
+    let out = parent.path().join("release");
+    let output = run(copy.path(), &["bundle", "--out", out.to_str().unwrap()]);
+    assert!(!output.status.success());
     assert!(!out.exists(), "nothing is written");
 }
 
@@ -303,5 +384,5 @@ fn bundle_accepts_matching_tag() {
         ],
     );
     assert!(output.status.success(), "{}", said(&output));
-    assert_eq!(files_in(out.path()).len(), 39);
+    assert_eq!(files_in(out.path()).len(), 43);
 }

@@ -1,6 +1,6 @@
 [package]
 name = "cruor-framework"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 description = "The tool of the Cruor framework: writes the stylesheet of Cruor's web fonts, their manifest, and a release"
 repository = "https://github.com/crussella0129/cruor-framework"

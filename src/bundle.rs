@@ -1,6 +1,7 @@
 //! A release, put together in a folder: the fonts, their stylesheet and
-//! licence, the licences of the code, a manifest of them all, one archive
-//! holding every one of those, and the archive's checksum.
+//! licence, the look (its theme file, the tokens made from it and its two
+//! stylesheets), the licences of the code, a manifest of them all, one
+//! archive holding every one of those, and the archive's checksum.
 //!
 //! A release on GitHub is one flat set of names, so the folder has no
 //! folders in it. Everything is worked out before anything is written: a
@@ -15,7 +16,7 @@ use zip::write::SimpleFileOptions;
 use zip::{CompressionMethod, DateTime, System, ZipWriter};
 
 use crate::manifest::{self, sha256_hex};
-use crate::{css, families};
+use crate::{css, families, look, theme};
 
 /// The framework's version: the crate's.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -28,6 +29,10 @@ const CODE_LICENCES: [&str; 2] = ["LICENSE-MIT", "LICENSE-APACHE"];
 
 /// The licence of the fonts, in the fonts' folder.
 const FONT_LICENCE: &str = "OFL.txt";
+
+/// The look's two stylesheets, in the look's folder beside its theme file
+/// and its tokens.
+const LOOK_STYLESHEETS: [&str; 2] = ["cruentous-atonement.css", "furniture.css"];
 
 /// The name of a release's archive.
 pub fn archive_name() -> String {
@@ -58,8 +63,8 @@ struct ReleaseFile<'a> {
 /// Put a release together in `out`.
 ///
 /// Fails, writing nothing, if `tag` is given and is not `v` followed by the
-/// framework's version, if `out` holds anything, or if the stylesheet or
-/// the manifest of the fonts is not current.
+/// framework's version, if `out` holds anything, or if the fonts'
+/// stylesheet, the manifest of the fonts or the look's tokens is not current.
 pub fn bundle(root: &Path, out: &Path, tag: Option<&str>) -> Result<(), String> {
     if let Some(tag) = tag {
         let expected = format!("v{VERSION}");
@@ -71,7 +76,7 @@ pub fn bundle(root: &Path, out: &Path, tag: Option<&str>) -> Result<(), String> 
     }
     require_empty(out)?;
 
-    let faults: Vec<String> = [css::check(root), manifest::check(root)]
+    let faults: Vec<String> = [css::check(root), manifest::check(root), look::check(root)]
         .into_iter()
         .filter_map(Result::err)
         .collect();
@@ -98,6 +103,12 @@ pub fn bundle(root: &Path, out: &Path, tag: Option<&str>) -> Result<(), String> 
     }
     take(&fonts, css::STYLESHEET)?;
     take(&fonts, FONT_LICENCE)?;
+    let look_dir = theme::look_dir(root);
+    take(&look_dir, theme::THEME)?;
+    take(&look_dir, look::TOKENS)?;
+    for name in LOOK_STYLESHEETS {
+        take(&look_dir, name)?;
+    }
     for name in CODE_LICENCES {
         take(root, name)?;
     }

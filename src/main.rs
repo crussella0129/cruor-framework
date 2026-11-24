@@ -65,7 +65,7 @@ enum Command {
         #[arg(long, value_name = "DIR")]
         out: PathBuf,
 
-        /// Fail unless this is the tag of the framework's version, as v0.1.0 is
+        /// Fail unless this is the tag of the framework's version: `v`, then the version
         #[arg(long, value_name = "TAG")]
         tag: Option<String>,
     },
