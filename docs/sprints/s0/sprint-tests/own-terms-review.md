@@ -278,3 +278,24 @@ How each review is made:
   `tests/test_readme.py` and `tests/test_readme_pictures.py`, and four files
   under `assets/readme/`. Heading pictures added by the first commit were
   removed by the second.
+
+### 11. 23 November 2026, before the push that opens the front page's pull request
+
+- **Commits covered:** `f510103857cc56631dc3077ec66e5e1dd9483013` to
+  `2911eb7554968009e17ffccf6db42fc210bfac29`, five commits: everything the
+  pull request will hold, searched again as one. The last of them recorded
+  entry 10 and changes this file alone. The commit that records this entry
+  changes this file alone; it is searched after it is made, and the pull
+  request is not opened if anything is found.
+- **Also covered:** the title and the body of the pull request, as written
+  before it is opened. The title says what the front page is now. The body
+  says what the pull request adds, how it was tested and what to know
+  before merging.
+- **Pull requests:** the sprint's own, merged. None is open, and none of
+  the updater's exists.
+- **Found:** none, in the five commits and in the pull request's text.
+- **Read for comparisons:** the body names the four families the page is
+  set in and says where each is used; it describes no letter. It names the
+  statue and its sculptor as entry 10 tells.
+- **Files against tasks:** as entry 10 tells; nothing has been added but
+  that entry.
