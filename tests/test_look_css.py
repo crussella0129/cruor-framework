@@ -84,8 +84,9 @@ def test_keyframes_are_named_for_cruor(path):
     # And every animation a rule asks for is one of them.
     for rule in rules(text):
         for prop, value in rule.declarations:
-            if prop in ("animation", "animation-name") and value != "none":
-                assert any(name in value.split() for name in named), value
+            asked = value.replace("!important", "").strip()
+            if prop in ("animation", "animation-name") and asked != "none":
+                assert any(name in asked.split() for name in named), value
 
 
 @SHEETS

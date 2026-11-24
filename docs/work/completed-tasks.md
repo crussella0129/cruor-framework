@@ -139,3 +139,10 @@
 - **Completed:** 2026-11-24T05:25:43Z
 - **Files modified:** look/cruentous-atonement.css, tests/test_look_css.py, tests/test_look_ground.py, tests/pages/bare.html
 - **Commit:** `03ddacb29f8f89a002711018dafeac2d656102f1`
+
+## T-205 (sprint 1)
+- **Description:** Dress plain HTML in the look: the inscription, carved headings driven by the theme file, the seal, links, lists, quotations, the sigil, code and tables, with stillness when asked and plain letters in print
+- **Intent:** [INT-0003](../intents/INT-0003-cruentous-atonement-look.md), [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md)
+- **Completed:** 2026-11-24T05:30:41Z
+- **Files modified:** look/cruentous-atonement.css, tests/test_look_page.py, tests/test_look_css.py, tests/pages/plain.html
+- **Commit:** PENDING

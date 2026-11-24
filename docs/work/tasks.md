@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-205 (sprint 1) [intent: INT-0003, INT-0004]: Dress plain HTML in the look — touches: look/cruentous-atonement.css, tests/
 - [ ] T-206 (sprint 1) [intent: INT-0006]: Furniture: the controls, and the one list of parts — touches: look/furniture.css, tests/
 - [ ] T-207 (sprint 1) [intent: INT-0006]: Furniture: the containers — touches: look/furniture.css, tests/
 - [ ] T-208 (sprint 1) [intent: INT-0006]: Furniture: ways through a page, and small pieces — touches: look/furniture.css, tests/

@@ -6,6 +6,9 @@
  *
  *   <body class="cruentous-atonement">
  *
+ * Plain HTML is then dressed with no further markup. The parts a page is
+ * built from (buttons, fields, plates and the rest) are in furniture.css.
+ *
  * Every rule here is nested beneath that class, so a page that does not set
  * it is untouched. Every colour, family and measure is named by a token of
  * tokens.css, which the framework's tool makes from theme.toml; none is
@@ -61,12 +64,388 @@
   }
 
   /* ---------------------------------------------------------------- */
-  /* Stillness                                                         */
+  /* Ink that is blood                                                 */
   /* ---------------------------------------------------------------- */
 
+  /* Small things speak in bone: whatever is not running text. */
+  color: var(--cruor-text);
+  font-family: var(--cruor-font-text), sans-serif;
+  font-size: var(--cruor-interface-size);
+  line-height: var(--cruor-line);
+  color-scheme: dark;
+  accent-color: var(--cruor-accent);
+
+  /* Running text is an inscription: hue-true crimson with no green or blue
+     lift, so it is set large, where it can be read. It gives off the
+     faintest light. */
+  & :is(p, li, dd, dt, blockquote) {
+    max-width: var(--cruor-column);
+    color: var(--cruor-inscription);
+    font-size: var(--cruor-inscription-size);
+    text-shadow: 0 0 0.6em color-mix(in srgb, var(--cruor-inscription) 22%, transparent);
+  }
+
+  /* Within a small thing, running text is small with it. */
+  & :is(td, th, caption, figcaption, pre) :is(p, li, dd, dt, blockquote) {
+    color: inherit;
+    font-size: inherit;
+    text-shadow: none;
+  }
+
+  & ::selection {
+    color: var(--cruor-text-bright);
+    background-color: var(--cruor-selection);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Headings                                                          */
+  /* ---------------------------------------------------------------- */
+
+  /* Each level is set as the theme file sets it. */
+  & h1 {
+    font-family: var(--cruor-h1-font), serif;
+    font-weight: var(--cruor-h1-weight);
+    font-style: var(--cruor-h1-style);
+    text-decoration-line: var(--cruor-h1-decoration);
+    font-size: var(--cruor-h1-size);
+  }
+
+  & h2 {
+    font-family: var(--cruor-h2-font), serif;
+    font-weight: var(--cruor-h2-weight);
+    font-style: var(--cruor-h2-style);
+    text-decoration-line: var(--cruor-h2-decoration);
+    font-size: var(--cruor-h2-size);
+  }
+
+  & h3 {
+    font-family: var(--cruor-h3-font), serif;
+    font-weight: var(--cruor-h3-weight);
+    font-style: var(--cruor-h3-style);
+    text-decoration-line: var(--cruor-h3-decoration);
+    font-size: var(--cruor-h3-size);
+  }
+
+  & h4 {
+    font-family: var(--cruor-h4-font), serif;
+    font-weight: var(--cruor-h4-weight);
+    font-style: var(--cruor-h4-style);
+    text-decoration-line: var(--cruor-h4-decoration);
+    font-size: var(--cruor-h4-size);
+  }
+
+  & h5 {
+    font-family: var(--cruor-h5-font), serif;
+    font-weight: var(--cruor-h5-weight);
+    font-style: var(--cruor-h5-style);
+    text-decoration-line: var(--cruor-h5-decoration);
+    font-size: var(--cruor-h5-size);
+  }
+
+  & h6 {
+    font-family: var(--cruor-h6-font), serif;
+    font-weight: var(--cruor-h6-weight);
+    font-style: var(--cruor-h6-style);
+    text-decoration-line: var(--cruor-h6-decoration);
+    font-size: var(--cruor-h6-size);
+  }
+
+  & :is(h1, h2, h3, h4, h5, h6) {
+    max-width: var(--cruor-column);
+    margin: 1.4em 0 0.5em;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  /* The lesser levels are inscriptions. */
+  & :is(h4, h5, h6) {
+    color: var(--cruor-inscription);
+    text-shadow: 0 0 0.6em color-mix(in srgb, var(--cruor-inscription) 22%, transparent);
+  }
+
+  /* The greater are carved channels: the blood pours in from the top,
+     catches the light, and settles dark at the foot. */
+  & :is(h1, h2, h3) {
+    color: var(--cruor-heading-foot);
+    background-image: linear-gradient(
+      180deg,
+      var(--cruor-heading-top) 0%,
+      var(--cruor-inscription) 24%,
+      var(--cruor-heading-foot) 50%,
+      transparent 50%
+    );
+    background-size: 100% 200%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.5px color-mix(in srgb, var(--cruor-heading-foot) 45%, transparent);
+    text-shadow: none;
+    filter: drop-shadow(0 1px 0 color-mix(in srgb, var(--cruor-shadow) 90%, transparent))
+      drop-shadow(0 0 0.3em color-mix(in srgb, var(--cruor-inscription) 22%, transparent));
+    animation: cruor-pour 1.9s cubic-bezier(0.45, 0.05, 0.2, 1) both;
+  }
+
+  & h2 {
+    animation-delay: 0.35s;
+  }
+
+  & h3 {
+    animation-delay: 0.6s;
+  }
+
+  /* The first carving keeps a slow heartbeat. */
+  & h1 {
+    animation:
+      cruor-pour 1.9s cubic-bezier(0.45, 0.05, 0.2, 1) both,
+      cruor-heartbeat 1.6s ease-in-out 2.2s infinite;
+  }
+
+  /* A seal: the first letter after the first heading, struck in arterial
+     red. */
+  & h1 + p::first-letter {
+    float: left;
+    margin: 0.08em 0.12em 0 0;
+    font-family: var(--cruor-seal-font), serif;
+    font-size: calc(var(--cruor-seal-size) * 1em);
+    font-weight: 700;
+    line-height: 0.82;
+    color: var(--cruor-heading-top);
+    text-shadow:
+      0 2px 0 color-mix(in srgb, var(--cruor-heading-foot) 30%, var(--cruor-shadow)),
+      0 0 0.35em color-mix(in srgb, var(--cruor-heading-top) 35%, transparent);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Links and lists                                                   */
+  /* ---------------------------------------------------------------- */
+
+  & a {
+    color: var(--cruor-link);
+    text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+    text-underline-offset: 0.15em;
+  }
+
+  & :is(p, li, dd, dt, blockquote) a {
+    color: var(--cruor-inscription-link);
+  }
+
+  & a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  & :focus-visible {
+    outline: 2px solid var(--cruor-accent);
+    outline-offset: 2px;
+  }
+
+  /* A list's mark is a small lozenge of pooled blood. */
+  & ul {
+    padding-left: 1.4em;
+    list-style: none;
+  }
+
+  & ul > li {
+    position: relative;
+  }
+
+  & ul > li::before {
+    content: "";
+    position: absolute;
+    top: 0.62em;
+    left: -1em;
+    width: 0.36em;
+    height: 0.36em;
+    background-color: var(--cruor-heading-foot);
+    transform: rotate(45deg);
+  }
+
+  & ol > li::marker {
+    color: var(--cruor-heading-foot);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Inscriptions and the sigil                                        */
+  /* ---------------------------------------------------------------- */
+
+  /* A quotation is an inscription fed by a channel of blood. */
+  & blockquote {
+    position: relative;
+    margin: 1em 0;
+    padding: 0.2em 0 0.2em 1em;
+    border-left: 3px solid transparent;
+    background:
+      linear-gradient(
+          180deg,
+          var(--cruor-heading-top),
+          var(--cruor-heading-foot) 70%,
+          color-mix(in srgb, var(--cruor-heading-foot) 30%, var(--cruor-shadow))
+        )
+        left top / 3px 100% no-repeat border-box,
+      linear-gradient(
+          90deg,
+          color-mix(in srgb, var(--cruor-border) 16%, transparent),
+          transparent 60%
+        )
+        padding-box;
+  }
+
+  /* A single drop gathers at the foot of the channel. */
+  & blockquote::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: -4.5px;
+    width: 6px;
+    height: 8px;
+    border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
+    background-color: var(--cruor-heading-foot);
+  }
+
+  /* A rule is a sigil between two clotted rules. */
+  & hr {
+    position: relative;
+    height: 1.75rem;
+    margin: 2em 0;
+    border: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--cruor-border) 18%,
+        var(--cruor-border) 44%,
+        transparent 44%,
+        transparent 56%,
+        var(--cruor-border) 56%,
+        var(--cruor-border) 82%,
+        transparent
+      )
+      center / 100% 1px no-repeat;
+  }
+
+  & hr::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin: auto;
+    background-color: var(--cruor-heading-foot);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round'%3E%3Ccircle cx='16' cy='16' r='11.5'/%3E%3Cpath d='M6.6 10.6h18.8L16 27z'/%3E%3Cpath d='M16 1.5v29M11.5 6.5h9'/%3E%3Ccircle cx='16' cy='15.2' r='1.9' fill='%23000' stroke='none'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round'%3E%3Ccircle cx='16' cy='16' r='11.5'/%3E%3Cpath d='M6.6 10.6h18.8L16 27z'/%3E%3Cpath d='M16 1.5v29M11.5 6.5h9'/%3E%3Ccircle cx='16' cy='15.2' r='1.9' fill='%23000' stroke='none'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Code and tables                                                   */
+  /* ---------------------------------------------------------------- */
+
+  & :is(code, kbd, samp, pre) {
+    font-family: var(--cruor-font-code), monospace;
+  }
+
+  /* Inline code is a salmon chip on a ground of its own. Solid salmon
+     where a ground cannot be clipped to letters. */
+  & :not(pre) > code {
+    padding: 0.1em 0.3em;
+    font-size: 0.875em;
+    color: var(--cruor-chip-foot);
+    text-shadow: none;
+    background-color: var(--cruor-sunken);
+  }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    & :not(pre) > code {
+      background:
+        linear-gradient(180deg, var(--cruor-chip-top), var(--cruor-chip-foot)) text,
+        linear-gradient(var(--cruor-sunken), var(--cruor-sunken)) padding-box;
+      -webkit-background-clip: text, padding-box;
+      background-clip: text, padding-box;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  & pre {
+    overflow: auto;
+    padding: 1em 1.2em;
+    border: 1px solid var(--cruor-border);
+    color: var(--cruor-text);
+    font-size: var(--cruor-interface-size);
+    line-height: 1.5;
+    text-shadow: none;
+    background-color: var(--cruor-sunken);
+  }
+
+  & table {
+    border-collapse: collapse;
+    color: var(--cruor-text);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+  }
+
+  & :is(th, td) {
+    padding: 0.45em 0.8em;
+    border: 1px solid var(--cruor-border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  & th {
+    color: var(--cruor-text);
+    font-weight: 700;
+    background-color: var(--cruor-panel);
+  }
+
+  & :is(caption, figcaption, small) {
+    color: var(--cruor-text-subdued);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Stillness and paper                                               */
+  /* ---------------------------------------------------------------- */
+
+  /* Where stillness is asked for, nothing moves and nothing is in passage:
+     the candle lies steady, the channels are full, the heart is quiet. */
   @media (prefers-reduced-motion: reduce) {
-    &::after {
-      animation: none;
+    &::before,
+    &::after,
+    & *,
+    & *::before,
+    & *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* On paper the look is put off: plain letters, and no ornament. */
+  @media print {
+    color-scheme: light;
+    color: CanvasText;
+    background: Canvas;
+
+    &::before,
+    &::after,
+    & *::before,
+    & *::after {
+      display: none !important;
+    }
+
+    & * {
+      border-color: CanvasText !important;
+      color: CanvasText !important;
+      -webkit-text-fill-color: CanvasText !important;
+      -webkit-text-stroke: 0 !important;
+      text-shadow: none !important;
+      background: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+      animation: none !important;
+    }
+
+    & h1 + p::first-letter {
+      color: CanvasText;
+      text-shadow: none;
     }
   }
 }
@@ -97,5 +476,33 @@
   }
   74% {
     opacity: 1;
+  }
+}
+
+/* The blood pours into a carved heading from the top. */
+@keyframes cruor-pour {
+  from {
+    background-position: 0 100%;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* The first carving's heartbeat: its light swells twice and rests. */
+@keyframes cruor-heartbeat {
+  0%,
+  30%,
+  100% {
+    filter: drop-shadow(0 1px 0 color-mix(in srgb, var(--cruor-shadow) 90%, transparent))
+      drop-shadow(0 0 0.3em color-mix(in srgb, var(--cruor-inscription) 22%, transparent));
+  }
+  8% {
+    filter: drop-shadow(0 1px 0 color-mix(in srgb, var(--cruor-shadow) 90%, transparent))
+      drop-shadow(0 0 0.45em color-mix(in srgb, var(--cruor-heading-top) 42%, transparent));
+  }
+  20% {
+    filter: drop-shadow(0 1px 0 color-mix(in srgb, var(--cruor-shadow) 90%, transparent))
+      drop-shadow(0 0 0.38em color-mix(in srgb, var(--cruor-heading-top) 30%, transparent));
   }
 }
