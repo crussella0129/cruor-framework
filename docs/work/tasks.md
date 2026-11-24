@@ -1,5 +1,22 @@
 # Agent Tasks (Persistent Backlog)
 
+- [ ] T-215 (sprint 1) [intent: INT-0002, INT-0001]: Confirm what the default branch holds and mark the fonts intent realized — touches: docs/intents/
+- [ ] T-201 (sprint 1) [intent: INT-0004]: Write the look down as a theme file, write up its form, and have the tool read and judge it — touches: look/, src/, tests/
+- [ ] T-202 (sprint 1) [intent: INT-0004]: Write and check the tokens from the theme file — touches: src/, look/tokens.css, tests/
+- [ ] T-203 (sprint 1) [intent: INT-0003, INT-0004]: Test from the theme file the contrast it promises — touches: src/, look/, tests/
+- [ ] T-211 (sprint 1) [intent: INT-0006, INT-0003]: Make the means of checking a page in a browser — touches: tests/
+- [ ] T-204 (sprint 1) [intent: INT-0003, INT-0004]: Lay the look's ground: the stone, the candle and the dark at the edges — touches: look/cruentous-atonement.css, tests/
+- [ ] T-205 (sprint 1) [intent: INT-0003, INT-0004]: Dress plain HTML in the look — touches: look/cruentous-atonement.css, tests/
+- [ ] T-206 (sprint 1) [intent: INT-0006]: Furniture: the controls, and the one list of parts — touches: look/furniture.css, tests/
+- [ ] T-207 (sprint 1) [intent: INT-0006]: Furniture: the containers — touches: look/furniture.css, tests/
+- [ ] T-208 (sprint 1) [intent: INT-0006]: Furniture: ways through a page, and small pieces — touches: look/furniture.css, tests/
+- [ ] T-209 (sprint 1) [intent: INT-0007, INT-0006, INT-0003]: Build the showroom from the kit alone and show it to the owner — touches: showroom/, tests/
+- [ ] T-210 (sprint 1) [intent: INT-0007, INT-0001]: Add play to the showroom, in script — touches: showroom/, tests/
+- [ ] T-212 (sprint 1) [intent: INT-0005, INT-0004, INT-0001]: Make a release carry the look, at version 0.2.0 — touches: src/, Cargo.toml, tests/, .github/workflows/release.yml
+- [ ] T-213 (sprint 1) [intent: INT-0007]: Publish the showroom on GitHub Pages from the default branch — touches: tools/build-site.sh, .github/workflows/pages.yml, tests/
+- [ ] T-214 (sprint 1) [intent: INT-0001, INT-0006, INT-0005]: Bring the front page's words up to date — touches: assets/readme/, tests/
+- [ ] T-217 (sprint 1) [intent: INT-0007]: Put a door to the showroom on the front page — touches: tools/draw_readme.py, assets/readme/, README.md, tests/
+- [ ] T-218 (sprint 1) [intent: INT-0004]: Have the front page's script take its colours and families from the theme file — touches: tools/draw_readme.py, assets/readme/, tests/
 - [ ] T-101 (backlog) [intent: INT-0002]: take in a build of Cruor whose fonts carry their own copyright and licence text and an installable embedding field — touches: fonts/
 - [ ] T-102 (backlog) [intent: INT-0005]: record the release workflow's own fetch-and-check of v0.1.0 as the proof of criterion 5, once the owner has the tag pushed, and what was done if a run left a draft behind; the tag is placed on the last commit of `main` whose version is 0.1.0, as INT-0005 records — touches: docs/intents/INT-0005-versioned-releases.md
 - [ ] T-103 (backlog) [intent: INT-0002, INT-0001]: once Sprint 0's pull request is merged, confirm that the default branch holds the fonts, the Book and the README, move INT-0002 to realized, and record INT-0001 criterion 1 as true of the default branch — touches: docs/intents/INT-0002-cruor-web-fonts.md, docs/intents/INT-0001-the-cruor-framework.md

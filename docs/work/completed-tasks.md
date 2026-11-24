@@ -90,3 +90,10 @@
 - **Completed:** 2026-11-23T19:13:03Z
 - **Files modified:** .github/workflows/ci.yml, tests/test_ci.py
 - **Commit:** `88a7f9fb39fd7cb3739d3190ddf223580806c6eb`
+
+## T-216 (sprint 1)
+- **Description:** Begin the record of the review that keeps the repository in its own terms, with its first entry
+- **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-24T05:10:00Z
+- **Files modified:** docs/sprints/s1/sprint-tests/own-terms-review.md
+- **Commit:** PENDING
