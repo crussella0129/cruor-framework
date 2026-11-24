@@ -210,3 +210,31 @@ How each review is made:
   for `c5ee6617abde6e333f3200988444c6ce6d7c3025` was still running when
   this was written. Its end is told in the next entry.
 
+### 7. 24 November 2026, in Build, a figure corrected before the owner answers
+
+- **Commits covered:** `9845d68bbc14aa9b0b12fa6c0141a9f2f02ed55f`, one
+  commit, which changes INT-0003 alone. The commit that recorded entry 6
+  (`df69165`) changes this file alone and was pushed with it.
+- **Also covered:** nothing; no font file is in the commit.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out.
+- **What was wrong.** INT-0003's Consequences said that lifting the foot
+  of a carved heading to `#c21b1b` would bring it to 3:1 on the stone at
+  its brightest, and the owner had been told so. Worked out again while
+  the two were being drawn side by side for the owner, `#c21b1b` stands at
+  2.99 there and `#c31b1b` at 3.01. The intent now says so. The record of
+  the plan's first review still gives the first figure, as it was written
+  then. No colour of the look is changed: that waits for the owner.
+- **Files against tasks:** the commit belongs to no task. T-209 names
+  INT-0003 among what it may touch once the owner has answered; this is
+  before that, and corrects what the owner is asked.
+- **CI for the fourth push.** Run 45338815032, for `c5ee661`, was
+  cancelled when the fifth push arrived, as the workflow does with a run
+  that a newer one supersedes. Run
+  [45339687942](https://github.com/crussella0129/cruor-framework/actions/runs/45339687942)
+  for `df6916521378085df9be3edf3092310b984f844b`, which holds every commit
+  of both pushes, was still running when this was written. This push
+  supersedes it in the same way; the run for this push holds every commit
+  of all three, and its end is told in the next entry.
+
