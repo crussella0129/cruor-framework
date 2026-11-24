@@ -114,3 +114,38 @@ How each review is made:
   [45332407479](https://github.com/crussella0129/cruor-framework/actions/runs/45332407479) for
   `8cdd2be1aa9701542c0c2e48ac19b1aa6b49e07f` concluded `success`.
 
+### 4. 24 November 2026, in Build, when the furniture is done
+
+- **Commits covered:** `8e4268925ae2139255c76381555b3ef1071e82e7` to
+  `bd67c850b2d23d1db012428e040b2a02e9bc2e93`, six commits: T-206, T-207 and
+  T-208, each with the commit the helper makes to record it. The commit
+  that recorded entry 3 (`b5c2935`) changes this file alone and was pushed
+  with it.
+- **Also covered:** nothing; no font file is in the commits. The
+  furniture's stylesheet names one family only by token, for the seal.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The stylesheet's
+  comments tell what each part is and how it is asked for.
+- **Files against tasks:** T-206 adds `look/furniture.css`,
+  `tests/parts.py`, `tests/test_furniture.py` and
+  `tests/pages/controls.html`. T-207 and T-208 add to the first three and
+  add `tests/pages/containers.html`, `tests/pages/pieces.html` and
+  `tests/pages/every-part.html`. Four changes fall outside a task's list.
+  T-206 changed `tests/browser.py` and `tests/test_browser_means.py`, of
+  T-211: the measure had to learn that a field the keyboard comes to has
+  its words selected. T-207 changed `tests/browser.py` again, so that a
+  page is asked for a second time when this machine's own server refuses
+  one connection; and it changed `look/cruentous-atonement.css` and
+  `tests/test_look_page.py`, of T-205, for the reason given next.
+- **A change to the look, found by measuring it.** A quotation had a faint
+  tint behind its text, as the look had where it was first made. Laid over
+  the stone at its brightest, that tint brings running text below the 3.3
+  the look promises. The tint is gone, and the quotation's channel is now
+  its border, so that its text lies on the page and is held against the
+  page at its brightest. A test of plain lettering on the page was added
+  with it, beyond what the plan named.
+- **CI for the second push.** Run
+  [45333909481](https://github.com/crussella0129/cruor-framework/actions/runs/45333909481)
+  for `b5c2935fd6c3ff454b3a1b494c1d7d2d778d5a65` concluded `success`.
+
