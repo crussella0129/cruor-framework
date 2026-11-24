@@ -32,7 +32,11 @@ def sentences() -> list[str]:
 
 
 def test_readme_says_what_the_kit_is():
-    assert README.startswith("# The Cruor framework\n")
+    # The first thing in it is its name, as the masthead's words.
+    assert README.startswith(
+        '<h1><img src="assets/readme/masthead.svg" alt="The Cruor framework" '
+        'width="100%"></h1>\n'
+    )
     assert "gives a web page the look called **Cruentous Atonement**" in FLOWED
     assert "Cruentous Atonement" in FLOWED
     assert "is not in the kit yet" in FLOWED
@@ -145,13 +149,28 @@ def test_readme_states_terms():
 
 def test_readme_names_existing_paths_and_commands():
     # Every path of the repository that the README gives in code marks.
-    roots = ("fonts/", "examples/", "src/", "tools/", "docs/", "tests/", ".github/")
+    roots = (
+        "fonts/",
+        "examples/",
+        "src/",
+        "tools/",
+        "assets/",
+        "docs/",
+        "tests/",
+        ".github/",
+    )
     files_at_root = {path.name for path in ROOT.iterdir() if path.is_file()}
     named = set()
     for span in code_spans():
         if span.startswith(roots) or span in files_at_root:
             named.add(span)
-    assert {"fonts/fonts.css", "examples/fetch-release.mjs", "LICENSE-MIT"} <= named
+    assert {
+        "fonts/fonts.css",
+        "examples/fetch-release.mjs",
+        "tools/draw_readme.py",
+        "assets/readme/",
+        "LICENSE-MIT",
+    } <= named
     for path in sorted(named):
         assert (ROOT / path).exists(), path
 

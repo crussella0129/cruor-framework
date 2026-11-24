@@ -1,4 +1,4 @@
-# The Cruor framework
+<h1><img src="assets/readme/masthead.svg" alt="The Cruor framework" width="100%"></h1>
 
 A kit that gives a web page the look called **Cruentous Atonement**, set in
 Cruor.
@@ -14,19 +14,25 @@ next. The first release, 0.1.0, holds the fonts alone; the
 [releases page](https://github.com/crussella0129/cruor-framework/releases)
 shows what has been published.
 
-## What is in it
+The headings of this page are pictures: their letters are drawn from the
+fonts, in the look's colours.
+
+<h2><img src="assets/readme/what-is-in-it.svg" alt="What is in it" width="100%"></h2>
 
 | where | what |
 |---|---|
 | `fonts/` | Cruor's web fonts, thirty-two `.woff2` files; `fonts/fonts.css`, which declares them; `fonts/OFL.txt`, their licence; `fonts/specimen.html`, a page that sets a line in every one |
 | `examples/fetch-release.mjs` | a worked example of a build fetching a release and checking it |
 | `src/` | the tool that writes the stylesheet, the manifest and a release |
-| `tools/` | the checks |
+| `tools/` | the checks, and `tools/draw_readme.py`, which draws this page's pictures |
+| `assets/readme/` | this page's pictures |
 | `docs/` | the project's record: what it is for, and how each part came to be |
 
-## The fonts
+<h2><img src="assets/readme/the-fonts.svg" alt="The fonts" width="100%"></h2>
 
 Eight families, each in four styles: Regular, Bold, Italic and Bold Italic.
+
+<p><img src="assets/readme/specimen.svg" alt="The name of each family set in its own letters, and beside it the name of each of its four styles set in that style" width="100%"></p>
 
 | family | what it is |
 |---|---|
@@ -43,7 +49,7 @@ A font file is named for its family and style, as
 `CruorLiteMono-BoldItalic.woff2` is. Open `fonts/specimen.html` in a browser
 to see all thirty-two.
 
-### Using them in a page
+<h3><img src="assets/readme/using-them-in-a-page.svg" alt="Using them in a page" width="100%"></h3>
 
 Serve the fonts' folder with the page, link `fonts.css`, and name a family:
 
@@ -69,7 +75,7 @@ their own from Cruor Sans Mono, whose characters all fill one cell. So
 `font-family: "Cruor Sans Regular"; font-weight: bold` is the Bold of Cruor
 Sans Regular.
 
-## Taking a release into a build
+<h2><img src="assets/readme/taking-a-release-into-a-build.svg" alt="Taking a release into a build" width="100%"></h2>
 
 Each version of the framework is a release on GitHub, and a page takes the
 framework in by fetching a release's files when it builds. A page that
@@ -105,7 +111,7 @@ The example fails if a file cannot be fetched or does not check. Copy it
 into a build and change it to suit: a build may prefer to warn and carry on
 with a fallback font.
 
-## The tool
+<h2><img src="assets/readme/the-tool.svg" alt="The tool" width="100%"></h2>
 
 ```sh
 cargo run --release -- css
@@ -126,7 +132,7 @@ cargo run --release -- bundle --out dist
 A release is published by `.github/workflows/release.yml` when a version tag
 is pushed, and only for a tagged commit on `main`.
 
-## Checking
+<h2><img src="assets/readme/checking.svg" alt="Checking" width="100%"></h2>
 
 ```sh
 bash tools/run-guards.sh
@@ -141,7 +147,7 @@ This is every check the repository has, and it is what CI runs. It needs:
 - Node 20 or newer;
 - on Windows, Git Bash.
 
-## Terms
+<h2><img src="assets/readme/terms.svg" alt="Terms" width="100%"></h2>
 
 **The fonts** are offered under the SIL Open Font License 1.1, with the
 font name Cruor reserved. `fonts/OFL.txt` is what states the fonts' terms;
@@ -152,5 +158,7 @@ subset included, must take another name.
 **The code** (the stylesheets, the tool, the checks and the examples) is
 offered under `MIT OR Apache-2.0`, at your choice: see `LICENSE-MIT` and
 `LICENSE-APACHE`.
+
+<p><img src="assets/readme/sigil.svg" alt="" width="100%"></p>
 
 Copyright (c) 2026 Charles Russella.
