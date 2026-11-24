@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-209 (sprint 1) [intent: INT-0007, INT-0006, INT-0003]: Build the showroom from the kit alone and show it to the owner — touches: showroom/, tests/
 - [ ] T-210 (sprint 1) [intent: INT-0007, INT-0001]: Add play to the showroom, in script — touches: showroom/, tests/
 - [ ] T-212 (sprint 1) [intent: INT-0005, INT-0004, INT-0001]: Make a release carry the look, at version 0.2.0 — touches: src/, Cargo.toml, tests/, .github/workflows/release.yml
 - [ ] T-213 (sprint 1) [intent: INT-0007]: Publish the showroom on GitHub Pages from the default branch — touches: tools/build-site.sh, .github/workflows/pages.yml, tests/

@@ -1,0 +1,141 @@
+/*
+ * The showroom's own stylesheet: where things stand in this place, and no
+ * more. How anything here looks is the kit's doing. This file dresses no
+ * part of the kit, reaches inside no part, imitates no state of one, and
+ * names every colour by a token of the kit's. So the HTML folded beside each
+ * thing makes that thing on any page that has taken the look on.
+ *
+ * This file is offered under MIT OR Apache-2.0.
+ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
+}
+
+body {
+  margin: 0;
+}
+
+/* The place: a wing of void down one side, and the nave beside it. */
+.place {
+  display: grid;
+  grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr);
+  gap: 2.5rem;
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 5rem;
+}
+
+.wing {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+}
+
+.nave {
+  min-width: 0;
+}
+
+.nave > nav {
+  margin: 0 0 1.2rem;
+}
+
+/* A room, and the space before it. */
+.room {
+  margin: 4.5rem 0 0;
+}
+
+.room > h2 {
+  margin-top: 0;
+}
+
+/* The reliquary's plates, three abreast where there is room. */
+.relics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1.4rem;
+  margin: 1.6rem 0;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.4rem;
+  margin: 1.6rem 0;
+}
+
+/* The rite: a form, its lines one beneath another. */
+.rite {
+  max-width: 44rem;
+  margin: 1.6rem 0;
+}
+
+.line {
+  margin: 0 0 1.5rem;
+}
+
+.line:last-child {
+  margin-bottom: 0;
+}
+
+.rite .line > :is(button, a, span[role="status"]) {
+  margin-right: 0.6rem;
+}
+
+/* Where a dialog stands open as the page lies. */
+.stage {
+  position: relative;
+  min-height: 17rem;
+  margin: 1.6rem 0;
+}
+
+/* How a thing is written: its HTML, folded away beside it. */
+.how {
+  margin: 1.6rem 0 0;
+}
+
+.written {
+  margin: 0.8rem 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* The ledger. */
+.room table {
+  width: 100%;
+  margin: 1.6rem 0;
+}
+
+.room caption {
+  padding: 0 0 0.6em;
+  text-align: left;
+}
+
+/* Code in each fixed pitch, side by side. */
+.fixed-pitch {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 1rem 1.4rem;
+  margin: 1.2rem 0;
+}
+
+.fixed pre {
+  margin: 0.3rem 0 0;
+}
+
+.foot {
+  margin: 5rem 0 0;
+}
+
+/* On a narrow window the wing lies along the top. */
+@media (max-width: 56rem) {
+  .place {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 1.5rem 1rem 4rem;
+  }
+
+  .wing {
+    position: static;
+  }
+}

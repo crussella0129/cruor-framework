@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0007
-- **State:** planned
+- **State:** active
 - **Work evidence:** [T-209, T-210, T-213 and T-217, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
@@ -107,3 +107,4 @@ wants to see a page made with it and to try its parts, before reading how.
   the entry above says. What the showroom holds follows INT-0006's
   criterion 2, and the Consequences name what the owner must do for it to
   be served.
+- 2026-11-24: `planned` to `active`. Sprint 1's Build reached T-209, and the showroom stands: one page built from the kit alone, which opens from a copy of the repository.
