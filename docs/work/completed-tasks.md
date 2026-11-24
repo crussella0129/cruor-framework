@@ -125,3 +125,10 @@
 - **Completed:** 2026-11-24T05:18:04Z
 - **Files modified:** src/contrast.rs, src/theme.rs, src/look.rs, src/main.rs, look/theme.toml, look/THEME.md, tests/contrast.rs, tests/stylesheets.py, tests/test_promised_pairs.py, tests/test_theme_form.py, docs/intents/INT-0003-cruentous-atonement-look.md
 - **Commit:** `f31bc3d9b8093c94b26aa10c6a5a325bb200207f`
+
+## T-211 (sprint 1)
+- **Description:** Make the means of checking a page in a browser: open it with script on or off and stillness asked for, and measure contrast from a picture of what is drawn
+- **Intent:** [INT-0006](../intents/INT-0006-the-furniture.md), [INT-0003](../intents/INT-0003-cruentous-atonement-look.md)
+- **Completed:** 2026-11-24T05:22:30Z
+- **Files modified:** tests/browser.py, tests/test_browser_means.py, docs/intents/INT-0006-the-furniture.md
+- **Commit:** PENDING

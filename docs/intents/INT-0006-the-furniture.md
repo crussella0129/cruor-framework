@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0006
-- **State:** planned
+- **State:** active
 - **Work evidence:** [T-206 to T-211 and T-214, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
@@ -138,3 +138,4 @@ them differently.
 - 2026-11-24: revised after the plan's third review, still `planned`.
   Criterion 4 states the bound for a part that cannot be used, and that a
   heading in a container is not carved.
+- 2026-11-24: `planned` to `active`. Sprint 1's Build reached T-211, the means by which the parts' contrast is measured in a browser.

@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-211 (sprint 1) [intent: INT-0006, INT-0003]: Make the means of checking a page in a browser — touches: tests/
 - [ ] T-204 (sprint 1) [intent: INT-0003, INT-0004]: Lay the look's ground: the stone, the candle and the dark at the edges — touches: look/cruentous-atonement.css, tests/
 - [ ] T-205 (sprint 1) [intent: INT-0003, INT-0004]: Dress plain HTML in the look — touches: look/cruentous-atonement.css, tests/
 - [ ] T-206 (sprint 1) [intent: INT-0006]: Furniture: the controls, and the one list of parts — touches: look/furniture.css, tests/
