@@ -1,0 +1,89 @@
+# Publishes the showroom on GitHub Pages from the default branch.
+#
+# The guards run first, on every push to main, and the site is put together
+# by the repository's own script. It is published only when the repository
+# variable SHOWROOM is `published`, which the owner sets once Pages is turned
+# on for the repository (Settings, Pages, Source: GitHub Actions). Until
+# then this workflow checks and publishes nothing, and no run fails for want
+# of Pages.
+name: Showroom
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One publishing at a time, and one that has begun is let finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  guards:
+    # The same system CI names, for the same reason: the browser the checks
+    # drive is pinned, and runs only on the systems that version knows.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      # The version of Rust is the one rust-toolchain.toml names.
+      - name: Rust toolchain
+        run: rustup toolchain install
+
+      - uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: cargo-${{ runner.os }}-${{ hashFiles('Cargo.lock', 'Cargo.toml', 'rust-toolchain.toml') }}
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: The checks' Python packages
+        run: python -m pip install -r tools/requirements.txt
+
+      - name: The browser the checks drive
+        run: python -m playwright install --with-deps chromium
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+
+      - name: Guards
+        run: bash tools/run-guards.sh
+
+  publish:
+    needs: guards
+    if: vars.SHOWROOM == 'published'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    # What publishing to Pages asks for, and no more: leave to publish a
+    # site, and a token that says which workflow is asking.
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build the site
+        run: bash tools/build-site.sh site
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+      - id: deployment
+        uses: actions/deploy-pages@v5

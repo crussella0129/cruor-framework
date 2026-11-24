@@ -195,3 +195,10 @@
 - **Completed:** 2026-11-24T12:45:42Z
 - **Files modified:** showroom/index.html, showroom/showroom.css, showroom/weeping-face.svg, showroom/weeping-profile.svg, showroom/briar-stem.svg, tools/draw_showroom.py, tests/test_showroom.py, tests/test_showroom_world.py
 - **Commit:** `1d9dcbafd11df02151d7ccc26a814e7dba47c732`
+
+## T-213 (sprint 1)
+- **Description:** Publish the showroom: a script that puts its site together, and a workflow that publishes it on GitHub Pages from main once the owner has said so.
+- **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md)
+- **Completed:** 2026-11-24T12:48:29Z
+- **Files modified:** tools/build-site.sh, .github/workflows/pages.yml, tests/test_pages.py, tests/test_release.py
+- **Commit:** PENDING

@@ -44,17 +44,23 @@ def test_release_workflow_runs_guards_then_bundle_then_publish():
     assert 'gh release create "$TAG" dist/*' in " ".join(steps[publish]["run"].split())
     assert workflow["jobs"]["release"]["env"]["TAG"] == "${{ github.ref_name }}"
 
-    # It alone among the workflows asks for leave to write.
-    for path in sorted(WORKFLOWS.glob("*.yml")):
-        other = read_workflow(path.name)
-        grants = [other.get("permissions", {})]
-        grants += [job.get("permissions", {}) for job in other["jobs"].values()]
+
+def test_only_release_and_pages_may_write():
+    # Two workflows ask for leave to write, each for the one thing it does:
+    # the release's for a release, and the showroom's to publish a site. No
+    # workflow may write as a whole, and no other asks at all.
+    may_write = {
+        "release.yml": [{"contents": "write"}],
+        "pages.yml": [{"contents": "read", "pages": "write", "id-token": "write"}],
+    }
+    found = sorted(path.name for path in WORKFLOWS.glob("*.yml"))
+    assert set(may_write) <= set(found)
+    for name in found:
+        other = read_workflow(name)
+        assert other["permissions"] == {"contents": "read"}, name
+        grants = [job.get("permissions", {}) for job in other["jobs"].values()]
         writes = [grant for grant in grants if "write" in str(grant)]
-        if path.name == "release.yml":
-            assert writes == [{"contents": "write"}]
-            assert other["permissions"] == {"contents": "read"}
-        else:
-            assert writes == [], path.name
+        assert writes == may_write.get(name, []), name
 
 
 def test_release_notes_tell_of_the_look():
