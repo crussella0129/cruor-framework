@@ -216,3 +216,10 @@
 - **Completed:** 2026-11-24T13:21:08Z
 - **Files modified:** tools/draw_readme.py, assets/readme/page.svg, tests/test_readme_pictures.py
 - **Commit:** `52ab0c6286dbba07707d25b1a91453adf15fec0b`
+
+## T-222 (sprint 1)
+- **Description:** Let the blood on the statue keep to the face: worked out from the carving's surface and gravity, let out at the corners of the eyes the owner marked, and welling along the lower lid; the front page's and the showroom's pictures drawn again from it.
+- **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-24T21:54:37Z
+- **Files modified:** assets/readme/weeping-face.txt, assets/readme/weeping-profile.txt, assets/readme/page.svg, showroom/weeping-face.svg, showroom/weeping-profile.svg, docs/intents/INT-0007-the-showroom.md
+- **Commit:** PENDING

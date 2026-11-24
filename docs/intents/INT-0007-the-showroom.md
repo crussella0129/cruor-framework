@@ -130,3 +130,11 @@ wants to see a page made with it and to try its parts, before reading how.
   bloody thorns". Criterion 8 is new, and the showroom is given pictures of
   its own (Sprint 1, T-220). The same day they named a second statue, the
   thinker (T-221).
+- 2026-11-24: revised at the owner's word, still `active`. The owner found
+  that the blood on the statue did not keep to the face. It is now worked
+  out from the carving's surface and gravity, let out where the owner
+  marked the corners of the eyes and held near the ways they drew, and
+  from the middle of the lower lid it wells along the lid before it falls.
+  Shown the result, the owner said: "Yes, it's right". Both pictures, the
+  front page's and the showroom's, were drawn again from it (Sprint 1,
+  T-222).
