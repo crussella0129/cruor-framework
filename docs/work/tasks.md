@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-201 (sprint 1) [intent: INT-0004]: Write the look down as a theme file, write up its form, and have the tool read and judge it — touches: look/, src/, tests/
 - [ ] T-202 (sprint 1) [intent: INT-0004]: Write and check the tokens from the theme file — touches: src/, look/tokens.css, tests/
 - [ ] T-203 (sprint 1) [intent: INT-0003, INT-0004]: Test from the theme file the contrast it promises — touches: src/, look/, tests/
 - [ ] T-211 (sprint 1) [intent: INT-0006, INT-0003]: Make the means of checking a page in a browser — touches: tests/

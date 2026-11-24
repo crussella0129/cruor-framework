@@ -1,0 +1,118 @@
+# Cruentous Atonement, written down once.
+#
+# The framework's tokens (look/tokens.css) are made from this file by
+#
+#     cargo run --release -- look
+#
+# and never by hand. The form of the file is written up in look/THEME.md.
+
+name = "Cruentous Atonement"
+# The class a page sets on <body> to take the look on.
+class = "cruentous-atonement"
+
+# The families, by what they set. A heading names one of these four roles.
+[font]
+title = "Cruor Thornamental Regular"
+heading = "Cruor Lite Regular"
+text = "Cruor Sans Regular"
+code = "Cruor Sans Mono"
+
+# The colours, by role. Blood's path gives the reds their names: arterial
+# where light catches it, the inscription's crimson, pooled at the foot of a
+# letter, clotted in a rule.
+[colour]
+page = "#0a0708"               # the obsidian ground
+panel = "#110b0c"              # lifted glass
+sunken = "#170e0f"             # fields, and the ground of a code chip
+text = "#cbb5ab"               # bone: interface text, tables, code blocks
+text-subdued = "#9d8a82"       # weathered bone
+text-bright = "#d9c1b8"        # selected text
+border = "#5a1a1c"             # clotted
+border-subdued = "rgba(213, 2, 16, 0.2)"
+accent = "#ff3030"             # arterial: focus, the current item
+accent-subdued = "rgba(255, 48, 48, 0.15)"
+link = "#ff5c4d"               # fresh blood, in interface text
+inscription = "#d50210"        # running text, at 24 pixels or more
+inscription-link = "#ff3b2f"   # a link within running text
+heading-top = "#ff2a1a"        # light catching the top of a carved letter
+heading-foot = "#ba1a1a"       # pooled: the darkest stop of a carved letter
+selection = "#7a2226"          # the ground of selected text
+chip-top = "#ff9a8a"           # inline code, a salmon gradient
+chip-foot = "#ec5658"
+blood = "#3c0606"              # blood that has been shed, and lies
+blood-edge = "#d50210"         # the edge a part filled with it carries, so it is seen
+shadow = "#000000"             # a plate's hard shadow
+vignette = "rgba(0, 0, 0, 0.72)"  # the dark at the page's edges
+
+# The void: a panel of pure black beside the obsidian page.
+[void]
+ground = "#000000"
+sunken = "#0c0505"
+row = "rgba(213, 2, 16, 0.22)"  # the tint of the current row
+text = "#ec5658"
+text-subdued = "#bc6957"
+accent = "#ff7466"
+channel = "#d50210"
+border = "#3a0a0b"
+
+# The stone's bounds. The surface is drawn in the stylesheet; these say how
+# bright it may be.
+[stone]
+sheen = "#3a2a2c"       # the surface's brightest tone
+sheen-opacity = 0.3     # and how strongly it is laid on the page
+candle = "#ff3c28"      # the glow from above
+candle-opacity = 0.03   # at its strongest
+
+# The look's measures.
+[measure]
+inscription-size = "1.5rem"   # running text; never less than 24 pixels
+interface-size = "1.125rem"   # small things: tables, code blocks, parts
+line = 1.5                    # line height of running text
+column = "44rem"              # the widest a column of running text is set
+seal-size = 3.4               # the first letter, as a multiple of the text
+seal-font = "title"
+
+# Each heading level: its font (one of the four roles above, or any family
+# the kit holds, by name), whether it is bold, italic or underlined, and its
+# size.
+[heading.h1]
+font = "title"
+bold = false
+italic = false
+underline = false
+size = "3rem"
+
+[heading.h2]
+font = "heading"
+bold = false
+italic = false
+underline = false
+size = "2.25rem"
+
+[heading.h3]
+font = "heading"
+bold = false
+italic = false
+underline = false
+size = "1.75rem"
+
+[heading.h4]
+font = "heading"
+bold = true
+italic = false
+underline = false
+size = "1.5rem"
+
+[heading.h5]
+font = "heading"
+bold = false
+italic = true
+underline = false
+size = "1.5rem"
+
+[heading.h6]
+font = "heading"
+bold = false
+italic = false
+underline = true
+size = "1.5rem"

@@ -1,13 +1,14 @@
 //! The tool of the Cruor framework.
 //!
 //! It writes the stylesheet of Cruor's web fonts from the list of families,
-//! writes and checks the manifest of their checksums, and puts a release
-//! together.
+//! writes and checks the manifest of their checksums, reads the look's theme
+//! file, and puts a release together.
 
 mod bundle;
 mod css;
 mod families;
 mod manifest;
+mod theme;
 
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
@@ -47,6 +48,12 @@ enum Command {
         #[arg(long, value_name = "ID")]
         source_commit: Option<String>,
     },
+    /// Read the look's theme file, look/theme.toml, and judge it
+    Look {
+        /// Change nothing; fail if the theme file is not as its form requires
+        #[arg(long)]
+        check: bool,
+    },
     /// Check that the stylesheet and the manifest are current
     Check,
     /// Put a release together in a folder
@@ -70,6 +77,7 @@ fn run(cli: &Cli) -> Result<(), String> {
             check: false,
             source_commit,
         } => manifest::write(&cli.root, source_commit.as_deref()),
+        Command::Look { .. } => theme::read(&cli.root).map(|_| ()),
         Command::Check => check(&cli.root),
         Command::Bundle { out, tag } => bundle::bundle(&cli.root, out, tag.as_deref()),
     }

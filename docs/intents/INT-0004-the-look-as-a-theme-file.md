@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0004
-- **State:** planned
+- **State:** active
 - **Work evidence:** [T-201 to T-205, T-212 and T-218, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
@@ -104,3 +104,4 @@ cannot drift from it, and another program can read the same file.
   Criterion 6 is new: it states a promise the plans had made on their own,
   that what shows the look takes its colours and families from this file.
   The task that brings the front page's script under it is T-218.
+- 2026-11-24: `planned` to `active`. Sprint 1's Build reached T-201, the theme file and its form.

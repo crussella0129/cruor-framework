@@ -32,15 +32,21 @@ pub fn said(output: &Output) -> String {
 }
 
 /// A copy, in a folder of its own, of what the tool reads: the fonts'
-/// folder and the two licences of the code.
+/// folder, the look's folder and the two licences of the code.
 pub fn copy_of_repository() -> TempDir {
     let copy = tempfile::tempdir().expect("a temporary folder");
-    let fonts = copy.path().join("fonts");
-    fs::create_dir(&fonts).unwrap();
-    for entry in fs::read_dir(repository().join("fonts")).unwrap() {
-        let entry = entry.unwrap();
-        if entry.file_type().unwrap().is_file() {
-            fs::copy(entry.path(), fonts.join(entry.file_name())).unwrap();
+    for folder in ["fonts", "look"] {
+        let from = repository().join(folder);
+        if !from.is_dir() {
+            continue;
+        }
+        let to = copy.path().join(folder);
+        fs::create_dir(&to).unwrap();
+        for entry in fs::read_dir(from).unwrap() {
+            let entry = entry.unwrap();
+            if entry.file_type().unwrap().is_file() {
+                fs::copy(entry.path(), to.join(entry.file_name())).unwrap();
+            }
         }
     }
     for licence in ["LICENSE-MIT", "LICENSE-APACHE"] {
