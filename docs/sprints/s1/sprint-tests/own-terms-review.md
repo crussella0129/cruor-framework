@@ -56,3 +56,35 @@ How each review is made:
   record the first. Those two commits are covered by the next entry, and
   the first push of the sprint follows that one.
 
+### 2. 24 November 2026, in Build, before the sprint's first push
+
+- **Commits covered:** `b44d52904b02e5b46601f996d12123c4fab9decb` to
+  `24df4b0aa29b09da8d8cfe95fb0924cbc6cc7c1c`, ten commits: the five tasks
+  done so far (T-216, T-215, T-201, T-202 and T-203), each with the commit
+  the helper makes to record it. With the five of entry 1 they are the
+  fifteen this push carries, and all fifteen were searched again as one.
+- **Also covered:** nothing; no font file is in the commits. The theme file
+  names four families, each one of Cruor's, and the tool refuses a family
+  the kit does not hold.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The write-up of the
+  theme file's form says what each family sets (the title, the headings,
+  running text, code) and describes no letter.
+- **Files against tasks:** T-216 changes this file. T-215 changes the
+  intents INT-0002 and INT-0001. T-201 adds `look/theme.toml`,
+  `look/THEME.md`, `src/theme.rs` and its tests, and changes `src/main.rs`
+  and `tests/common/mod.rs`, as its task lists. T-202 adds `src/look.rs`,
+  `look/tokens.css` and `tests/look.rs`. T-203 adds `src/contrast.rs`,
+  `tests/contrast.rs`, `tests/stylesheets.py` and
+  `tests/test_promised_pairs.py`. One file falls outside a task's list:
+  T-202 changed `tests/theme.rs`, a test of T-201, because the check it
+  runs came to cover the tokens as well; and T-203 changed
+  `tests/test_theme_form.py` for the same kind of reason, and added
+  `tests/stylesheets.py`, which its list did not name. Each of the ten
+  helper commits changes a ledger of the Book alone.
+- **A slip in a ledger.** The ledger gives T-215 as completed at 05:14 and
+  T-201 at 05:12, though T-215 was done first; the two times before T-201's
+  were written by hand and are a few minutes out. The ledger is append-only
+  and is left as it is.
+
