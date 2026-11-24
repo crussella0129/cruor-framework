@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0002
-- **State:** active
+- **State:** realized
 - **Work evidence:** [T-001, T-003 to T-007, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-101 and T-103 backlog](../work/tasks.md), [T-215, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** [T-001, T-003 to T-007, T-011 and T-013, completed tasks](../work/completed-tasks.md)
 - **Code evidence:** [fonts/fonts.css](../../fonts/fonts.css), [fonts/manifest.toml](../../fonts/manifest.toml), [fonts/OFL.txt](../../fonts/OFL.txt), [fonts/specimen.html](../../fonts/specimen.html), [tools/check_fonts.py](../../tools/check_fonts.py)
@@ -125,3 +125,13 @@ choice of terms.
   repository holds, and its default branch holds no font until the
   sprint's pull request is merged, so the move to `realized` waits for
   that merge.
+- 2026-11-24: `active` to `realized`. The owner merged Sprint 0's pull
+  request on 23 November 2026, and the default branch on GitHub, at
+  `625a9bdef6414680aa5c9bb057d8eb4430fcb172`, was listed on 24 November
+  2026 (Sprint 1, T-215): `fonts/` holds the thirty-two `.woff2` files with
+  `OFL.txt`, `families.toml`, `fonts.css`, `manifest.toml` and
+  `specimen.html`, beside the Book in `docs/` and the README. By the rule
+  recorded in INT-0001, an intent about what the repository holds is
+  realized when the default branch holds it. What is left for the fonts is
+  a later build of Cruor whose files carry their own licence text (backlog
+  task T-101), which is new work and not part of this intent's criteria.

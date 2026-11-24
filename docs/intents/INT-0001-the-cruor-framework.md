@@ -151,3 +151,7 @@ the kit be public while the project that draws Cruor is not.
   any page that takes it on, not the showroom's own play. Criterion 2 and
   the list of what the first version holds name the furniture and the
   showroom.
+- 2026-11-24: evidence recorded, still `active`. Criterion 1 is true of the
+  default branch: at `625a9bdef6414680aa5c9bb057d8eb4430fcb172` the public
+  repository holds this Book and a README that says what the kit is, what
+  is in it and how a page takes it in (Sprint 1, T-215).

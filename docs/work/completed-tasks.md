@@ -97,3 +97,10 @@
 - **Completed:** 2026-11-24T05:10:00Z
 - **Files modified:** docs/sprints/s1/sprint-tests/own-terms-review.md
 - **Commit:** `b44d52904b02e5b46601f996d12123c4fab9decb`
+
+## T-215 (sprint 1)
+- **Description:** Confirm what the default branch holds and mark the fonts intent realized; this takes up and closes backlog task T-103
+- **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-24T05:14:00Z
+- **Files modified:** docs/intents/INT-0002-cruor-web-fonts.md, docs/intents/INT-0001-the-cruor-framework.md
+- **Commit:** PENDING

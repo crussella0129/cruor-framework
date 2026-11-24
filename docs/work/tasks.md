@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-215 (sprint 1) [intent: INT-0002, INT-0001]: Confirm what the default branch holds and mark the fonts intent realized — touches: docs/intents/
 - [ ] T-201 (sprint 1) [intent: INT-0004]: Write the look down as a theme file, write up its form, and have the tool read and judge it — touches: look/, src/, tests/
 - [ ] T-202 (sprint 1) [intent: INT-0004]: Write and check the tokens from the theme file — touches: src/, look/tokens.css, tests/
 - [ ] T-203 (sprint 1) [intent: INT-0003, INT-0004]: Test from the theme file the contrast it promises — touches: src/, look/, tests/
@@ -19,6 +18,5 @@
 - [ ] T-218 (sprint 1) [intent: INT-0004]: Have the front page's script take its colours and families from the theme file — touches: tools/draw_readme.py, assets/readme/, tests/
 - [ ] T-101 (backlog) [intent: INT-0002]: take in a build of Cruor whose fonts carry their own copyright and licence text and an installable embedding field — touches: fonts/
 - [ ] T-102 (backlog) [intent: INT-0005]: record the release workflow's own fetch-and-check of v0.1.0 as the proof of criterion 5, once the owner has the tag pushed, and what was done if a run left a draft behind; the tag is placed on the last commit of `main` whose version is 0.1.0, as INT-0005 records — touches: docs/intents/INT-0005-versioned-releases.md
-- [ ] T-103 (backlog) [intent: INT-0002, INT-0001]: once Sprint 0's pull request is merged, confirm that the default branch holds the fonts, the Book and the README, move INT-0002 to realized, and record INT-0001 criterion 1 as true of the default branch — touches: docs/intents/INT-0002-cruor-web-fonts.md, docs/intents/INT-0001-the-cruor-framework.md
 - [ ] T-104 (backlog) [intent: INT-0007]: once the owner has turned GitHub Pages on and set the repository variable that lets the showroom be published, open the showroom at its address on the web and record that every face it uses loaded and no request failed — touches: docs/intents/INT-0007-the-showroom.md
 - [ ] T-105 (backlog) [intent: INT-0006, INT-0003]: open the showroom in engines other than Chromium and record what each draws of the sliders, the bars of progress and the stone, and whether each opens a dialog from a button alone — touches: docs/intents/INT-0006-the-furniture.md
