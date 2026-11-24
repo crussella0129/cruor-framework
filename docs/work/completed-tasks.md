@@ -194,4 +194,4 @@
 - **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0003](../intents/INT-0003-cruentous-atonement-look.md)
 - **Completed:** 2026-11-24T12:45:42Z
 - **Files modified:** showroom/index.html, showroom/showroom.css, showroom/weeping-face.svg, showroom/weeping-profile.svg, showroom/briar-stem.svg, tools/draw_showroom.py, tests/test_showroom.py, tests/test_showroom_world.py
-- **Commit:** PENDING
+- **Commit:** `1d9dcbafd11df02151d7ccc26a814e7dba47c732`
