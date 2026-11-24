@@ -283,3 +283,37 @@ How each review is made:
   of the fourth, fifth and sixth pushes, concluded `success`. The run for
   the fifth push (45339687942) was superseded by it, as entry 7 expected.
 
+### 9. 24 November 2026, in Build, the showroom's site and the front page's words
+
+- **Commits covered:** `763946444c7460e6443524f9d94735d25c52fe7f` to
+  `f178781d8965ce02c33a4d76316d1b8ab61846c5`, four commits: T-213 and
+  T-214, each with the commit the helper makes to record it. The commit
+  that recorded entry 8 (`51aa570`) changes this file alone and was pushed
+  with it.
+- **Also covered:** nothing; no font file is in the commits. The front
+  page's picture was drawn again from its words; it holds outlines and no
+  text, and its words are searched as `assets/readme/text.md`.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** the front page's new words were read whole.
+  They say what the kit holds and how a page takes it on, name each part
+  by its class, and liken Cruor to nothing.
+- **Files against tasks:** T-213 adds `tools/build-site.sh`,
+  `.github/workflows/pages.yml` and `tests/test_pages.py`, and amends
+  `tests/test_release.py`, as its task lists. T-214 changes
+  `assets/readme/text.md`, `assets/readme/page.svg` and
+  `tests/test_readme.py`, as its task lists.
+- **How the workflow holds its three permissions.** The plan asks for
+  exactly `contents: read`, `pages: write` and `id-token: write`. The
+  workflow as a whole may only read; the job that publishes holds the
+  three, and the job that runs the guards holds none of its own. The
+  publishing job runs only when the repository variable `SHOWROOM` is
+  `published`, so the environment Pages uses is not touched before then.
+- **What the words say that is not yet so.** The showroom's address is
+  given, and the words say it answers once the showroom is published. The
+  fetch example still names `v0.1.0`, which no tag yet bears; both wait
+  for the owner.
+- **CI.** Run
+  [45396756696](https://github.com/crussella0129/cruor-framework/actions/runs/45396756696)
+  for `51aa570b56a46ec6396b6b52393bad8ea94d80d6` concluded `success`.
+
