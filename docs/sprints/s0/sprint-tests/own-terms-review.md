@@ -250,3 +250,31 @@ How each review is made:
   line, an address.
 - **Files against tasks:** `4640e81` changes `sprint-meta.md` alone and
   belongs to no task.
+
+### 10. 23 November 2026, after the sprint's pull request was merged, before the push of the redrawn front page
+
+- **Commits covered:** `f510103857cc56631dc3077ec66e5e1dd9483013` to
+  `8337ad9203a7ad41b24c704ad8783497600ac294`, four commits, made at the
+  owner's word after the sprint closed: the README's headings as pictures;
+  the whole front page as one picture, with its words kept as text; two
+  pictures of a statue; and those pictures' edges. The commit that recorded
+  entry 9 (`79d8b07`) changes this file alone and is already in the default
+  branch. The commit that records this entry changes this file alone; it is
+  searched after it is made, and nothing is pushed if anything is found.
+- **Also covered:** nothing; no font file is in the commits. The pictures
+  are text: `assets/readme/page.svg`, which holds letters as outlines and no
+  name of a font, and two maps of squares.
+- **Pull requests:** one, the sprint's own, merged at `79d8b07` before
+  these commits were made. None of the updater's, open or closed.
+- **Found:** none.
+- **Read for comparisons:** two things were read with care.
+  The page's words now name a statue and its sculptor, and the addresses of
+  two photographs repeat both names; they name a carving and a man, and the
+  search's list holds neither word. And the page says which family of Cruor
+  sets its title, its headings and its text; it describes no letter and
+  sets Cruor beside nothing else.
+- **Files against tasks:** the four commits belong to no task of the
+  sprint. They change `README.md`, `tools/draw_readme.py`, the tests
+  `tests/test_readme.py` and `tests/test_readme_pictures.py`, and four files
+  under `assets/readme/`. Heading pictures added by the first commit were
+  removed by the second.
