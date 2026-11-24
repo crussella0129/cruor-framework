@@ -187,4 +187,4 @@
 - **Intent:** [INT-0003](../intents/INT-0003-cruentous-atonement-look.md), [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md)
 - **Completed:** 2026-11-24T12:35:25Z
 - **Files modified:** look/theme.toml, look/tokens.css, showroom/index.html, tests/test_showroom.py, tests/test_furniture.py, docs/intents/INT-0003-cruentous-atonement-look.md, docs/intents/INT-0007-the-showroom.md
-- **Commit:** PENDING
+- **Commit:** `650af02bf67140619dd4b3cf173dff8273c6a877`
