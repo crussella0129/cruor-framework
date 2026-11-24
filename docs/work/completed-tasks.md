@@ -188,3 +188,10 @@
 - **Completed:** 2026-11-24T12:35:25Z
 - **Files modified:** look/theme.toml, look/tokens.css, showroom/index.html, tests/test_showroom.py, tests/test_furniture.py, docs/intents/INT-0003-cruentous-atonement-look.md, docs/intents/INT-0007-the-showroom.md
 - **Commit:** `650af02bf67140619dd4b3cf173dff8273c6a877`
+
+## T-220 (sprint 1)
+- **Description:** Bring the front page's world into the showroom: the statue's face over the threshold, its side as an effigy in the reliquary, a stem of thorns up the nave, and the photographs credited.
+- **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0003](../intents/INT-0003-cruentous-atonement-look.md)
+- **Completed:** 2026-11-24T12:45:42Z
+- **Files modified:** showroom/index.html, showroom/showroom.css, showroom/weeping-face.svg, showroom/weeping-profile.svg, showroom/briar-stem.svg, tools/draw_showroom.py, tests/test_showroom.py, tests/test_showroom_world.py
+- **Commit:** PENDING

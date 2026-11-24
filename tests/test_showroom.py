@@ -97,7 +97,12 @@ def test_showroom_stylesheet_adds_no_colour():
     for rule in rules(text):
         for name, _ in rule.declarations:
             assert "color" not in name and name not in ("background", "border"), name
-    assert "url(" not in text and "@import" not in text
+    # It imports nothing, and what it shows of pictures is the showroom's
+    # own, kept beside it.
+    assert "@import" not in text
+    for shown in re.findall(r"url\(([^)]*)\)", text):
+        assert re.fullmatch(r'"[a-z-]+\.svg"', shown), shown
+        assert (ROOT / "showroom" / shown.strip('"')).is_file(), shown
 
 
 def test_showroom_imitates_no_state():

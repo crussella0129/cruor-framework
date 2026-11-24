@@ -5,6 +5,9 @@
  * names every colour by a token of the kit's. So the HTML folded beside each
  * thing makes that thing on any page that has taken the look on.
  *
+ * The pictures here are the showroom's own: the statue weeping blood, and
+ * the stem of thorns. They are drawn by tools/draw_showroom.py.
+ *
  * This file is offered under MIT OR Apache-2.0.
  */
 
@@ -17,7 +20,8 @@ body {
   margin: 0;
 }
 
-/* The place: a wing of void down one side, and the nave beside it. */
+/* The place: a threshold beneath the statue's face, then a wing of void
+   down one side and the nave beside it. */
 .place {
   display: grid;
   grid-template-columns: minmax(13rem, 17rem) minmax(0, 1fr);
@@ -27,18 +31,56 @@ body {
   padding: 2.5rem 2rem 5rem;
 }
 
+.threshold {
+  grid-column: 1 / -1;
+}
+
+.threshold .face {
+  display: block;
+  width: min(100%, 60rem);
+  height: auto;
+  margin: 0 auto;
+}
+
+/* The title is cut beneath the face, where the statue goes into the dark. */
+.lintel {
+  position: relative;
+  margin-top: -4.5rem;
+}
+
+.threshold > nav {
+  margin: 0 0 1.2rem;
+}
+
 .wing {
   position: sticky;
   top: 1.5rem;
   align-self: start;
 }
 
+/* A stem of thorns climbs the nave's edge, from its foot to its head. */
 .nave {
+  position: relative;
   min-width: 0;
+  padding-left: 4rem;
 }
 
-.nave > nav {
-  margin: 0 0 1.2rem;
+.nave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 36px;
+  pointer-events: none;
+  background-image: url("briar-stem.svg");
+  background-size: 36px 96px;
+  background-repeat: repeat-y;
+  image-rendering: pixelated;
+}
+
+.nave > .room:first-child {
+  margin-top: 0;
 }
 
 /* A room, and the space before it. */
@@ -56,6 +98,25 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   gap: 1.4rem;
   margin: 1.6rem 0;
+}
+
+/* The effigy: the statue from the side, and what is said of it. */
+.effigy {
+  display: grid;
+  grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+  gap: 2.2rem;
+  align-items: end;
+  margin: 2rem 0 2.6rem;
+}
+
+.effigy img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.effigy figcaption > :first-child {
+  margin-top: 0;
 }
 
 .pair {
@@ -101,7 +162,12 @@ body {
   overflow-wrap: anywhere;
 }
 
-/* The ledger. */
+/* The ledger. On a narrow window it is drawn at its own width and moved
+   sideways within its place; the page itself stays still. */
+.wide {
+  overflow-x: auto;
+}
+
 .room table {
   width: 100%;
   margin: 1.6rem 0;
@@ -137,5 +203,17 @@ body {
 
   .wing {
     position: static;
+  }
+
+  .nave {
+    padding-left: 0;
+  }
+
+  .nave::before {
+    content: none;
+  }
+
+  .effigy {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
