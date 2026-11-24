@@ -138,3 +138,10 @@ wants to see a page made with it and to try its parts, before reading how.
   Shown the result, the owner said: "Yes, it's right". Both pictures, the
   front page's and the showroom's, were drawn again from it (Sprint 1,
   T-222).
+- 2026-11-24: revised at the owner's word, still `active`. The owner found
+  that the blood did not run far enough down the face, nor drip. Each
+  stream now goes on down the face along the carving and ends in a drop.
+  On the front view, the clotted spot beside the nose is gone; it is where
+  a run from the lid's stream and a run from the inner corner's stream
+  meet. Shown the result, the owner said: "looks good in the after photo"
+  (Sprint 1, T-223).
