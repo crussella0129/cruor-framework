@@ -125,6 +125,15 @@ pub struct Heading {
     pub size: String,
 }
 
+/// A promise of the theme file: these text roles stand at this ratio at
+/// least against each of these grounds.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Promise {
+    pub text: Vec<String>,
+    pub grounds: Vec<String>,
+    pub at_least: f64,
+}
+
 /// The look, as the theme file gives it.
 #[derive(Debug, Clone, PartialEq)]
 pub struct Theme {
@@ -149,6 +158,8 @@ pub struct Theme {
     /// The family of the large first letter.
     pub seal_family: String,
     pub headings: Vec<Heading>,
+    /// What the file promises of its own colours.
+    pub contrast: Vec<Promise>,
 }
 
 /// The look's folder beneath a root.
@@ -242,6 +253,22 @@ impl Section {
                 "{}: {text:?} is not a length; write a number and rem, em or px",
                 self.name(key)
             )),
+        }
+    }
+
+    /// A list of names.
+    fn names(&mut self, key: &str) -> Result<Vec<String>, String> {
+        let fault = format!("{}: not a list of names", self.name(key));
+        let toml::Value::Array(items) = self.take(key)? else {
+            return Err(fault);
+        };
+        let names: Option<Vec<String>> = items
+            .into_iter()
+            .map(|item| item.as_str().map(str::to_string))
+            .collect();
+        match names {
+            Some(names) if !names.is_empty() => Ok(names),
+            _ => Err(fault),
         }
     }
 
@@ -368,6 +395,27 @@ pub fn parse(text: &str, kit: &[String]) -> Result<Theme, String> {
         section.done()?;
     }
     levels.done()?;
+
+    let mut contrast = Vec::new();
+    let entries = match top.take("contrast")? {
+        toml::Value::Array(entries) => entries,
+        _ => return Err("contrast: not a list of entries".to_string()),
+    };
+    for (index, entry) in entries.into_iter().enumerate() {
+        let toml::Value::Table(table) = entry else {
+            return Err(format!("contrast entry {}: not a table", index + 1));
+        };
+        let mut section = Section {
+            prefix: format!("contrast entry {}: ", index + 1),
+            table,
+        };
+        contrast.push(Promise {
+            text: section.names("text")?,
+            grounds: section.names("grounds")?,
+            at_least: section.number("at-least")?,
+        });
+        section.done()?;
+    }
     top.done()?;
 
     Ok(Theme {
@@ -387,6 +435,7 @@ pub fn parse(text: &str, kit: &[String]) -> Result<Theme, String> {
         seal_size,
         seal_family,
         headings,
+        contrast,
     })
 }
 

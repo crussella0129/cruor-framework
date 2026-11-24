@@ -5,6 +5,7 @@
 //! tokens from its theme file, and puts a release together.
 
 mod bundle;
+mod contrast;
 mod css;
 mod families;
 mod look;

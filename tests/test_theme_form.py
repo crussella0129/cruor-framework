@@ -42,6 +42,9 @@ def test_theme_form_names_every_key():
     for level, settings in levels.items():
         assert rows("`[heading.h1]` to `[heading.h6]`") == set(settings), level
 
+    for entry in THEME["contrast"]:
+        assert rows("`[[contrast]]`") == set(entry)
+
     # No table of the file is left without a section.
     tables = {key for key, value in THEME.items() if isinstance(value, dict | list)}
     written_up = {

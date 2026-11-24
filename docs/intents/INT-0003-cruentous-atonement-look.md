@@ -2,7 +2,7 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0003
-- **State:** planned
+- **State:** active
 - **Work evidence:** [T-203 to T-207, T-209 and T-211, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
@@ -159,3 +159,4 @@ look's name now says whose it is.
   nesting is recorded as how rules are kept beneath the class; the blood is
   named as a colour of the look; criterion 3 says on which ground each
   bound is held, and tells the one place a carved heading falls short.
+- 2026-11-24: `planned` to `active`. Sprint 1's Build reached T-203, the test of the contrast the look promises.

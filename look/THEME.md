@@ -10,7 +10,10 @@ cargo run --release -- look --check
 
 `look --check` changes nothing. It fails if the file is not as this page
 describes, and it names the key at fault as it is written here, table and
-all: `colour.inscription`, `heading.h2.font`.
+all: `colour.inscription`, `heading.h2.font`. It fails too if the file's
+colours do not keep the contrast the file promises, and then it names the
+text, the ground and the ratio found. `look` writes nothing when either is
+so.
 
 The form is strict. A key it requires must be there, and a key it does not
 have must not be, so that a slip in a name is told and not passed over. To
@@ -116,3 +119,29 @@ One table for each level of heading, each with the same five keys.
 | `italic` | `true` or `false` |
 | `underline` | `true` or `false` |
 | `size` | a length |
+
+## `[[contrast]]`
+
+The contract: which text may sit on which ground, and at what ratio at
+least. There is one entry for each bound, and as many entries as the look
+needs. Every pair an entry makes, of one of its texts with one of its
+grounds, is measured as WCAG 2 measures contrast and compared with the
+bound without rounding.
+
+| key | what it is |
+|---|---|
+| `text` | a list of text roles: a key of `[colour]`, or `void.` and a key of `[void]` |
+| `grounds` | a list of grounds: a key of `[colour]`; `stone`; `void.ground` or `void.sunken`; `void.row` or `void.sunken-row` |
+| `at-least` | the ratio each of those texts must reach on each of those grounds |
+
+`stone` is the page at its brightest: the stone's `sheen` laid over `page`
+at `sheen-opacity`, and then `candle` laid over that at `candle-opacity`.
+`void.row` and `void.sunken-row` are the tint `row` laid over the void's
+`ground` and over its `sunken`. A colour that lets what lies beneath it
+show through is laid over its ground before it is measured.
+
+The look's stylesheets may set lettering on a ground only where an entry
+covers the pair, and a test of the repository holds them to it. So a new
+pairing begins here, with an entry, and is refused if its colours cannot be
+read.
+

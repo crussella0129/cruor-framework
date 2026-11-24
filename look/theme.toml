@@ -56,7 +56,7 @@ channel = "#d50210"
 border = "#3a0a0b"
 
 # The stone's bounds. The surface is drawn in the stylesheet; these say how
-# bright it may be.
+# bright it may be, which the contrast below is tested against.
 [stone]
 sheen = "#3a2a2c"       # the surface's brightest tone
 sheen-opacity = 0.3     # and how strongly it is laid on the page
@@ -116,3 +116,65 @@ bold = false
 italic = false
 underline = true
 size = "1.5rem"
+
+# The contract: which text may sit on which ground, and at what ratio at
+# least. `look` and `look --check` fail if any of these does not hold, and
+# name the pair. A text role is a colour above, or `void.` and a colour of
+# the void. A ground is a colour above; `stone`, which is the page with the
+# stone's sheen and then the candle's glow laid over it; `void.ground` or
+# `void.sunken`; or `void.row` and `void.sunken-row`, the tint of the current
+# row laid over each of those.
+[[contrast]]
+text = ["inscription", "inscription-link"]
+grounds = ["page", "stone", "panel"]
+at-least = 3.3
+
+[[contrast]]
+text = ["text", "text-subdued", "link", "accent"]
+grounds = ["page", "stone", "panel", "sunken"]
+at-least = 4.5
+
+# A carved heading is promised on the page as it lies, and its top on the
+# stone as well. At the very foot of a letter, where the stone's sheen is at
+# its brightest behind it, the pooled red stands at 2.80.
+[[contrast]]
+text = ["heading-top", "heading-foot"]
+grounds = ["page"]
+at-least = 3.0
+
+[[contrast]]
+text = ["heading-top"]
+grounds = ["stone"]
+at-least = 3.0
+
+[[contrast]]
+text = ["chip-top", "chip-foot"]
+grounds = ["sunken"]
+at-least = 4.5
+
+[[contrast]]
+text = ["text-bright"]
+grounds = ["selection"]
+at-least = 4.5
+
+[[contrast]]
+text = ["void.text", "void.text-subdued", "void.accent"]
+grounds = ["void.ground", "void.sunken"]
+at-least = 4.5
+
+# On the tinted row of the current item the void's subdued lettering is not
+# set: it would fall short there.
+[[contrast]]
+text = ["void.text", "void.accent"]
+grounds = ["void.row", "void.sunken-row"]
+at-least = 4.5
+
+[[contrast]]
+text = ["void.channel"]
+grounds = ["void.ground", "void.sunken"]
+at-least = 3.0
+
+[[contrast]]
+text = ["blood-edge"]
+grounds = ["page", "stone", "panel", "sunken"]
+at-least = 3.0

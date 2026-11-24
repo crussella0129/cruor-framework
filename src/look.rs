@@ -8,6 +8,7 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use crate::contrast;
 use crate::theme::{self, Theme};
 
 /// The tokens' stylesheet, in the look's folder.
@@ -97,9 +98,13 @@ pub fn render(theme: &Theme) -> String {
 }
 
 /// What the tokens should hold, for the theme beneath a root. Fails if the
-/// theme file is not as its form requires.
+/// theme file is not as its form requires, or does not keep the contrast it
+/// promises.
 fn expected(root: &Path) -> Result<String, String> {
-    Ok(render(&theme::read(root)?))
+    let theme = theme::read(root)?;
+    contrast::check(&theme)
+        .map_err(|faults| format!("{}/{}: {faults}", theme::LOOK_DIR, theme::THEME))?;
+    Ok(render(&theme))
 }
 
 /// Write the tokens beneath a root from the theme file there.
@@ -109,8 +114,9 @@ pub fn write(root: &Path) -> Result<(), String> {
     fs::write(&path, css).map_err(|error| format!("cannot write {}: {error}", path.display()))
 }
 
-/// Fail if the theme file beneath a root is not as its form requires, or if
-/// the tokens there are not what it gives.
+/// Fail if the theme file beneath a root is not as its form requires, does
+/// not keep the contrast it promises, or if the tokens there are not what it
+/// gives.
 pub fn check(root: &Path) -> Result<(), String> {
     let css = expected(root)?;
     let path = path(root);

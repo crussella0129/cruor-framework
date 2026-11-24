@@ -118,3 +118,10 @@
 - **Completed:** 2026-11-24T05:15:08Z
 - **Files modified:** src/look.rs, src/main.rs, src/theme.rs, look/tokens.css, tests/look.rs, tests/cli.rs, tests/theme.rs
 - **Commit:** `9129a8159b59b0a6eaef19271060611422e8c2c7`
+
+## T-203 (sprint 1)
+- **Description:** Test, from the theme file, the contrast it promises: entries in the theme file, a check in the tool that names the pair that fails, and a check that no rule sets a pair the file has not promised
+- **Intent:** [INT-0003](../intents/INT-0003-cruentous-atonement-look.md), [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md)
+- **Completed:** 2026-11-24T05:18:04Z
+- **Files modified:** src/contrast.rs, src/theme.rs, src/look.rs, src/main.rs, look/theme.toml, look/THEME.md, tests/contrast.rs, tests/stylesheets.py, tests/test_promised_pairs.py, tests/test_theme_form.py, docs/intents/INT-0003-cruentous-atonement-look.md
+- **Commit:** PENDING
