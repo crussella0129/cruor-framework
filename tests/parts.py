@@ -8,7 +8,8 @@ whole when every part of the sprint's plan is in it.
 
 A state at rest is found on the part's page as it lies. A state a hand
 brings about is brought about by the tests: the pointer moved over the
-part, the part pressed and held, or Tab pressed until the keyboard is on it.
+part, the part pressed and held, Tab pressed until the keyboard is on it, or
+the button that raises it pressed.
 
 The bounds are the look's: 4.5 for interface text; 3.3 for an inscription,
 which is running text of 24 pixels or more; and 3 for a part that cannot be
@@ -25,18 +26,20 @@ AT_REST = None
 POINTER_OVER = "pointer over"
 PRESSED = "pressed"
 KEYBOARD = "keyboard on it"
+RAISED = "raised from its button"
 
 
 @dataclasses.dataclass(frozen=True)
 class State:
     """One state of a part: its name, the element that is in it, how it is
     brought about (or `AT_REST`), and the lettering measured in it, each
-    with its bound."""
+    with its bound. A part that is raised names the button that raises it."""
 
     name: str
     selector: str
     how: str | None = AT_REST
     texts: tuple[tuple[str, float], ...] = ()
+    by: str = ""
 
 
 @dataclasses.dataclass(frozen=True)
@@ -67,6 +70,7 @@ def handled(selector: str, bound: float = INTERFACE) -> tuple[State, ...]:
 
 
 CONTROLS = "tests/pages/controls.html"
+CONTAINERS = "tests/pages/containers.html"
 
 PARTS: tuple[Part, ...] = (
     Part(
@@ -186,6 +190,128 @@ PARTS: tuple[Part, ...] = (
             State("low", "#measure-low"),
         ),
         blood=("#measure-high", "#measure-middling"),
+    ),
+    Part(
+        "plate",
+        "cruor-plate",
+        CONTAINERS,
+        (
+            State(
+                "as it lies",
+                "#plate",
+                texts=(("#plate-text", INSCRIPTION), ("#plate-small", INTERFACE)),
+            ),
+            State("a link", "#plate-link", texts=(("#plate-link-title", INTERFACE),)),
+            State(
+                POINTER_OVER,
+                "#plate-link",
+                POINTER_OVER,
+                (("#plate-link-title", INTERFACE),),
+            ),
+            State(
+                KEYBOARD, "#plate-link", KEYBOARD, (("#plate-link-title", INTERFACE),)
+            ),
+        ),
+        keyboard=("#plate-link",),
+    ),
+    Part(
+        "panel",
+        "cruor-panel",
+        CONTAINERS,
+        (
+            State(
+                "as it lies",
+                "#panel",
+                texts=(("#panel-text", INSCRIPTION), ("#panel-small", INTERFACE)),
+            ),
+        ),
+    ),
+    Part(
+        "the void",
+        "cruor-void",
+        CONTAINERS,
+        (
+            State(
+                "as it lies",
+                "#void",
+                texts=(
+                    ("#void-heading", INTERFACE),
+                    ("#void-text", INTERFACE),
+                    ("#void-item", INTERFACE),
+                    ("#void-subdued", INTERFACE),
+                ),
+            ),
+            State("with a current row", "#void", texts=(("#void-row", INTERFACE),)),
+        ),
+        keyboard=("#void-item", "#void-row"),
+    ),
+    Part(
+        "notice",
+        "cruor-notice",
+        CONTAINERS,
+        (
+            State(
+                "a note", "#notice-note", texts=(("#notice-note-text", INSCRIPTION),)
+            ),
+            State(
+                "a warning",
+                "#notice-warning",
+                texts=(("#notice-warning-text", INSCRIPTION),),
+            ),
+            State(
+                "a fault", "#notice-fault", texts=(("#notice-fault-text", INSCRIPTION),)
+            ),
+        ),
+    ),
+    Part(
+        "fold",
+        "cruor-fold",
+        CONTAINERS,
+        (
+            State("shut", "#fold", texts=(("#fold-summary", INTERFACE),)),
+            State(
+                "open",
+                "#fold-open",
+                texts=(
+                    ("#fold-open-summary", INTERFACE),
+                    ("#fold-open-text", INSCRIPTION),
+                ),
+            ),
+            State(KEYBOARD, "#fold-summary", KEYBOARD, (("#fold-summary", INTERFACE),)),
+        ),
+        keyboard=("#fold-summary", "#fold-open-summary"),
+    ),
+    Part(
+        "rise",
+        "cruor-rise",
+        CONTAINERS,
+        (
+            State(
+                "a dialog, open",
+                "#rise-open",
+                texts=(
+                    ("#rise-open-text", INSCRIPTION),
+                    ("#rise-open-small", INTERFACE),
+                ),
+            ),
+            State(
+                "shown from its button",
+                "#rise",
+                RAISED,
+                (("#rise-text", INSCRIPTION), ("#rise-small", INTERFACE)),
+                by="#raise",
+            ),
+            State(
+                "shown as a modal dialog from its button",
+                "#dialog",
+                RAISED,
+                (("#dialog-text", INSCRIPTION),),
+                by="#raise-dialog",
+            ),
+        ),
+        # What takes the keyboard is the button that raises it, and what is
+        # inside it.
+        keyboard=("#raise", "#raise-dialog", "#rise-open-close"),
     ),
 )
 

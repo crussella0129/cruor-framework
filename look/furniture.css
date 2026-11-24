@@ -357,6 +357,220 @@
     background: none;
     background-color: var(--cruor-blood);
   }
+
+  /* ---------------------------------------------------------------- */
+  /* Plate and panel                                                   */
+  /* ---------------------------------------------------------------- */
+
+  /* A plate holds one thing among others: a slab lifted off the stone by a
+     hard shadow. A plate may be a link. */
+  & .cruor-plate {
+    display: block;
+    box-sizing: border-box;
+    padding: 1em 1.2em;
+    border: 1px solid var(--cruor-border);
+    color: var(--cruor-text);
+    text-decoration: none;
+    background-color: var(--cruor-panel);
+    box-shadow: 3px 3px 0 var(--cruor-shadow);
+    transition:
+      border-color 120ms ease-out,
+      box-shadow 120ms ease-out;
+  }
+
+  & a.cruor-plate:is(:hover, :focus-visible) {
+    border-color: var(--cruor-heading-foot);
+    border-left-color: var(--cruor-accent);
+    box-shadow:
+      0 0 0 1px var(--cruor-heading-foot),
+      3px 3px 0 1px var(--cruor-shadow);
+  }
+
+  /* A panel is the same ground with no lift. */
+  & .cruor-panel {
+    box-sizing: border-box;
+    padding: 1em 1.2em;
+    border: 1px solid var(--cruor-border);
+    color: var(--cruor-text);
+    background-color: var(--cruor-panel);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* The void                                                          */
+  /* ---------------------------------------------------------------- */
+
+  /* A panel of pure black beside the obsidian page, lettered in salmon,
+     with crimson for its structure. Everything in it is small. */
+  & .cruor-void {
+    box-sizing: border-box;
+    padding: 1em 1.2em;
+    border: 1px solid var(--cruor-void-border);
+    color: var(--cruor-void-text);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+    background-color: var(--cruor-void-ground);
+  }
+
+  & .cruor-void :is(p, li, dd, dt, blockquote, h1, h2, h3, h4, h5, h6) {
+    color: var(--cruor-void-text);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+  }
+
+  & .cruor-void a {
+    color: var(--cruor-void-accent);
+  }
+
+  & .cruor-void small {
+    color: var(--cruor-void-text-subdued);
+  }
+
+  /* The row of the current item: a tint, and a channel of crimson beside
+     it. Subdued lettering is not set here; it would fall short. */
+  & .cruor-void [aria-current]:not([aria-current="false"]) {
+    display: block;
+    padding: 0.15em 0.7em;
+    color: var(--cruor-void-text);
+    text-decoration: none;
+    background-color: var(--cruor-void-row);
+    box-shadow: inset 3px 0 0 var(--cruor-void-channel);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Notice                                                            */
+  /* ---------------------------------------------------------------- */
+
+  /* Something set apart from the text and fed by a channel of blood. Its
+     three kinds are told apart by the channel's make as well as its colour:
+     a note's is single, a warning's broken, a fault's doubled. */
+  & .cruor-notice {
+    box-sizing: border-box;
+    margin: 1em 0;
+    padding: 0.6em 1em;
+    border: 1px solid var(--cruor-border);
+    border-left: 4px solid var(--cruor-heading-foot);
+    color: var(--cruor-text);
+    background-color: var(--cruor-panel);
+  }
+
+  & .cruor-notice[data-kind="warning"] {
+    border-left: 4px dashed var(--cruor-accent);
+  }
+
+  & .cruor-notice[data-kind="fault"] {
+    border-color: var(--cruor-accent);
+    border-left: 6px double var(--cruor-accent);
+  }
+
+  & :is(.cruor-plate, .cruor-panel, .cruor-void, .cruor-notice) > :first-child {
+    margin-top: 0;
+  }
+
+  & :is(.cruor-plate, .cruor-panel, .cruor-void, .cruor-notice) > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Fold                                                              */
+  /* ---------------------------------------------------------------- */
+
+  /* A part that opens and closes: `<details class="cruor-fold">`. Its mark
+     turns as it opens, and the rule beneath it bleeds. */
+  & .cruor-fold {
+    border-bottom: 1px solid var(--cruor-border);
+  }
+
+  & .cruor-fold > summary {
+    padding: 0.5em 0;
+    color: var(--cruor-text);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  & .cruor-fold > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  & .cruor-fold > summary::before {
+    content: "";
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    margin: 0 0.7em 0.12em 0.15em;
+    border-top: 2px solid var(--cruor-heading-foot);
+    border-right: 2px solid var(--cruor-heading-foot);
+    transform: rotate(45deg);
+    transition: transform 160ms ease-out;
+  }
+
+  & .cruor-fold[open] {
+    border-bottom-color: var(--cruor-inscription);
+  }
+
+  & .cruor-fold[open] > summary::before {
+    border-color: var(--cruor-accent);
+    transform: rotate(135deg);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Rise                                                              */
+  /* ---------------------------------------------------------------- */
+
+  /* A part that comes up over the page: anything with `popover`, or a
+     `<dialog>`. A button raises it with `popovertarget`, or raises a dialog
+     as a modal one with `commandfor` and `command="show-modal"`. */
+  & .cruor-rise {
+    box-sizing: border-box;
+    max-width: min(32rem, calc(100vw - 2rem));
+    padding: 1.2em 1.4em;
+    border: 1px solid var(--cruor-heading-foot);
+    color: var(--cruor-text);
+    background-color: var(--cruor-panel);
+    box-shadow: 6px 6px 0 var(--cruor-shadow);
+  }
+
+  & .cruor-rise::backdrop {
+    background-color: color-mix(in srgb, var(--cruor-shadow) 72%, transparent);
+  }
+
+  & .cruor-rise > :first-child {
+    margin-top: 0;
+  }
+
+  & .cruor-rise > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Headings within a container                                       */
+  /* ---------------------------------------------------------------- */
+
+  /* A heading set in a part that has a ground of its own is lettered flat
+     and not carved, so that what it stands at there can be measured. */
+  & :is(.cruor-plate, .cruor-panel, .cruor-notice, .cruor-fold, .cruor-rise)
+    :is(h1, h2, h3) {
+    color: var(--cruor-inscription);
+    background-image: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: currentColor;
+    -webkit-text-stroke: 0;
+    text-shadow: 0 0 0.6em color-mix(in srgb, var(--cruor-inscription) 22%, transparent);
+    filter: none;
+    animation: none;
+  }
+
+  & .cruor-void :is(h1, h2, h3) {
+    background-image: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: currentColor;
+    -webkit-text-stroke: 0;
+    filter: none;
+    animation: none;
+  }
 }
 
 /* A tick or a pick is struck, not faded in. */

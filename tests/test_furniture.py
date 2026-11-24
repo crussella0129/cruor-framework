@@ -34,6 +34,13 @@ PLANNED = [
     "cruor-slider",
     "cruor-progress",
     "cruor-measure",
+    # T-207, the containers
+    "cruor-plate",
+    "cruor-panel",
+    "cruor-void",
+    "cruor-notice",
+    "cruor-fold",
+    "cruor-rise",
 ]
 
 
@@ -101,6 +108,9 @@ def bring_about(page, state: parts.State) -> None:
         page.mouse.down()
     elif state.how == parts.KEYBOARD:
         tab_to(page, state.selector)
+    elif state.how == parts.RAISED:
+        page.click(state.by)
+        page.wait_for_selector(state.selector, state="visible")
     else:
         raise AssertionError(state.how)
 
@@ -288,3 +298,158 @@ def test_controls_are_worked_by_their_keys(engine, address):
         assert page.evaluate(value % "selectedIndex", "#choice") == 0
         page.keyboard.press("ArrowDown")
         assert page.evaluate(value % "selectedIndex", "#choice") == 1
+
+
+# -- the containers ------------------------------------------------------------
+
+# A paragraph in each container that can hold one, with how the container
+# comes to be shown if it is not shown as the page lies.
+PARAGRAPHS = [
+    ("#plate-text", None),
+    ("#panel-text", None),
+    ("#notice-note-text", None),
+    ("#notice-warning-text", None),
+    ("#notice-fault-text", None),
+    ("#fold-open-text", None),
+    ("#rise-open-text", None),
+    ("#rise-text", "#raise"),
+    ("#dialog-text", "#raise-dialog"),
+]
+
+
+@pytest.mark.parametrize(("paragraph", "raised_by"), PARAGRAPHS)
+def test_paragraph_in_every_container_is_an_inscription(
+    engine, address, paragraph, raised_by
+):
+    with browser.opened(engine, address + parts.CONTAINERS, script=False) as page:
+        if raised_by:
+            page.click(raised_by)
+            page.wait_for_selector(paragraph, state="visible")
+        size = page.evaluate(
+            "selector => parseFloat(getComputedStyle("
+            "document.querySelector(selector)).fontSize)",
+            paragraph,
+        )
+        assert size >= 24, paragraph
+        assert browser.lettering(page, paragraph) == role("inscription")
+        found = browser.stands_at(page, paragraph)
+    assert found >= parts.INSCRIPTION, f"{paragraph} stands at {found:.2f}"
+
+
+def test_voids_current_row_meets_contrast(engine, address):
+    with browser.opened(engine, address + parts.CONTAINERS, script=False) as page:
+        # The row is the tint laid over the void's ground, as the theme file
+        # works it, and the void's own lettering stands on it.
+        void = LOOK["void"]
+        row = browser.laid(browser.colour(void["row"]), browser.colour(void["ground"]))
+        (seen,) = browser.ground(page, "#void-row")
+        assert all(abs(seen[at] - row[at]) <= 1 for at in range(3)), (seen, row)
+        assert browser.lettering(page, "#void-row") == browser.colour(void["text"])
+        assert browser.stands_at(page, "#void-row") >= parts.INTERFACE
+        # The row is marked by more than its tint: a channel beside it.
+        shadow = page.evaluate(
+            "getComputedStyle(document.querySelector('#void-row')).boxShadow"
+        )
+        assert "inset" in shadow
+        # Subdued lettering lies off the row, on the void's own ground.
+        assert browser.ground(page, "#void-subdued") == {
+            browser.colour(void["ground"])[:3]
+        }
+
+
+HEADINGS_WITHIN = [
+    "#plate-heading",
+    "#panel-heading",
+    "#notice-heading",
+    "#fold-heading",
+    "#rise-open-heading",
+]
+
+
+@pytest.mark.parametrize("heading", HEADINGS_WITHIN)
+def test_heading_in_a_container_is_not_carved(engine, address, heading):
+    with browser.opened(engine, address + parts.CONTAINERS, script=False) as page:
+        clip = page.evaluate(
+            "selector => getComputedStyle(document.querySelector(selector))"
+            ".backgroundClip",
+            heading,
+        )
+        assert "text" not in clip, heading
+        assert browser.lettering(page, heading) == role("inscription")
+        found = browser.stands_at(page, heading)
+    assert found >= parts.INSCRIPTION, f"{heading} stands at {found:.2f}"
+
+
+def is_open(page, selector: str) -> bool:
+    return page.evaluate("selector => document.querySelector(selector).open", selector)
+
+
+def test_fold_opens_without_script(engine, address):
+    with browser.opened(engine, address + parts.CONTAINERS, script=False) as page:
+        assert not is_open(page, "#fold")
+        assert not page.locator("#fold-text").is_visible()
+        page.click("#fold-summary")
+        assert is_open(page, "#fold") and page.locator("#fold-text").is_visible()
+        # And by the keyboard: it is on the summary, and Enter shuts it again.
+        assert page.evaluate("document.activeElement.id") == "fold-summary"
+        page.keyboard.press("Enter")
+        assert not is_open(page, "#fold")
+        page.keyboard.press("Enter")
+        assert is_open(page, "#fold")
+
+
+def test_folds_sharing_a_name_open_one_at_a_time(engine, address):
+    with browser.opened(engine, address + parts.CONTAINERS, script=False) as page:
+        page.click("#fold-a-summary")
+        assert is_open(page, "#fold-a") and not is_open(page, "#fold-b")
+        page.click("#fold-b-summary")
+        assert is_open(page, "#fold-b") and not is_open(page, "#fold-a")
+
+
+def test_rise_opens_and_closes_without_script(engine, address):
+    shown = "document.querySelector('#rise').matches(':popover-open')"
+    with browser.opened(engine, address + parts.CONTAINERS, script=False) as page:
+        assert not page.evaluate(shown)
+        assert not page.locator("#rise").is_visible()
+        page.click("#raise")
+        assert page.evaluate(shown) and page.locator("#rise").is_visible()
+        # It is above the page: it is what a press at its middle finds.
+        box = page.locator("#rise").bounding_box()
+        found = page.evaluate(
+            "([x, y]) => document.elementFromPoint(x, y).closest('#rise') !== null",
+            [box["x"] + box["width"] / 2, box["y"] + box["height"] / 2],
+        )
+        assert found
+        page.keyboard.press("Escape")
+        assert not page.evaluate(shown)
+        assert not page.locator("#rise").is_visible()
+
+
+def test_dialog_opens_modal_without_script(engine, address):
+    with browser.opened(engine, address + parts.CONTAINERS, script=False) as page:
+        assert not is_open(page, "#dialog")
+        page.click("#raise-dialog")
+        assert is_open(page, "#dialog")
+        assert page.evaluate("document.querySelector('#dialog').matches(':modal')")
+        # The page behind it does not take the keyboard: Tab stays within.
+        for _ in range(6):
+            page.keyboard.press("Tab")
+            inside = page.evaluate(
+                "document.activeElement === document.body"
+                " || document.activeElement.closest('#dialog') !== null"
+            )
+            assert inside, page.evaluate("document.activeElement.id")
+        # Nor a press of the pointer: what lies behind is not reached.
+        behind = page.evaluate(
+            "(() => { const r = document.querySelector('#raise')"
+            ".getBoundingClientRect();"
+            " const found = document.elementFromPoint(r.x + 2, r.y + 2);"
+            " return found ? found.id : ''; })()"
+        )
+        assert behind != "raise"
+        page.keyboard.press("Escape")
+        assert not is_open(page, "#dialog")
+        # Its own button closes it too, by a command and no script.
+        page.click("#raise-dialog")
+        page.click("#dialog-close")
+        assert not is_open(page, "#dialog")

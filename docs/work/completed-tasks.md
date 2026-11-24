@@ -153,3 +153,10 @@
 - **Completed:** 2026-11-24T05:39:16Z
 - **Files modified:** look/furniture.css, tests/parts.py, tests/test_furniture.py, tests/pages/controls.html, tests/browser.py, tests/test_browser_means.py
 - **Commit:** `8e4268925ae2139255c76381555b3ef1071e82e7`
+
+## T-207 (sprint 1)
+- **Description:** Furniture, the containers: plate, panel, the void, notice, fold and rise, with a dialog opened as a modal one by a button alone; headings within a container lettered flat; and the quotation's channel made its border so its text is held against the page
+- **Intent:** [INT-0006](../intents/INT-0006-the-furniture.md)
+- **Completed:** 2026-11-24T05:49:57Z
+- **Files modified:** look/furniture.css, look/cruentous-atonement.css, tests/parts.py, tests/test_furniture.py, tests/test_look_page.py, tests/browser.py, tests/pages/containers.html
+- **Commit:** PENDING

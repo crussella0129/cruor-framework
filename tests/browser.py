@@ -24,6 +24,7 @@ import struct
 import tomllib
 import zlib
 
+from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import sync_playwright
 
 from helpers import ROOT
@@ -200,7 +201,16 @@ def opened(engine, address: str, *, script: bool = True, still: bool = True, **m
     )
     page = context.new_page()
     try:
-        page.goto(address)
+        # The address is on this machine. Under many tests in a row its
+        # server now and then refuses one connection; a second asking is
+        # answered. A page that is truly missing fails every time.
+        for attempt in range(3):
+            try:
+                page.goto(address)
+                break
+            except PlaywrightError as error:
+                if "ERR_CONNECTION" not in str(error) or attempt == 2:
+                    raise
         page.wait_for_load_state("networkidle")
         page.evaluate("document.fonts.ready.then(() => true)")
         yield page

@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-207 (sprint 1) [intent: INT-0006]: Furniture: the containers — touches: look/furniture.css, tests/
 - [ ] T-208 (sprint 1) [intent: INT-0006]: Furniture: ways through a page, and small pieces — touches: look/furniture.css, tests/
 - [ ] T-209 (sprint 1) [intent: INT-0007, INT-0006, INT-0003]: Build the showroom from the kit alone and show it to the owner — touches: showroom/, tests/
 - [ ] T-210 (sprint 1) [intent: INT-0007, INT-0001]: Add play to the showroom, in script — touches: showroom/, tests/

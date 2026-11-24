@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The furniture: containers</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../look/tokens.css">
+<link rel="stylesheet" href="../../look/cruentous-atonement.css">
+<link rel="stylesheet" href="../../look/furniture.css">
+<style>
+  body { margin: 0; padding: 2rem; }
+  .row { margin: 0 0 2rem; max-width: 44rem; }
+  .stage { position: relative; height: 16rem; }
+</style>
+</head>
+<body class="cruentous-atonement">
+
+<div class="row">
+  <div class="cruor-plate" id="plate">
+    <h2 id="plate-heading">A plate</h2>
+    <p id="plate-text">A paragraph set in a plate is running text there.</p>
+    <small id="plate-small">And small text is small.</small>
+  </div>
+</div>
+
+<div class="row">
+  <a class="cruor-plate" id="plate-link" href="#plate">
+    <span id="plate-link-title">A plate that is a link</span>
+  </a>
+</div>
+
+<div class="row">
+  <div class="cruor-panel" id="panel">
+    <h2 id="panel-heading">A panel</h2>
+    <p id="panel-text">A paragraph set in a panel.</p>
+    <small id="panel-small">And small text.</small>
+  </div>
+</div>
+
+<div class="row">
+  <nav class="cruor-void" id="void" aria-label="The void">
+    <h2 id="void-heading">The void</h2>
+    <p id="void-text">Its lettering is salmon, and small.</p>
+    <a id="void-item" href="#void">An item</a>
+    <a id="void-row" href="#void" aria-current="page">The current item</a>
+    <small id="void-subdued">Subdued lettering, off the tinted row.</small>
+  </nav>
+</div>
+
+<div class="row">
+  <div class="cruor-notice" id="notice-note" data-kind="note">
+    <h3 id="notice-heading">A note</h3>
+    <p id="notice-note-text">Something a reader should know.</p>
+  </div>
+  <div class="cruor-notice" id="notice-warning" data-kind="warning">
+    <p id="notice-warning-text">Something a reader should mind.</p>
+  </div>
+  <div class="cruor-notice" id="notice-fault" data-kind="fault">
+    <p id="notice-fault-text">Something that has gone wrong.</p>
+  </div>
+</div>
+
+<div class="row">
+  <details class="cruor-fold" id="fold">
+    <summary id="fold-summary">A fold that is shut</summary>
+    <p id="fold-text">What was folded away.</p>
+  </details>
+  <details class="cruor-fold" id="fold-open" open>
+    <summary id="fold-open-summary">A fold that is open</summary>
+    <h3 id="fold-heading">Within the fold</h3>
+    <p id="fold-open-text">A paragraph in an open fold.</p>
+  </details>
+</div>
+
+<div class="row">
+  <details class="cruor-fold" id="fold-a" name="rites">
+    <summary id="fold-a-summary">The first of two that share a name</summary>
+    <p>Opening the other shuts this.</p>
+  </details>
+  <details class="cruor-fold" id="fold-b" name="rites">
+    <summary id="fold-b-summary">The second</summary>
+    <p>Opening the other shuts this.</p>
+  </details>
+</div>
+
+<div class="row">
+  <button type="button" class="cruor-button" id="raise" popovertarget="rise">Raise it</button>
+  <div class="cruor-rise" id="rise" popover>
+    <p id="rise-text">Something that comes up over the page.</p>
+    <small id="rise-small">Escape sends it away.</small>
+  </div>
+
+  <button type="button" class="cruor-button" id="raise-dialog"
+    commandfor="dialog" command="show-modal">Raise a dialog</button>
+  <dialog class="cruor-rise" id="dialog" aria-labelledby="dialog-heading">
+    <h2 id="dialog-heading">A dialog</h2>
+    <p id="dialog-text">The page behind it waits.</p>
+    <button type="button" class="cruor-button" id="dialog-close"
+      commandfor="dialog" command="close">Close</button>
+  </dialog>
+</div>
+
+<div class="row stage">
+  <dialog class="cruor-rise" id="rise-open" open aria-labelledby="rise-open-heading">
+    <h2 id="rise-open-heading">A dialog, open as the page lies</h2>
+    <p id="rise-open-text">A paragraph in a rise.</p>
+    <small id="rise-open-small">And small text.</small>
+    <form method="dialog">
+      <button class="cruor-button" id="rise-open-close">Close</button>
+    </form>
+  </dialog>
+</div>
+
+</body>
+</html>

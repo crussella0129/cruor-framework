@@ -274,21 +274,14 @@
     position: relative;
     margin: 1em 0;
     padding: 0.2em 0 0.2em 1em;
-    border-left: 3px solid transparent;
-    background:
-      linear-gradient(
-          180deg,
-          var(--cruor-heading-top),
-          var(--cruor-heading-foot) 70%,
-          color-mix(in srgb, var(--cruor-heading-foot) 30%, var(--cruor-shadow))
-        )
-        left top / 3px 100% no-repeat border-box,
-      linear-gradient(
-          90deg,
-          color-mix(in srgb, var(--cruor-border) 16%, transparent),
-          transparent 60%
-        )
-        padding-box;
+    border-left: 3px solid var(--cruor-heading-foot);
+    border-image: linear-gradient(
+        180deg,
+        var(--cruor-heading-top),
+        var(--cruor-heading-foot) 70%,
+        color-mix(in srgb, var(--cruor-heading-foot) 30%, var(--cruor-shadow))
+      )
+      1;
   }
 
   /* A single drop gathers at the foot of the channel. */

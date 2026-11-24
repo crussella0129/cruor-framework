@@ -120,7 +120,8 @@ def test_ornaments_are_drawn(engine, address):
                     mark: {content: mark.content, ground: mark.backgroundColor},
                     sigil: {content: sigil.content,
                         mask: sigil.maskImage || sigil.webkitMaskImage},
-                    quote: {edge: quote.borderLeftWidth, image: quote.backgroundImage},
+                    quote: {edge: quote.borderLeftWidth, image: quote.borderImageSource,
+                        ground: quote.backgroundImage},
                     drop: of('#quotation', '::after').content,
                 };
             }"""
@@ -150,6 +151,9 @@ def test_ornaments_are_drawn(engine, address):
     # A quotation carries a channel down its left edge, and a drop at its foot.
     assert found["quote"]["edge"] == "3px"
     assert "linear-gradient" in found["quote"]["image"]
+    # The channel is its edge and not a ground: the quotation's text lies on
+    # the page, and is held against the page at its brightest.
+    assert found["quote"]["ground"] == "none"
     assert found["drop"] != "none"
 
 
@@ -323,3 +327,31 @@ def test_theme_changes_a_heading(engine, tmp_path, setting, written, changed, re
     for level in HEADINGS:
         if level != "h2":
             assert after[level] == before[level], level
+
+
+@pytest.mark.parametrize(
+    ("selector", "bound"),
+    [
+        ("#second", 3.3),
+        ("#item", 3.3),
+        ("#quotation", 3.3),
+        ("#link", 3.3),
+        ("#h4", 3.3),
+        ("#h5", 3.3),
+        ("#h6", 3.3),
+        ("#td", 4.5),
+        ("#th", 4.5),
+        ("#block", 4.5),
+    ],
+)
+def test_plain_lettering_meets_its_bound(engine, address, selector, bound):
+    # What the theme file promises of its colours, measured on what is
+    # drawn: running text at 3.3 and small things at 4.5, each against the
+    # ground behind it and, where it lies straight on the page, against the
+    # page at its brightest. Carved headings and code chips have letters a
+    # browser cannot measure, and rest on the theme file's entries alone.
+    with browser.opened(engine, address + PLAIN) as page:
+        found = browser.stands_at(page, selector)
+        if selector in ("#second", "#item", "#quotation", "#link"):
+            assert browser.on_the_page(page, selector), selector
+    assert found >= bound, f"{selector} stands at {found:.2f}"
