@@ -41,6 +41,15 @@ PLANNED = [
     "cruor-notice",
     "cruor-fold",
     "cruor-rise",
+    # T-208, ways through a page and small pieces
+    "cruor-masthead",
+    "cruor-links",
+    "cruor-trail",
+    "cruor-badge",
+    "cruor-seal",
+    "cruor-sigil",
+    "cruor-hairline",
+    "cruor-loader",
 ]
 
 
@@ -65,6 +74,11 @@ def role(name: str) -> tuple:
 
 def test_parts_list_is_whole():
     assert parts.classes() == PLANNED
+    assert len(PLANNED) == 25, "every part of the plan's table"
+    # One page holds one of every part.
+    every = (ROOT / parts.EVERY_PART).read_text(encoding="utf-8")
+    for css_class in PLANNED:
+        assert re.search(rf'class="[^"]*{css_class}[" ]', every), css_class
     for part in parts.PARTS:
         assert part.name and part.css_class.startswith("cruor-")
         assert (ROOT / part.page).is_file(), part.page
@@ -453,3 +467,131 @@ def test_dialog_opens_modal_without_script(engine, address):
         page.click("#raise-dialog")
         page.click("#dialog-close")
         assert not is_open(page, "#dialog")
+
+
+# -- ways through a page, and small pieces -------------------------------------
+
+
+def test_masthead_carries_the_briar(engine, address):
+    with browser.opened(engine, address + parts.PIECES, script=False) as page:
+        briar = page.evaluate(
+            """() => {
+                const el = document.querySelector('#masthead');
+                const s = getComputedStyle(el, '::after');
+                const own = getComputedStyle(el);
+                return {content: s.content, image: s.backgroundImage,
+                    repeat: s.backgroundRepeat, rendering: s.imageRendering,
+                    pointer: s.pointerEvents, ground: own.backgroundColor,
+                    picture: own.backgroundImage};
+            }"""
+        )
+        # The briar's own reds are drawn along the masthead's foot.
+        box = page.locator("#masthead").bounding_box()
+        foot = browser.pixels(
+            page.screenshot(
+                clip={
+                    "x": box["x"],
+                    "y": box["y"] + box["height"] - 19,
+                    "width": 192,
+                    "height": 36,
+                }
+            )
+        )
+    assert briar["content"] != "none"
+    assert briar["image"].startswith('url("data:image/svg+xml,')
+    assert briar["repeat"] == "repeat-x" and briar["rendering"] == "pixelated"
+    assert briar["pointer"] == "none"
+    assert role("heading-foot")[:3] in set(foot), "the stem of pooled blood"
+    # The masthead has no ground of its own: it lies on the stone.
+    assert browser.colour(briar["ground"])[3] == 0 and briar["picture"] == "none"
+
+
+def test_current_place_is_marked_beyond_colour(engine, address):
+    read = """selector => {
+        const el = document.querySelector(selector);
+        const s = getComputedStyle(el);
+        return {current: el.getAttribute('aria-current'), colour: s.color,
+            bar: s.borderBottomColor, weight: s.fontWeight,
+            line: s.textDecorationLine};
+    }"""
+    with browser.opened(engine, address + parts.PIECES, script=False) as page:
+        current = page.evaluate(read, "#links-current")
+        other = page.evaluate(read, "#links-item")
+        place = page.evaluate(read, "#trail-current")
+        link = page.evaluate(read, "#trail-link")
+    # In the bar of links: named as current, and shown by a bar beneath it.
+    assert current["current"] == "page" and other["current"] is None
+    assert browser.colour(current["bar"]) == role("accent")
+    assert browser.colour(other["bar"])[3] == 0
+    assert current["colour"] != other["colour"], "and by its colour as well"
+    # In the trail: named as current, and shown by its weight and by having
+    # no line beneath it, where a place to go back to has one.
+    assert place["current"] == "page" and link["current"] is None
+    assert place["weight"] == "700" and link["weight"] == "400"
+    assert "underline" in link["line"] and "underline" not in place["line"]
+
+
+RUNNING = """() => document.getAnimations()
+    .filter(moving => moving.playState === 'running')
+    .map(moving => moving.animationName || moving.transitionProperty)"""
+
+
+def test_furniture_moves_unless_asked_to_be_still(engine, address):
+    with browser.opened(engine, address + parts.EVERY_PART, still=False) as page:
+        found = page.evaluate(RUNNING)
+        assert "cruor-drip" in found, "the loader's drop gathers and falls"
+        assert "cruor-seep" in found, "a vial with no measure seeps"
+    with browser.opened(engine, address + parts.EVERY_PART, script=False) as page:
+        assert page.evaluate(RUNNING) == []
+
+
+def test_no_part_is_in_passage_when_stillness_is_asked(engine, address):
+    with browser.opened(engine, address + parts.EVERY_PART, script=False) as page:
+        lasting = page.evaluate(
+            """() => {
+                const found = [];
+                const zero = text =>
+                    text.split(',').every(part => parseFloat(part) === 0);
+                for (const el of document.body.querySelectorAll('*')) {
+                    for (const pseudo of [null, '::before', '::after']) {
+                        const s = getComputedStyle(el, pseudo);
+                        if (!zero(s.transitionDuration) || s.animationName !== 'none') {
+                            found.push((el.className || el.tagName) + (pseudo || ''));
+                        }
+                    }
+                }
+                return found;
+            }"""
+        )
+    assert lasting == []
+
+
+def test_furniture_prints_plain(engine, address):
+    with browser.opened(engine, address + parts.EVERY_PART, script=False) as page:
+        page.emulate_media(media="print")
+        found = page.evaluate(
+            """classes => {
+                const read = {};
+                for (const name of classes) {
+                    const el = document.querySelector('.' + name);
+                    const s = getComputedStyle(el);
+                    read[name] = {colour: s.color, ground: s.backgroundColor,
+                        picture: s.backgroundImage, shadow: s.boxShadow,
+                        before: getComputedStyle(el, '::before').display,
+                        after: getComputedStyle(el, '::after').display};
+                }
+                return read;
+            }""",
+            parts.classes(),
+        )
+    black, white = (0, 0, 0, 1.0), (255, 255, 255, 1.0)
+    for name, part in found.items():
+        ground = browser.colour(part["ground"])
+        assert ground == white or ground[3] == 0, name
+        assert part["picture"] == "none", name
+        assert browser.colour(part["colour"]) == black, name
+        assert part["shadow"] == "none", name
+    # The briar, the sigil and the loader's drop are not shown.
+    assert found["cruor-masthead"]["after"] == "none"
+    assert found["cruor-sigil"]["after"] == "none"
+    assert found["cruor-loader"]["before"] == "none"

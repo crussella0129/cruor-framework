@@ -571,6 +571,235 @@
     filter: none;
     animation: none;
   }
+
+  /* ---------------------------------------------------------------- */
+  /* Masthead                                                          */
+  /* ---------------------------------------------------------------- */
+
+  /* The head of a page. It has no ground of its own: it lies on the stone.
+     An eight-bit briar grows along its foot: a stem of pooled blood, hooked
+     thorns with blood on their points, a leaf, a cluster of berries. */
+  & .cruor-masthead {
+    position: relative;
+    padding: 0 0 1.6em;
+    margin: 0 0 2.2em;
+    color: var(--cruor-text);
+  }
+
+  & .cruor-masthead > :first-child {
+    margin-top: 0;
+  }
+
+  & .cruor-masthead::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    height: 36px;
+    margin-top: -19px;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='36' viewBox='0 0 32 12' shape-rendering='crispEdges'%3E%3Crect x='28' y='2' width='1' height='1' fill='%23ff4b4b'/%3E%3Crect x='3' y='3' width='1' height='1' fill='%23ff4b4b'/%3E%3Crect x='14' y='3' width='1' height='1' fill='%23ff4b4b'/%3E%3Crect x='22' y='3' width='2' height='1' fill='%235c1416'/%3E%3Crect x='27' y='3' width='1' height='1' fill='%238a1c1c'/%3E%3Crect x='2' y='4' width='1' height='1' fill='%238a1c1c'/%3E%3Crect x='13' y='4' width='1' height='1' fill='%238a1c1c'/%3E%3Crect x='21' y='4' width='2' height='1' fill='%235c1416'/%3E%3Crect x='26' y='4' width='2' height='1' fill='%238a1c1c'/%3E%3Crect x='1' y='5' width='2' height='1' fill='%238a1c1c'/%3E%3Crect x='4' y='5' width='6' height='1' fill='%23ba1a1a'/%3E%3Crect x='12' y='5' width='2' height='1' fill='%238a1c1c'/%3E%3Crect x='20' y='5' width='2' height='1' fill='%235c1416'/%3E%3Crect x='24' y='5' width='4' height='1' fill='%23ba1a1a'/%3E%3Crect x='0' y='6' width='4' height='1' fill='%23ba1a1a'/%3E%3Crect x='4' y='6' width='6' height='1' fill='%236e1012'/%3E%3Crect x='10' y='6' width='4' height='1' fill='%23ba1a1a'/%3E%3Crect x='20' y='6' width='4' height='1' fill='%23ba1a1a'/%3E%3Crect x='24' y='6' width='4' height='1' fill='%236e1012'/%3E%3Crect x='28' y='6' width='4' height='1' fill='%23ba1a1a'/%3E%3Crect x='0' y='7' width='4' height='1' fill='%236e1012'/%3E%3Crect x='4' y='7' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='5' y='7' width='2' height='1' fill='%238a1c1c'/%3E%3Crect x='7' y='7' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='9' y='7' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='10' y='7' width='4' height='1' fill='%236e1012'/%3E%3Crect x='14' y='7' width='6' height='1' fill='%23ba1a1a'/%3E%3Crect x='20' y='7' width='4' height='1' fill='%236e1012'/%3E%3Crect x='24' y='7' width='1' height='1' fill='%23ba1a1a'/%3E%3Crect x='25' y='7' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='27' y='7' width='5' height='1' fill='%236e1012'/%3E%3Crect x='1' y='8' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='6' y='8' width='1' height='1' fill='%238a1c1c'/%3E%3Crect x='8' y='8' width='1' height='1' fill='%23ff3b2f'/%3E%3Crect x='9' y='8' width='1' height='1' fill='%23d50210'/%3E%3Crect x='10' y='8' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='13' y='8' width='7' height='1' fill='%236e1012'/%3E%3Crect x='20' y='8' width='1' height='1' fill='%23ba1a1a'/%3E%3Crect x='22' y='8' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='28' y='8' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='29' y='8' width='2' height='1' fill='%238a1c1c'/%3E%3Crect x='31' y='8' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='7' y='9' width='1' height='1' fill='%23ff4b4b'/%3E%3Crect x='9' y='9' width='2' height='1' fill='%23d50210'/%3E%3Crect x='16' y='9' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='17' y='9' width='2' height='1' fill='%238a1c1c'/%3E%3Crect x='19' y='9' width='1' height='1' fill='%233a0a0b'/%3E%3Crect x='30' y='9' width='1' height='1' fill='%238a1c1c'/%3E%3Crect x='18' y='10' width='1' height='1' fill='%238a1c1c'/%3E%3Crect x='31' y='10' width='1' height='1' fill='%23ff4b4b'/%3E%3Crect x='19' y='11' width='1' height='1' fill='%23ff4b4b'/%3E%3C/svg%3E") 0 0 / 96px 36px repeat-x;
+    image-rendering: pixelated;
+    animation: cruor-briar 2.4s steps(40, end) 0.4s both;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Bar of links, and trail                                           */
+  /* ---------------------------------------------------------------- */
+
+  /* A bar of links: a list, laid in a row. The link of the page a reader
+     is on is marked with `aria-current`, and shown by a bar beneath it as
+     well as by its colour. */
+  & .cruor-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em 1.4em;
+    padding: 0;
+    margin: 0;
+    font-size: var(--cruor-interface-size);
+    list-style: none;
+  }
+
+  & .cruor-links > li {
+    font-size: inherit;
+    text-shadow: none;
+  }
+
+  & .cruor-links > li::before {
+    content: none;
+  }
+
+  & .cruor-links a {
+    display: inline-block;
+    padding: 0.2em 0;
+    border-bottom: 2px solid transparent;
+    color: var(--cruor-link);
+    text-decoration: none;
+  }
+
+  & .cruor-links a:hover {
+    border-bottom-color: currentColor;
+  }
+
+  & .cruor-links [aria-current]:not([aria-current="false"]) {
+    border-bottom-color: var(--cruor-accent);
+    color: var(--cruor-text);
+  }
+
+  /* A trail back to where a reader came from: an ordered list, laid in a
+     row. The last place is the one a reader is on. */
+  & .cruor-trail {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    font-size: var(--cruor-interface-size);
+    list-style: none;
+  }
+
+  & .cruor-trail > li {
+    color: var(--cruor-text-subdued);
+    font-size: inherit;
+    text-shadow: none;
+  }
+
+  & .cruor-trail > li::marker {
+    content: none;
+  }
+
+  & .cruor-trail > li + li::before {
+    content: "";
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    margin: 0 0.75em 0.12em 0.45em;
+    border-top: 1px solid var(--cruor-text-subdued);
+    border-right: 1px solid var(--cruor-text-subdued);
+    transform: rotate(45deg);
+  }
+
+  & .cruor-trail a {
+    color: var(--cruor-link);
+  }
+
+  & .cruor-trail [aria-current]:not([aria-current="false"]) {
+    color: var(--cruor-text);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Small pieces                                                      */
+  /* ---------------------------------------------------------------- */
+
+  /* A badge: a word set into the stone. Its fault kind is marked by a
+     doubled edge as well as by its colour. */
+  & .cruor-badge {
+    display: inline-block;
+    padding: 0.05em 0.55em;
+    border: 1px solid var(--cruor-border);
+    color: var(--cruor-text);
+    font-size: var(--cruor-interface-size);
+    line-height: 1.4;
+    text-shadow: none;
+    vertical-align: baseline;
+    background-color: var(--cruor-sunken);
+  }
+
+  & .cruor-badge[data-kind="fault"] {
+    border: 3px double var(--cruor-accent);
+    color: var(--cruor-accent);
+    background-color: var(--cruor-sunken);
+  }
+
+  /* The seal, for a paragraph that is not the first after a heading: its
+     first letter struck in arterial red. */
+  & .cruor-seal::first-letter {
+    float: left;
+    margin: 0.08em 0.12em 0 0;
+    font-family: var(--cruor-seal-font), serif;
+    font-size: calc(var(--cruor-seal-size) * 1em);
+    font-weight: 700;
+    line-height: 0.82;
+    color: var(--cruor-heading-top);
+    text-shadow:
+      0 2px 0 color-mix(in srgb, var(--cruor-heading-foot) 30%, var(--cruor-shadow)),
+      0 0 0.35em color-mix(in srgb, var(--cruor-heading-top) 35%, transparent);
+  }
+
+  /* The sigil between two clotted rules, for a divider that is not an
+     `<hr>`. */
+  & .cruor-sigil {
+    position: relative;
+    height: 1.75rem;
+    margin: 2em 0;
+    border: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--cruor-border) 18%,
+        var(--cruor-border) 44%,
+        transparent 44%,
+        transparent 56%,
+        var(--cruor-border) 56%,
+        var(--cruor-border) 82%,
+        transparent
+      )
+      center / 100% 1px no-repeat;
+  }
+
+  & .cruor-sigil::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin: auto;
+    background-color: var(--cruor-heading-foot);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round'%3E%3Ccircle cx='16' cy='16' r='11.5'/%3E%3Cpath d='M6.6 10.6h18.8L16 27z'/%3E%3Cpath d='M16 1.5v29M11.5 6.5h9'/%3E%3Ccircle cx='16' cy='15.2' r='1.9' fill='%23000' stroke='none'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round'%3E%3Ccircle cx='16' cy='16' r='11.5'/%3E%3Cpath d='M6.6 10.6h18.8L16 27z'/%3E%3Cpath d='M16 1.5v29M11.5 6.5h9'/%3E%3Ccircle cx='16' cy='15.2' r='1.9' fill='%23000' stroke='none'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+
+  /* A hairline: crimson scored into the stone, fading at both ends, with a
+     faint glow and a dark cut beneath. */
+  & .cruor-hairline {
+    height: 1px;
+    margin: 1.4em 0;
+    border: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--cruor-inscription) 18%,
+      var(--cruor-heading-foot) 82%,
+      transparent
+    );
+    box-shadow:
+      0 0 6px color-mix(in srgb, var(--cruor-inscription) 45%, transparent),
+      0 1px 0 color-mix(in srgb, var(--cruor-void-border) 90%, transparent);
+  }
+
+  /* A loader: a drop that gathers and falls, for something waited for. */
+  & .cruor-loader {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1.9em;
+    vertical-align: middle;
+  }
+
+  & .cruor-loader::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0.2em;
+    width: 0.6em;
+    height: 0.8em;
+    border-radius: 50% 50% 50% 50% / 35% 35% 65% 65%;
+    background-color: var(--cruor-heading-foot);
+    box-shadow: inset 0.08em 0.1em 0 var(--cruor-heading-top);
+    animation: cruor-drip 1.5s cubic-bezier(0.6, 0, 0.9, 0.5) infinite;
+  }
 }
 
 /* A tick or a pick is struck, not faded in. */
@@ -592,5 +821,35 @@
   }
   to {
     background-position: 200% 0;
+  }
+}
+
+/* The briar grows in along a masthead's foot, one column at a time. */
+@keyframes cruor-briar {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* A drop gathers, swells, falls and is gone. */
+@keyframes cruor-drip {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.3);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(0.1em) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(1.1em) scale(0.9);
   }
 }

@@ -160,3 +160,10 @@
 - **Completed:** 2026-11-24T05:49:57Z
 - **Files modified:** look/furniture.css, look/cruentous-atonement.css, tests/parts.py, tests/test_furniture.py, tests/test_look_page.py, tests/browser.py, tests/pages/containers.html
 - **Commit:** `565e6061f2266810ebd88170fccefb141b038065`
+
+## T-208 (sprint 1)
+- **Description:** Furniture, ways through a page and small pieces: masthead with the briar, bar of links, trail, badge, seal, sigil, hairline and loader; the list of parts is whole at twenty-five, and one page holds one of each
+- **Intent:** [INT-0006](../intents/INT-0006-the-furniture.md)
+- **Completed:** 2026-11-24T05:56:18Z
+- **Files modified:** look/furniture.css, tests/parts.py, tests/test_furniture.py, tests/pages/pieces.html, tests/pages/every-part.html
+- **Commit:** PENDING

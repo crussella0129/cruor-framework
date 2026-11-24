@@ -71,6 +71,9 @@ def handled(selector: str, bound: float = INTERFACE) -> tuple[State, ...]:
 
 CONTROLS = "tests/pages/controls.html"
 CONTAINERS = "tests/pages/containers.html"
+PIECES = "tests/pages/pieces.html"
+# A page that holds one of every part, for what is asked of them all at once.
+EVERY_PART = "tests/pages/every-part.html"
 
 PARTS: tuple[Part, ...] = (
     Part(
@@ -313,6 +316,58 @@ PARTS: tuple[Part, ...] = (
         # inside it.
         keyboard=("#raise", "#raise-dialog", "#rise-open-close"),
     ),
+    Part(
+        "masthead",
+        "cruor-masthead",
+        PIECES,
+        # Its title is carved, and held by the theme file's entries for the
+        # page and the stone. It has no ground of its own.
+        (State("as it lies", "#masthead", texts=(("#masthead-small", INTERFACE),)),),
+    ),
+    Part(
+        "bar of links",
+        "cruor-links",
+        PIECES,
+        (
+            State(
+                "with a current link",
+                "#links",
+                texts=(("#links-item", INTERFACE), ("#links-current", INTERFACE)),
+            ),
+            State(
+                POINTER_OVER, "#links-item", POINTER_OVER, (("#links-item", INTERFACE),)
+            ),
+            State(KEYBOARD, "#links-item", KEYBOARD, (("#links-item", INTERFACE),)),
+        ),
+        keyboard=("#links-item", "#links-current", "#links-other"),
+    ),
+    Part(
+        "trail",
+        "cruor-trail",
+        PIECES,
+        (
+            State(
+                "with a current place",
+                "#trail",
+                texts=(("#trail-link", INTERFACE), ("#trail-current", INTERFACE)),
+            ),
+            State(KEYBOARD, "#trail-link", KEYBOARD, (("#trail-link", INTERFACE),)),
+        ),
+        keyboard=("#trail-link", "#trail-second"),
+    ),
+    Part(
+        "badge",
+        "cruor-badge",
+        PIECES,
+        (
+            State("as it lies", "#badge", texts=(("#badge", INTERFACE),)),
+            State("a fault", "#badge-fault", texts=(("#badge-fault", INTERFACE),)),
+        ),
+    ),
+    Part("seal", "cruor-seal", PIECES, (State("as it lies", "#seal"),)),
+    Part("sigil", "cruor-sigil", PIECES, (State("as it lies", "#sigil"),)),
+    Part("hairline", "cruor-hairline", PIECES, (State("as it lies", "#hairline"),)),
+    Part("loader", "cruor-loader", PIECES, (State("as it lies", "#loader"),)),
 )
 
 

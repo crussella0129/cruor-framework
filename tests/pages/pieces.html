@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The furniture: ways through a page, and small pieces</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../look/tokens.css">
+<link rel="stylesheet" href="../../look/cruentous-atonement.css">
+<link rel="stylesheet" href="../../look/furniture.css">
+<style>
+  body { margin: 0; padding: 2rem; }
+  .row { margin: 0 0 2rem; max-width: 44rem; }
+</style>
+</head>
+<body class="cruentous-atonement">
+
+<header class="cruor-masthead" id="masthead">
+  <h1 id="masthead-title">A masthead</h1>
+  <small id="masthead-small">With a line of small text beneath its title.</small>
+</header>
+
+<div class="row">
+  <nav aria-label="The page's parts">
+    <ul class="cruor-links" id="links">
+      <li><a id="links-item" href="#masthead">The stone</a></li>
+      <li><a id="links-current" href="#links" aria-current="page">The furniture</a></li>
+      <li><a id="links-other" href="#trail">The showroom</a></li>
+    </ul>
+  </nav>
+</div>
+
+<div class="row">
+  <nav aria-label="Where this page lies">
+    <ol class="cruor-trail" id="trail">
+      <li><a id="trail-link" href="#masthead">The kit</a></li>
+      <li><a id="trail-second" href="#links">The furniture</a></li>
+      <li><span id="trail-current" aria-current="page">Small pieces</span></li>
+    </ol>
+  </nav>
+</div>
+
+<div class="row">
+  <span class="cruor-badge" id="badge">a badge</span>
+  <span class="cruor-badge" id="badge-fault" data-kind="fault">a fault</span>
+</div>
+
+<div class="row">
+  <p class="cruor-seal" id="seal">Sealed: a paragraph that asks for the seal by
+  name, where it is not the first after a heading.</p>
+</div>
+
+<div class="cruor-sigil" id="sigil" role="separator"></div>
+
+<div class="cruor-hairline" id="hairline" role="separator"></div>
+
+<div class="row">
+  <span class="cruor-loader" id="loader" role="status" aria-label="Waiting"></span>
+</div>
+
+</body>
+</html>

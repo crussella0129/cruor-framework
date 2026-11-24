@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The furniture: one of every part</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../look/tokens.css">
+<link rel="stylesheet" href="../../look/cruentous-atonement.css">
+<link rel="stylesheet" href="../../look/furniture.css">
+<style>
+  body { margin: 0; padding: 2rem; }
+  .row { margin: 0 0 1.6rem; max-width: 44rem; }
+</style>
+</head>
+<body class="cruentous-atonement">
+
+<header class="cruor-masthead">
+  <h1>One of every part</h1>
+  <nav aria-label="The page's parts">
+    <ul class="cruor-links">
+      <li><a href="#top" aria-current="page">Here</a></li>
+      <li><a href="#there">There</a></li>
+    </ul>
+  </nav>
+</header>
+
+<nav aria-label="Where this page lies">
+  <ol class="cruor-trail">
+    <li><a href="#top">The kit</a></li>
+    <li><span aria-current="page">Every part</span></li>
+  </ol>
+</nav>
+
+<p class="cruor-seal">Sealed, and then running text, with
+<span class="cruor-badge">a badge</span> set in it.</p>
+
+<div class="cruor-sigil" role="separator"></div>
+
+<form action="#" method="get">
+  <div class="row">
+    <label class="cruor-label" for="name">A name</label>
+    <input class="cruor-field" id="name" type="text" value="Written in">
+    <span class="cruor-hint">A hint beneath it.</span>
+    <span class="cruor-fault">A fault beneath that.</span>
+  </div>
+  <div class="row">
+    <select class="cruor-choice" aria-label="A choice"><option>Iron</option></select>
+    <label class="cruor-label"><input class="cruor-tick" type="checkbox" checked>Ticked</label>
+    <label class="cruor-label"><input class="cruor-radio" type="radio" name="one" checked>Picked</label>
+  </div>
+  <div class="row">
+    <input class="cruor-slider" type="range" value="60" aria-label="A slider">
+    <progress class="cruor-progress" value="40" max="100">40 of 100</progress>
+    <progress class="cruor-progress" aria-label="Progress with no measure yet"></progress>
+    <meter class="cruor-measure" min="0" max="10" value="7">7 of 10</meter>
+  </div>
+  <div class="row">
+    <button type="button" class="cruor-button" popovertarget="risen">A button</button>
+  </div>
+</form>
+
+<div class="cruor-rise" id="risen" popover>
+  <p>Something that comes up over the page.</p>
+</div>
+
+<div class="cruor-hairline" role="separator"></div>
+
+<div class="row">
+  <div class="cruor-plate"><p>A plate.</p></div>
+</div>
+<div class="row">
+  <div class="cruor-panel"><p>A panel.</p></div>
+</div>
+<div class="row">
+  <div class="cruor-void"><p>The void.</p></div>
+</div>
+<div class="row">
+  <div class="cruor-notice" data-kind="note"><p>A notice.</p></div>
+</div>
+<div class="row">
+  <details class="cruor-fold" open>
+    <summary>A fold</summary>
+    <p>What was folded away.</p>
+  </details>
+</div>
+
+<div class="row">
+  <span class="cruor-loader" role="status" aria-label="Waiting"></span>
+</div>
+
+</body>
+</html>
