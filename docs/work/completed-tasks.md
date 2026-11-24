@@ -222,4 +222,4 @@
 - **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-24T21:54:37Z
 - **Files modified:** assets/readme/weeping-face.txt, assets/readme/weeping-profile.txt, assets/readme/page.svg, showroom/weeping-face.svg, showroom/weeping-profile.svg, docs/intents/INT-0007-the-showroom.md
-- **Commit:** PENDING
+- **Commit:** `b807f72639c053381aaad89db332b6c4ad60d8e4`
