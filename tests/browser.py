@@ -47,6 +47,10 @@ CLEAR = """
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
+[data-cruor-clear]::selection, [data-cruor-clear] *::selection {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
 """
 
 
@@ -116,6 +120,11 @@ def stone(look: dict | None = None) -> tuple[float, float, float]:
 
 
 # -- pictures -----------------------------------------------------------------
+
+
+def width(png: bytes) -> int:
+    """How many pixels wide a picture the browser took is."""
+    return struct.unpack(">I", png[16:20])[0]
 
 
 def pixels(png: bytes) -> list[tuple[int, int, int]]:
@@ -230,13 +239,21 @@ def _settled(page, selector: str) -> None:
 
 def lettering(page, selector: str) -> tuple[float, float, float, float]:
     """The colour of an element's lettering. For a field that is empty, the
-    colour of the words it shows then."""
+    colour of the words it shows then; for a field the keyboard has just come
+    to, whose words a browser selects, the colour of selected words."""
     _settled(page, selector)
     found = page.evaluate(
         """selector => {
             const el = document.querySelector(selector);
-            const empty = el.matches('input, textarea') && !el.value;
-            const style = getComputedStyle(el, empty ? '::placeholder' : null);
+            const field = el.matches('input, textarea');
+            const empty = field && !el.value;
+            let selected = false;
+            try {
+                selected = field && document.activeElement === el
+                    && el.selectionStart !== el.selectionEnd;
+            } catch (error) { /* a field of a kind that has no selection */ }
+            const style = getComputedStyle(
+                el, empty ? '::placeholder' : selected ? '::selection' : null);
             return {
                 colour: style.color,
                 fill: style.webkitTextFillColor,

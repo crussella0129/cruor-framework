@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The furniture: controls</title>
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../look/tokens.css">
+<link rel="stylesheet" href="../../look/cruentous-atonement.css">
+<link rel="stylesheet" href="../../look/furniture.css">
+<style>
+  body { margin: 0; padding: 2rem; }
+  .row { margin: 0 0 1.6rem; }
+</style>
+</head>
+<body class="cruentous-atonement">
+
+<form action="#" method="get">
+
+<div class="row">
+  <button type="button" class="cruor-button" id="button">Atone</button>
+  <a class="cruor-button" id="button-link" href="#button">A link that is a button</a>
+  <button type="button" class="cruor-button" id="button-unable" disabled>Unable</button>
+</div>
+
+<div class="row">
+  <label class="cruor-label" id="label" for="field">A name</label>
+  <input class="cruor-field" id="field" type="text" value="Written in">
+  <span class="cruor-hint" id="hint">As it is cut on the stone.</span>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="field-empty">Another</label>
+  <input class="cruor-field" id="field-empty" type="text" placeholder="Shown when empty">
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="field-faulty">A date</label>
+  <input class="cruor-field" id="field-faulty" type="text" value="The ides of never"
+    aria-invalid="true" aria-describedby="fault">
+  <span class="cruor-fault" id="fault">That is no day of the calendar.</span>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="field-unable">Sealed</label>
+  <input class="cruor-field" id="field-unable" type="text" value="Not to be changed" disabled>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="lines">Many lines</label>
+  <textarea class="cruor-field" id="lines" rows="3" cols="30">One line,
+and another.</textarea>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="choice">A choice</label>
+  <select class="cruor-choice" id="choice">
+    <option>Iron</option>
+    <option>Salt</option>
+    <option>Ash</option>
+  </select>
+  <select class="cruor-choice" id="choice-unable" disabled aria-label="A choice that cannot be made">
+    <option>Unable</option>
+  </select>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="tick"><input class="cruor-tick" id="tick" type="checkbox">Unticked</label>
+  <label class="cruor-label" for="tick-ticked"><input class="cruor-tick" id="tick-ticked" type="checkbox" checked>Ticked</label>
+  <label class="cruor-label" for="tick-unable"><input class="cruor-tick" id="tick-unable" type="checkbox" disabled>Unable</label>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="radio"><input class="cruor-radio" id="radio" type="radio" name="rite">Unpicked</label>
+  <label class="cruor-label" for="radio-picked"><input class="cruor-radio" id="radio-picked" type="radio" name="rite" checked>Picked</label>
+  <label class="cruor-label" for="radio-unable"><input class="cruor-radio" id="radio-unable" type="radio" name="sealed" disabled>Unable</label>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="slider">A slider</label>
+  <input class="cruor-slider" id="slider" type="range" min="0" max="10" value="6">
+  <input class="cruor-slider" id="slider-unable" type="range" min="0" max="10" value="3" disabled
+    aria-label="A slider that cannot be moved">
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="progress">Progress</label>
+  <progress class="cruor-progress" id="progress" max="100" value="62">62 of 100</progress>
+  <progress class="cruor-progress" id="progress-unmeasured" aria-label="Progress with no measure yet"></progress>
+</div>
+
+<div class="row">
+  <label class="cruor-label" for="measure-high">A measure</label>
+  <meter class="cruor-measure" id="measure-high" min="0" max="10" low="3" high="7" optimum="9" value="8">8 of 10</meter>
+  <meter class="cruor-measure" id="measure-middling" min="0" max="10" low="3" high="7" optimum="9" value="5"
+    aria-label="A middling measure">5 of 10</meter>
+  <meter class="cruor-measure" id="measure-low" min="0" max="10" low="3" high="7" optimum="9" value="2"
+    aria-label="A low measure">2 of 10</meter>
+</div>
+
+</form>
+
+</body>
+</html>

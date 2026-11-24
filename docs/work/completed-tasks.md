@@ -146,3 +146,10 @@
 - **Completed:** 2026-11-24T05:30:41Z
 - **Files modified:** look/cruentous-atonement.css, tests/test_look_page.py, tests/test_look_css.py, tests/pages/plain.html
 - **Commit:** `a94183b0364bf938b50e4e033b253c99a095d800`
+
+## T-206 (sprint 1)
+- **Description:** Furniture, the controls: button, field with its label, hint and fault, choice, tick box, radio button, slider, progress and measure; and the one list of parts that the furniture's tests run over
+- **Intent:** [INT-0006](../intents/INT-0006-the-furniture.md)
+- **Completed:** 2026-11-24T05:39:16Z
+- **Files modified:** look/furniture.css, tests/parts.py, tests/test_furniture.py, tests/pages/controls.html, tests/browser.py, tests/test_browser_means.py
+- **Commit:** PENDING

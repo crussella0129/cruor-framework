@@ -1,0 +1,382 @@
+/*
+ * The furniture of Cruentous Atonement: the parts a page is built from.
+ *
+ * A page that has taken the look on (see cruentous-atonement.css) links this
+ * file after it and sets a part's class on plain HTML:
+ *
+ *   <button class="cruor-button">Atone</button>
+ *
+ * No part needs script. Each works by HTML and this stylesheet alone, on
+ * what a browser already gives: the states of a form's controls, a part
+ * that opens and closes, a part that comes up over the page.
+ *
+ * Every rule here is nested beneath the look's class, and every colour is
+ * named by a token of tokens.css. The blood fills a part that fills; it is
+ * never a ground for lettering, and wherever it fills it carries an edge,
+ * since it lies near the page's own ground.
+ *
+ * This file is offered under MIT OR Apache-2.0.
+ */
+
+.cruentous-atonement {
+  /* ---------------------------------------------------------------- */
+  /* Button                                                            */
+  /* ---------------------------------------------------------------- */
+
+  /* A slab lifted off the stone by a hard shadow. Pressed, it goes down
+     into the stone and the shadow with it. Its label is small, so it is
+     bone. */
+  & .cruor-button {
+    display: inline-block;
+    padding: 0.5em 1.1em;
+    border: 1px solid var(--cruor-border);
+    color: var(--cruor-text);
+    font: inherit;
+    font-size: var(--cruor-interface-size);
+    line-height: 1.2;
+    text-decoration: none;
+    text-shadow: none;
+    cursor: pointer;
+    background-color: var(--cruor-panel);
+    box-shadow: 3px 3px 0 var(--cruor-shadow);
+    transition:
+      transform 80ms ease-out,
+      box-shadow 80ms ease-out,
+      border-color 120ms ease-out;
+  }
+
+  & .cruor-button:hover {
+    border-color: var(--cruor-accent);
+  }
+
+  & .cruor-button:active {
+    border-color: var(--cruor-accent);
+    background-color: var(--cruor-sunken);
+    box-shadow: 0 0 0 var(--cruor-shadow);
+    transform: translate(3px, 3px);
+  }
+
+  & .cruor-button:is(:disabled, [aria-disabled="true"]) {
+    border-style: dashed;
+    border-color: var(--cruor-border);
+    color: var(--cruor-text-subdued);
+    cursor: not-allowed;
+    background-color: var(--cruor-panel);
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Fields                                                            */
+  /* ---------------------------------------------------------------- */
+
+  & .cruor-label {
+    display: block;
+    margin: 0 0 0.3em;
+    color: var(--cruor-text);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+  }
+
+  & .cruor-hint {
+    display: block;
+    margin: 0.3em 0 0;
+    color: var(--cruor-text-subdued);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+  }
+
+  & .cruor-fault {
+    display: block;
+    margin: 0.3em 0 0;
+    color: var(--cruor-accent);
+    font-size: var(--cruor-interface-size);
+    text-shadow: none;
+  }
+
+  /* A field is a ground set into the stone. */
+  & :is(.cruor-field, .cruor-choice) {
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 0.5em 0.7em;
+    border: 1px solid var(--cruor-border);
+    border-radius: 0;
+    color: var(--cruor-text);
+    font: inherit;
+    font-size: var(--cruor-interface-size);
+    line-height: 1.3;
+    caret-color: var(--cruor-accent);
+    background-color: var(--cruor-sunken);
+    transition: border-color 120ms ease-out;
+  }
+
+  & .cruor-field::placeholder {
+    color: var(--cruor-text-subdued);
+    opacity: 1;
+  }
+
+  & :is(.cruor-field, .cruor-choice):is(:hover, :focus) {
+    border-color: var(--cruor-accent);
+  }
+
+  /* A fault is marked by more than its colour: a channel down its left. */
+  & .cruor-field[aria-invalid="true"] {
+    border-color: var(--cruor-accent);
+    box-shadow: inset 3px 0 0 var(--cruor-accent);
+  }
+
+  & :is(.cruor-field, .cruor-choice):disabled {
+    border-style: dashed;
+    border-color: var(--cruor-border);
+    color: var(--cruor-text-subdued);
+    cursor: not-allowed;
+  }
+
+  /* A choice from a list. Its mark is drawn in its padding, beside what is
+     chosen; its open list is the system's own. */
+  & .cruor-choice {
+    appearance: none;
+    padding-right: 2.2em;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--cruor-text-subdued) 50%),
+      linear-gradient(135deg, var(--cruor-text-subdued) 50%, transparent 50%);
+    background-position:
+      calc(100% - 1.1em) 55%,
+      calc(100% - 0.7em) 55%;
+    background-size: 0.4em 0.4em;
+    background-repeat: no-repeat;
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Tick box and radio button                                         */
+  /* ---------------------------------------------------------------- */
+
+  /* Ticked, it is struck like a seal: arterial red set into the stone. */
+  & :is(.cruor-tick, .cruor-radio) {
+    appearance: none;
+    box-sizing: border-box;
+    width: 1.15em;
+    height: 1.15em;
+    margin: 0 0.4em 0 0;
+    border: 1px solid var(--cruor-border);
+    font-size: var(--cruor-interface-size);
+    vertical-align: -0.2em;
+    cursor: pointer;
+    background-color: var(--cruor-sunken);
+    transition: border-color 120ms ease-out;
+  }
+
+  & .cruor-radio {
+    border-radius: 50%;
+  }
+
+  & :is(.cruor-tick, .cruor-radio):hover {
+    border-color: var(--cruor-accent);
+  }
+
+  & :is(.cruor-tick, .cruor-radio):checked {
+    border-color: var(--cruor-accent);
+    background-color: var(--cruor-accent);
+    box-shadow: inset 0 0 0 3px var(--cruor-sunken);
+    animation: cruor-strike 160ms ease-out;
+  }
+
+  & :is(.cruor-tick, .cruor-radio):disabled {
+    border-style: dashed;
+    border-color: var(--cruor-border);
+    cursor: not-allowed;
+  }
+
+  & :is(.cruor-tick, .cruor-radio):disabled:checked {
+    background-color: var(--cruor-border);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Slider, progress and measure: what fills, fills with blood        */
+  /* ---------------------------------------------------------------- */
+
+  /* A slider is a channel cut in the stone. The blood runs in it as far as
+     the thumb, which is the blood's bright edge. */
+  & .cruor-slider {
+    appearance: none;
+    box-sizing: border-box;
+    width: 14em;
+    max-width: 100%;
+    height: 1em;
+    margin: 0;
+    border: 1px solid var(--cruor-border);
+    font-size: var(--cruor-interface-size);
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: var(--cruor-sunken);
+    overflow: hidden;
+  }
+
+  & .cruor-slider::-webkit-slider-runnable-track {
+    height: 100%;
+  }
+
+  & .cruor-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 0.35em;
+    height: 100%;
+    border: 0;
+    background-color: var(--cruor-blood-edge);
+    box-shadow: -100vw 0 0 100vw var(--cruor-blood);
+  }
+
+  & .cruor-slider::-moz-range-track {
+    height: 100%;
+    background: none;
+  }
+
+  & .cruor-slider::-moz-range-progress {
+    height: 100%;
+    background-color: var(--cruor-blood);
+  }
+
+  & .cruor-slider::-moz-range-thumb {
+    width: 0.35em;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    background-color: var(--cruor-blood-edge);
+  }
+
+  & .cruor-slider:disabled {
+    border-style: dashed;
+    cursor: not-allowed;
+  }
+
+  /* Progress is a vial filling. */
+  & .cruor-progress {
+    appearance: none;
+    box-sizing: border-box;
+    width: 14em;
+    max-width: 100%;
+    height: 1em;
+    border: 1px solid var(--cruor-border);
+    font-size: var(--cruor-interface-size);
+    vertical-align: middle;
+    background-color: var(--cruor-sunken);
+    overflow: hidden;
+  }
+
+  & .cruor-progress::-webkit-progress-bar {
+    background-color: var(--cruor-sunken);
+  }
+
+  & .cruor-progress::-webkit-progress-value {
+    box-sizing: border-box;
+    border-right: 0.35em solid var(--cruor-blood-edge);
+    background-color: var(--cruor-blood);
+  }
+
+  & .cruor-progress::-moz-progress-bar {
+    box-sizing: border-box;
+    border-right: 0.35em solid var(--cruor-blood-edge);
+    background-color: var(--cruor-blood);
+  }
+
+  /* With no value, it seeps: an edge of blood passes along it. */
+  & .cruor-progress:indeterminate {
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--cruor-blood) 40%,
+      var(--cruor-blood-edge) 50%,
+      transparent 50%
+    );
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+    background-position: 40% 0;
+    animation: cruor-seep 2.4s linear infinite;
+  }
+
+  & .cruor-progress:indeterminate::-webkit-progress-bar {
+    background-color: transparent;
+  }
+
+  & .cruor-progress:indeterminate::-webkit-progress-value {
+    border: 0;
+    background: none;
+  }
+
+  & .cruor-progress:indeterminate::-moz-progress-bar {
+    background-color: transparent;
+    border: 0;
+  }
+
+  /* A measure fills with blood too. The lower it stands against what is
+     wanted of it, the more of its edge shows. */
+  & .cruor-measure {
+    appearance: none;
+    box-sizing: border-box;
+    width: 14em;
+    max-width: 100%;
+    height: 1em;
+    border: 1px solid var(--cruor-border);
+    font-size: var(--cruor-interface-size);
+    vertical-align: middle;
+    background-color: var(--cruor-sunken);
+    overflow: hidden;
+  }
+
+  & .cruor-measure::-webkit-meter-bar {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    background-color: var(--cruor-sunken);
+  }
+
+  & .cruor-measure::-webkit-meter-optimum-value {
+    box-sizing: border-box;
+    border-right: 0.2em solid var(--cruor-blood-edge);
+    background: none;
+    background-color: var(--cruor-blood);
+  }
+
+  & .cruor-measure::-webkit-meter-suboptimum-value {
+    box-sizing: border-box;
+    border-right: 0.9em solid var(--cruor-blood-edge);
+    background: none;
+    background-color: var(--cruor-blood);
+  }
+
+  & .cruor-measure::-webkit-meter-even-less-good-value {
+    box-sizing: border-box;
+    border-right: 0.2em solid var(--cruor-blood);
+    background: none;
+    background-color: var(--cruor-blood-edge);
+  }
+
+  & .cruor-measure::-moz-meter-bar {
+    box-sizing: border-box;
+    border-right: 0.2em solid var(--cruor-blood-edge);
+    background: none;
+    background-color: var(--cruor-blood);
+  }
+}
+
+/* A tick or a pick is struck, not faded in. */
+@keyframes cruor-strike {
+  from {
+    box-shadow: inset 0 0 0 0 var(--cruor-sunken);
+    transform: scale(1.35);
+  }
+  to {
+    box-shadow: inset 0 0 0 3px var(--cruor-sunken);
+    transform: scale(1);
+  }
+}
+
+/* An edge of blood passes along a vial that has no measure yet. */
+@keyframes cruor-seep {
+  from {
+    background-position: -100% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}

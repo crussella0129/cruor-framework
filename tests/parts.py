@@ -1,0 +1,199 @@
+"""The one list of the furniture's parts.
+
+Every test that runs over the furniture reads this list: which class a part
+is, which page of `tests/pages/` holds it, which of its text is measured and
+at which bound, whether the blood fills it, what of it takes the keyboard,
+and the states it has. A part is tested when it is in the list. The list is
+whole when every part of the sprint's plan is in it.
+
+A state at rest is found on the part's page as it lies. A state a hand
+brings about is brought about by the tests: the pointer moved over the
+part, the part pressed and held, or Tab pressed until the keyboard is on it.
+
+The bounds are the look's: 4.5 for interface text; 3.3 for an inscription,
+which is running text of 24 pixels or more; and 3 for a part that cannot be
+used.
+"""
+
+import dataclasses
+
+INTERFACE = 4.5
+INSCRIPTION = 3.3
+UNABLE = 3.0
+
+AT_REST = None
+POINTER_OVER = "pointer over"
+PRESSED = "pressed"
+KEYBOARD = "keyboard on it"
+
+
+@dataclasses.dataclass(frozen=True)
+class State:
+    """One state of a part: its name, the element that is in it, how it is
+    brought about (or `AT_REST`), and the lettering measured in it, each
+    with its bound."""
+
+    name: str
+    selector: str
+    how: str | None = AT_REST
+    texts: tuple[tuple[str, float], ...] = ()
+
+
+@dataclasses.dataclass(frozen=True)
+class Part:
+    name: str
+    css_class: str
+    page: str
+    states: tuple[State, ...]
+    # What takes the keyboard: selectors, in no order.
+    keyboard: tuple[str, ...] = ()
+    # Elements that the blood fills.
+    blood: tuple[str, ...] = ()
+
+    @property
+    def at_rest(self) -> tuple[State, ...]:
+        return tuple(state for state in self.states if state.how is AT_REST)
+
+
+def handled(selector: str, bound: float = INTERFACE) -> tuple[State, ...]:
+    """The three states a hand brings about on a control, with its own
+    lettering measured in each."""
+    texts = ((selector, bound),)
+    return (
+        State(POINTER_OVER, selector, POINTER_OVER, texts),
+        State(PRESSED, selector, PRESSED, texts),
+        State(KEYBOARD, selector, KEYBOARD, texts),
+    )
+
+
+CONTROLS = "tests/pages/controls.html"
+
+PARTS: tuple[Part, ...] = (
+    Part(
+        "button",
+        "cruor-button",
+        CONTROLS,
+        (
+            State("as it lies", "#button", texts=(("#button", INTERFACE),)),
+            State("a link", "#button-link", texts=(("#button-link", INTERFACE),)),
+            State("unable", "#button-unable", texts=(("#button-unable", UNABLE),)),
+            *handled("#button"),
+            *handled("#button-link"),
+        ),
+        keyboard=("#button", "#button-link"),
+    ),
+    Part(
+        "field",
+        "cruor-field",
+        CONTROLS,
+        (
+            State("filled", "#field", texts=(("#field", INTERFACE),)),
+            # An empty field's lettering is the words it shows then.
+            State("empty", "#field-empty", texts=(("#field-empty", INTERFACE),)),
+            State("faulty", "#field-faulty", texts=(("#field-faulty", INTERFACE),)),
+            State("unable", "#field-unable", texts=(("#field-unable", UNABLE),)),
+            State("many lines", "#lines", texts=(("#lines", INTERFACE),)),
+            State(POINTER_OVER, "#field", POINTER_OVER, (("#field", INTERFACE),)),
+            State(KEYBOARD, "#field", KEYBOARD, (("#field", INTERFACE),)),
+            State(KEYBOARD, "#field-empty", KEYBOARD, (("#field-empty", INTERFACE),)),
+        ),
+        keyboard=("#field", "#field-empty", "#field-faulty", "#lines"),
+    ),
+    Part(
+        "label",
+        "cruor-label",
+        CONTROLS,
+        (State("as it lies", "#label", texts=(("#label", INTERFACE),)),),
+    ),
+    Part(
+        "hint",
+        "cruor-hint",
+        CONTROLS,
+        (State("as it lies", "#hint", texts=(("#hint", INTERFACE),)),),
+    ),
+    Part(
+        "fault",
+        "cruor-fault",
+        CONTROLS,
+        (State("as it lies", "#fault", texts=(("#fault", INTERFACE),)),),
+    ),
+    Part(
+        "choice",
+        "cruor-choice",
+        CONTROLS,
+        (
+            State("as it lies", "#choice", texts=(("#choice", INTERFACE),)),
+            State("unable", "#choice-unable", texts=(("#choice-unable", UNABLE),)),
+            State(POINTER_OVER, "#choice", POINTER_OVER, (("#choice", INTERFACE),)),
+            State(KEYBOARD, "#choice", KEYBOARD, (("#choice", INTERFACE),)),
+        ),
+        keyboard=("#choice",),
+    ),
+    Part(
+        "tick box",
+        "cruor-tick",
+        CONTROLS,
+        (
+            State("unticked", "#tick"),
+            State("ticked", "#tick-ticked"),
+            State("unable", "#tick-unable"),
+            State(KEYBOARD, "#tick", KEYBOARD),
+        ),
+        keyboard=("#tick", "#tick-ticked"),
+    ),
+    Part(
+        "radio button",
+        "cruor-radio",
+        CONTROLS,
+        (
+            State("unpicked", "#radio"),
+            State("picked", "#radio-picked"),
+            State("unable", "#radio-unable"),
+            State(KEYBOARD, "#radio-picked", KEYBOARD),
+        ),
+        # Of a set of radio buttons the keyboard goes to the one picked.
+        keyboard=("#radio-picked",),
+    ),
+    Part(
+        "slider",
+        "cruor-slider",
+        CONTROLS,
+        (
+            State("as it lies", "#slider"),
+            State("unable", "#slider-unable"),
+            State(KEYBOARD, "#slider", KEYBOARD),
+        ),
+        keyboard=("#slider",),
+        blood=("#slider",),
+    ),
+    Part(
+        "progress",
+        "cruor-progress",
+        CONTROLS,
+        (
+            State("with a value", "#progress"),
+            State("without one", "#progress-unmeasured"),
+        ),
+        blood=("#progress",),
+    ),
+    Part(
+        "measure",
+        "cruor-measure",
+        CONTROLS,
+        (
+            State("high", "#measure-high"),
+            State("middling", "#measure-middling"),
+            State("low", "#measure-low"),
+        ),
+        blood=("#measure-high", "#measure-middling"),
+    ),
+)
+
+
+def pages() -> list[str]:
+    """Every page that holds a part, once each, in the list's order."""
+    return list(dict.fromkeys(part.page for part in PARTS))
+
+
+def classes() -> list[str]:
+    return [part.css_class for part in PARTS]

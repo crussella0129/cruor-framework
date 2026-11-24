@@ -78,6 +78,7 @@ def test_ground_is_read_from_a_picture(engine, tmp_path):
   input, select { font: inherit; color: #ffffff; background: #204060;
     border: 6px solid #ff00ff; padding: 10px; appearance: none; }
   #empty::placeholder { color: #c0c0c0; }
+  ::selection { color: #000000; background: #ffee00; }
 """,
     )
     with serve(tmp_path) as (address, _), browser.opened(engine, address) as page:
@@ -99,6 +100,15 @@ def test_ground_is_read_from_a_picture(engine, tmp_path):
         # An empty field's lettering is the words it shows then.
         assert browser.lettering(page, "#empty") == (192, 192, 192, 1.0)
         assert browser.lettering(page, "#field") == (255, 255, 255, 1.0)
+        # The keyboard come to a field, a browser selects its words: they are
+        # then lettered and grounded as selected words are.
+        for _ in range(5):
+            page.keyboard.press("Tab")
+            if page.evaluate("document.activeElement.id") == "field":
+                break
+        assert page.evaluate("document.activeElement.id") == "field"
+        assert browser.lettering(page, "#field") == (0, 0, 0, 1.0)
+        assert browser.ground(page, "#field") >= {(0xFF, 0xEE, 0x00)}
 
 
 def test_ground_read_sees_a_gradient(engine, tmp_path):
