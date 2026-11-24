@@ -366,3 +366,25 @@ How each review is made:
   [45402621356](https://github.com/crussella0129/cruor-framework/actions/runs/45402621356)
   for `004dff900732aaeca1de8672348758a9ae97a1e0` concluded `success`.
 
+### 12. 24 November 2026, in Build, the blood runs on down the statue's face
+
+- **Commits covered:** `d9e2186cca8ee1aa504baa4a6e348903f0224991` and
+  `0bf53e34cee8ecbcb46c9cf5604f2af541813bc9`, two commits: T-223 and the
+  commit the helper makes to record it. The commit that recorded entry 11
+  (`22e235c`) changes this file alone and was pushed with it.
+- **Also covered:** nothing; no font file is in the commits.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out.
+- **Files against tasks:** T-223 changes the statue's two maps in
+  `assets/readme/`, the front page's picture drawn from them, the
+  showroom's two pictures drawn from them, and INT-0007's history, as its
+  task lists.
+- **Not in the plan.** T-223 was added during the Build at the owner's
+  word: the blood did not run far enough down the face, nor drip, and the
+  spot beside the nose looked clotted. As with T-222, the way it was worked
+  out stays outside the repository; only the two maps it made are in it.
+- **CI.** Run
+  [45496486733](https://github.com/crussella0129/cruor-framework/actions/runs/45496486733)
+  for `22e235ca018e52226eb12b481d084ced85fcc381` concluded `success`.
+
