@@ -1,0 +1,85 @@
+/*
+ * The tokens of Cruentous Atonement: its colours, its families and its measures.
+ *
+ * This file is offered under MIT OR Apache-2.0.
+ *
+ * It is made by the framework's tool from theme.toml. Change the theme
+ * file and run `look`; do not change this file by hand.
+ */
+
+.cruentous-atonement {
+  --cruor-page: #0a0708;
+  --cruor-panel: #110b0c;
+  --cruor-sunken: #170e0f;
+  --cruor-text: #cbb5ab;
+  --cruor-text-subdued: #9d8a82;
+  --cruor-text-bright: #d9c1b8;
+  --cruor-border: #5a1a1c;
+  --cruor-border-subdued: rgba(213, 2, 16, 0.2);
+  --cruor-accent: #ff3030;
+  --cruor-accent-subdued: rgba(255, 48, 48, 0.15);
+  --cruor-link: #ff5c4d;
+  --cruor-inscription: #d50210;
+  --cruor-inscription-link: #ff3b2f;
+  --cruor-heading-top: #ff2a1a;
+  --cruor-heading-foot: #ba1a1a;
+  --cruor-selection: #7a2226;
+  --cruor-chip-top: #ff9a8a;
+  --cruor-chip-foot: #ec5658;
+  --cruor-blood: #3c0606;
+  --cruor-blood-edge: #d50210;
+  --cruor-shadow: #000000;
+  --cruor-vignette: rgba(0, 0, 0, 0.72);
+  --cruor-void-ground: #000000;
+  --cruor-void-sunken: #0c0505;
+  --cruor-void-row: rgba(213, 2, 16, 0.22);
+  --cruor-void-text: #ec5658;
+  --cruor-void-text-subdued: #bc6957;
+  --cruor-void-accent: #ff7466;
+  --cruor-void-channel: #d50210;
+  --cruor-void-border: #3a0a0b;
+  --cruor-stone-sheen: #3a2a2c;
+  --cruor-stone-sheen-opacity: 0.3;
+  --cruor-stone-candle: #ff3c28;
+  --cruor-stone-candle-opacity: 0.03;
+  --cruor-font-title: "Cruor Thornamental Regular";
+  --cruor-font-heading: "Cruor Lite Regular";
+  --cruor-font-text: "Cruor Sans Regular";
+  --cruor-font-code: "Cruor Sans Mono";
+  --cruor-inscription-size: 1.5rem;
+  --cruor-interface-size: 1.125rem;
+  --cruor-line: 1.5;
+  --cruor-column: 44rem;
+  --cruor-seal-size: 3.4;
+  --cruor-seal-font: "Cruor Thornamental Regular";
+  --cruor-h1-font: "Cruor Thornamental Regular";
+  --cruor-h1-weight: 400;
+  --cruor-h1-style: normal;
+  --cruor-h1-decoration: none;
+  --cruor-h1-size: 3rem;
+  --cruor-h2-font: "Cruor Lite Regular";
+  --cruor-h2-weight: 400;
+  --cruor-h2-style: normal;
+  --cruor-h2-decoration: none;
+  --cruor-h2-size: 2.25rem;
+  --cruor-h3-font: "Cruor Lite Regular";
+  --cruor-h3-weight: 400;
+  --cruor-h3-style: normal;
+  --cruor-h3-decoration: none;
+  --cruor-h3-size: 1.75rem;
+  --cruor-h4-font: "Cruor Lite Regular";
+  --cruor-h4-weight: 700;
+  --cruor-h4-style: normal;
+  --cruor-h4-decoration: none;
+  --cruor-h4-size: 1.5rem;
+  --cruor-h5-font: "Cruor Lite Regular";
+  --cruor-h5-weight: 400;
+  --cruor-h5-style: italic;
+  --cruor-h5-decoration: none;
+  --cruor-h5-size: 1.5rem;
+  --cruor-h6-font: "Cruor Lite Regular";
+  --cruor-h6-weight: 400;
+  --cruor-h6-style: normal;
+  --cruor-h6-decoration: underline;
+  --cruor-h6-size: 1.5rem;
+}

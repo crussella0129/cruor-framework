@@ -111,3 +111,10 @@
 - **Completed:** 2026-11-24T05:12:58Z
 - **Files modified:** look/theme.toml, look/THEME.md, src/theme.rs, src/main.rs, tests/theme.rs, tests/common/mod.rs, tests/test_theme_form.py, docs/intents/INT-0004-the-look-as-a-theme-file.md
 - **Commit:** `4bdab55debb3354129c997fbb2fda6ab90eb8bfb`
+
+## T-202 (sprint 1)
+- **Description:** Have look write look/tokens.css from the theme file, and look --check and check hold the two together
+- **Intent:** [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md)
+- **Completed:** 2026-11-24T05:15:08Z
+- **Files modified:** src/look.rs, src/main.rs, src/theme.rs, look/tokens.css, tests/look.rs, tests/cli.rs, tests/theme.rs
+- **Commit:** PENDING

@@ -1,12 +1,13 @@
 //! The tool of the Cruor framework.
 //!
 //! It writes the stylesheet of Cruor's web fonts from the list of families,
-//! writes and checks the manifest of their checksums, reads the look's theme
-//! file, and puts a release together.
+//! writes and checks the manifest of their checksums, writes the look's
+//! tokens from its theme file, and puts a release together.
 
 mod bundle;
 mod css;
 mod families;
+mod look;
 mod manifest;
 mod theme;
 
@@ -48,13 +49,14 @@ enum Command {
         #[arg(long, value_name = "ID")]
         source_commit: Option<String>,
     },
-    /// Read the look's theme file, look/theme.toml, and judge it
+    /// Write look/tokens.css from the look's theme file, look/theme.toml
     Look {
-        /// Change nothing; fail if the theme file is not as its form requires
+        /// Change nothing; fail if the theme file is not as its form requires,
+        /// or if the tokens are not what it gives
         #[arg(long)]
         check: bool,
     },
-    /// Check that the stylesheet and the manifest are current
+    /// Check that the stylesheet, the manifest and the look's tokens are current
     Check,
     /// Put a release together in a folder
     Bundle {
@@ -77,15 +79,16 @@ fn run(cli: &Cli) -> Result<(), String> {
             check: false,
             source_commit,
         } => manifest::write(&cli.root, source_commit.as_deref()),
-        Command::Look { .. } => theme::read(&cli.root).map(|_| ()),
+        Command::Look { check: true } => look::check(&cli.root),
+        Command::Look { check: false } => look::write(&cli.root),
         Command::Check => check(&cli.root),
         Command::Bundle { out, tag } => bundle::bundle(&cli.root, out, tag.as_deref()),
     }
 }
 
-/// Run both checks, and say everything that is wrong, not the first thing.
+/// Run every check, and say everything that is wrong, not the first thing.
 fn check(root: &Path) -> Result<(), String> {
-    let faults: Vec<String> = [css::check(root), manifest::check(root)]
+    let faults: Vec<String> = [css::check(root), manifest::check(root), look::check(root)]
         .into_iter()
         .filter_map(Result::err)
         .collect();

@@ -207,6 +207,14 @@ fn theme_accepts_a_heading_font_by_family() {
         "[heading.h2]\nfont = \"heading\"",
         "[heading.h2]\nfont = \"Cruor Pixelated\"",
     );
-    let output = run(copy.path(), &["look", "--check"]);
+    // The theme is taken, and the tokens made from it set that level in
+    // the family named.
+    let output = run(copy.path(), &["look"]);
     assert!(output.status.success(), "{}", said(&output));
+    let tokens = fs::read_to_string(copy.path().join("look/tokens.css")).unwrap();
+    assert!(
+        tokens.contains("--cruor-h2-font: \"Cruor Pixelated\";"),
+        "{tokens}"
+    );
+    assert!(run(copy.path(), &["look", "--check"]).status.success());
 }

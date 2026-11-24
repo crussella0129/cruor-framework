@@ -108,14 +108,12 @@ impl Colour {
 
     /// The colour as the theme file wrote it, which is how a stylesheet
     /// writes it too.
-    #[allow(dead_code)]
     pub fn written(&self) -> &str {
         &self.written
     }
 }
 
 /// One heading level, as the theme file sets it.
-#[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Heading {
     pub level: &'static str,
@@ -128,8 +126,6 @@ pub struct Heading {
 }
 
 /// The look, as the theme file gives it.
-// Read by `look` when it writes the tokens; until then only judged.
-#[allow(dead_code)]
 #[derive(Debug, Clone, PartialEq)]
 pub struct Theme {
     pub name: String,

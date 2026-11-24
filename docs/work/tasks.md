@@ -1,6 +1,5 @@
 # Agent Tasks (Persistent Backlog)
 
-- [ ] T-202 (sprint 1) [intent: INT-0004]: Write and check the tokens from the theme file — touches: src/, look/tokens.css, tests/
 - [ ] T-203 (sprint 1) [intent: INT-0003, INT-0004]: Test from the theme file the contrast it promises — touches: src/, look/, tests/
 - [ ] T-211 (sprint 1) [intent: INT-0006, INT-0003]: Make the means of checking a page in a browser — touches: tests/
 - [ ] T-204 (sprint 1) [intent: INT-0003, INT-0004]: Lay the look's ground: the stone, the candle and the dark at the edges — touches: look/cruentous-atonement.css, tests/

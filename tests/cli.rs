@@ -12,7 +12,7 @@ fn help_names_the_commands() {
     let output = tool().arg("--help").output().expect("the tool runs");
     assert!(output.status.success(), "--help exits 0");
     let help = String::from_utf8(output.stdout).expect("help is text");
-    for command in ["css", "manifest", "check", "bundle"] {
+    for command in ["css", "manifest", "look", "check", "bundle"] {
         assert!(
             help.lines()
                 .any(|line| line.trim_start().starts_with(command)),
