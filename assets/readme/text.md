@@ -26,7 +26,7 @@ holds the same words as text.
 | `examples/fetch-release.mjs` | a worked example of a build fetching a release and checking it |
 | `src/` | the tool that writes the stylesheet, the manifest and a release |
 | `tools/` | the checks, and `tools/draw_readme.py`, which draws the front page |
-| `assets/readme/` | the front page's words, and the picture drawn from them |
+| `assets/readme/` | the front page's words, its two pictures of a statue, and the picture drawn from them all |
 | `docs/` | the project's record: what it is for, and how each part came to be |
 
 ## The fonts
@@ -75,6 +75,8 @@ name, not a style. It tells the family whose letters each have a width of
 their own from Cruor Sans Mono, whose characters all fill one cell. So
 `font-family: "Cruor Sans Regular"; font-weight: bold` is the Bold of Cruor
 Sans Regular.
+
+<!-- picture weeping-profile -->
 
 ## Taking a release into a build
 
@@ -159,6 +161,19 @@ subset included, must take another name.
 **The code** (the stylesheets, the tool, the checks and the examples) is
 offered under `MIT OR Apache-2.0`, at your choice: see `LICENSE-MIT` and
 `LICENSE-APACHE`.
+
+**The statue** on the front page is Michelangelo's David, drawn from two
+photographs by Jörg Bittner Unna:
+[JBU 005](https://commons.wikimedia.org/wiki/File:%27David%27_by_Michelangelo_FI_Acca_JBU_005.jpg)
+and
+[JBU 014](https://commons.wikimedia.org/wiki/File:%27David%27_by_Michelangelo_FI_Acca_JBU_014.jpg),
+both offered under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Each was cut from
+its ground, darkened, given tears of blood and reduced to squares. The two
+pictures made from them, `assets/readme/weeping-face.txt` and
+`assets/readme/weeping-profile.txt`, are offered under CC BY 4.0 as well,
+and so is the front page's picture where it shows them. They are not part of
+a release.
 
 <!-- sigil -->
 

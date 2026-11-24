@@ -17,7 +17,9 @@ other file to show as it should.
 To change the front page, change assets/readme/text.md and run this again.
 It reads the Markdown that file uses and no more: headings, paragraphs,
 bold, italic, code and links within a line, tables of two columns, fenced
-code, lists, and the two marks `<!-- specimen -->` and `<!-- sigil -->`.
+code, lists, and the marks `<!-- specimen -->`, `<!-- sigil -->` and
+`<!-- picture <name> -->`, which shows the picture kept beside the words as
+`<name>.txt`: a map of squares, one letter a square.
 """
 
 import re
@@ -45,6 +47,10 @@ README = (
     f'<a href="{FOLDER}/{TEXT}"><img src="{FOLDER}/{PICTURE}" alt="{ALT}" '
     'width="100%"></a>\n'
 )
+
+# The picture at the head of the page, and the side of one of its squares.
+HERO = "weeping-face"
+SQUARE = 4
 
 # What the masthead says beneath the title.
 LOOK = "Cruentous Atonement"
@@ -160,7 +166,7 @@ def pieces(text: str) -> list[tuple[str, str]]:
 def blocks(text: str) -> list[tuple]:
     """The words as blocks, in order: ("heading", level, words),
     ("words", line), ("table", rows), ("code", lines), ("list", items),
-    ("specimen",) and ("sigil",)."""
+    ("specimen",), ("sigil",) and ("picture", name)."""
     lines = text.split("\n")
     found: list[tuple] = []
     at = 0
@@ -175,8 +181,10 @@ def blocks(text: str) -> list[tuple]:
         elif heading := re.fullmatch(r"(#{1,3}) (.+)", line):
             found.append(("heading", len(heading.group(1)), heading.group(2)))
             at += 1
-        elif mark := re.fullmatch(r"<!-- (specimen|sigil) -->", line):
-            found.append((mark.group(1),))
+        elif mark := re.fullmatch(
+            r"<!-- (specimen|sigil|picture) ?([a-z-]*) -->", line
+        ):
+            found.append((mark.group(1), mark.group(2)))
             at += 1
         elif line.startswith("|"):
             rows = []
@@ -277,8 +285,11 @@ class Faces:
 class Page:
     """The picture: the stone, and what is set on it from the top down."""
 
-    def __init__(self, faces: Faces):
+    def __init__(self, faces: Faces, folder: Path):
         self.faces = faces
+        # Where the pictures are kept, and which of them the page shows.
+        self.folder = folder
+        self.shown: list[str] = []
         self.defs: list[str] = []
         self.body: list[str] = []
         self.glyphs: dict[tuple[str, str], str] = {}
@@ -485,8 +496,53 @@ class Page:
 
     # -- the parts of the page ----------------------------------------------
 
+    def picture(self, name: str, top: float) -> float:
+        """A picture kept as a map of squares, set in the middle of the page
+        with its head at `top`. Says how tall it is. Where the map has a
+        `.` the stone shows."""
+        kept = self.folder / f"{name}.txt"
+        if not kept.is_file():
+            raise SystemExit(f"{FOLDER}/{name}.txt: missing")
+        head, _, rest = kept.read_text(encoding="utf-8").partition("\n\n")
+        colours = dict(line.split() for line in head.splitlines())
+        rows = rest.splitlines()
+        wide = len(rows[0])
+        runs: dict[str, list[str]] = {letter: [] for letter in colours}
+        for row, line in enumerate(rows):
+            if len(line) != wide or set(line) - set(colours) - {"."}:
+                raise SystemExit(f"{FOLDER}/{name}.txt: row {row + 1} is not right")
+            column = 0
+            while column < wide:
+                letter = line[column]
+                run = 1
+                while column + run < wide and line[column + run] == letter:
+                    run += 1
+                if letter != ".":
+                    runs[letter].append(f"M{column} {row}h{run}v1h-{run}z")
+                column += run
+        left = (WIDTH - wide * SQUARE) / 2
+        self.body.append(
+            f'<g transform="translate({number(left)} {number(top)}) scale({SQUARE})" '
+            'shape-rendering="crispEdges">'
+            + "".join(
+                f'<path fill="{colours[letter]}" d="{"".join(found)}"/>'
+                for letter, found in runs.items()
+                if found
+            )
+            + "</g>"
+        )
+        self.shown.append(name)
+        return len(rows) * SQUARE
+
+    def plate(self, name: str) -> None:
+        """A picture between two parts of the page."""
+        self.y += 8
+        self.y += self.picture(name, self.y) + 34
+
     def masthead(self, words: str) -> None:
-        """The title, the look's name, and the briar along the foot."""
+        """The picture at the head, the title, the look's name, and the briar
+        along the foot."""
+        top = self.picture(HERO, 0) - 38
         self.define(
             "candle",
             '<radialGradient id="candle" cx="0" cy="0" r="1" '
@@ -498,20 +554,24 @@ class Page:
         self.body.append(f'<rect width="{WIDTH}" height="900" fill="url(#candle)"/>')
         title = self.faces.face(TITLE)
         size = 76
-        self.carved(title, words, size, (WIDTH - title.width(words, size)) / 2, 142)
+        self.carved(
+            title, words, size, (WIDTH - title.width(words, size)) / 2, top + 142
+        )
 
         look = self.faces.face(HEADINGS)
         size = 30
         light = self.glow("light", size, 0.3, False)
         self.body.append(
             f'<g filter="url(#{light})" fill="{INSCRIPTION}">'
-            + self.letters(look, LOOK, size, (WIDTH - look.width(LOOK, size)) / 2, 202)
+            + self.letters(
+                look, LOOK, size, (WIDTH - look.width(LOOK, size)) / 2, top + 202
+            )
             + "</g>"
         )
         note = self.faces.face(RUNNING)
         size = 16
         self.plain(
-            note, NOTE, size, (WIDTH - note.width(NOTE, size)) / 2, 240, WEATHERED
+            note, NOTE, size, (WIDTH - note.width(NOTE, size)) / 2, top + 240, WEATHERED
         )
 
         squares = []
@@ -539,10 +599,10 @@ class Page:
             + "</pattern>",
         )
         self.body.append(
-            f'<g transform="translate(0 262)"><rect width="{WIDTH}" '
+            f'<g transform="translate(0 {number(top + 262)})"><rect width="{WIDTH}" '
             f'height="{tall}" fill="url(#briar)"/></g>'
         )
-        self.y = 262 + tall + 30
+        self.y = top + 262 + tall + 30
 
     def heading(self, level: int, words: str) -> None:
         if level == 1:
@@ -797,7 +857,7 @@ def page(root: Path) -> Page:
     found = blocks(text)
     if not found or found[0][:2] != ("heading", 1):
         raise SystemExit(f"{FOLDER}/{TEXT}: the first line is the title")
-    drawn = Page(Faces(root))
+    drawn = Page(Faces(root), root / FOLDER)
     for block in found:
         kind = block[0]
         if kind == "heading":
@@ -814,6 +874,8 @@ def page(root: Path) -> Page:
             drawn.listed(block[1])
         elif kind == "specimen":
             drawn.specimen()
+        elif kind == "picture":
+            drawn.plate(block[1])
         else:
             drawn.sigil()
     return drawn
@@ -827,10 +889,12 @@ def main(arguments: list[str]) -> int:
         return 2
     root = Path(places[0]) if places else Path(__file__).resolve().parent.parent
     folder = root / FOLDER
+    drawn = page(root)
     made = {
         root / "README.md": ("README.md", README),
-        folder / PICTURE: (f"{FOLDER}/{PICTURE}", page(root).markup()),
+        folder / PICTURE: (f"{FOLDER}/{PICTURE}", drawn.markup()),
     }
+    shown = {TEXT, PICTURE} | {f"{name}.txt" for name in drawn.shown}
 
     if not check:
         for path, (name, content) in made.items():
@@ -845,7 +909,7 @@ def main(arguments: list[str]) -> int:
         elif path.read_bytes() != content.encode("utf-8"):
             faults.append(f"{name}: not current")
     for kept in sorted(folder.iterdir()):
-        if kept.name not in (TEXT, PICTURE):
+        if kept.name not in shown:
             faults.append(f"{FOLDER}/{kept.name}: the front page does not show it")
     for fault in faults:
         print(fault, file=sys.stderr)

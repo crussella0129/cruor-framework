@@ -133,7 +133,62 @@ def test_readme_is_the_picture_and_nothing_else():
     assert alt.startswith("The Cruor Framework: ")
     assert "Cruentous Atonement" in alt
     assert "read the same words as text" in alt
-    assert sorted(path.name for path in KEPT.iterdir()) == ["page.svg", "text.md"]
+    assert sorted(path.name for path in KEPT.iterdir()) == [
+        "page.svg",
+        "text.md",
+        "weeping-face.txt",
+        "weeping-profile.txt",
+    ]
+
+
+def test_readme_statue_pictures_are_maps_of_squares():
+    # Each picture of the statue is kept as text: a letter a square, each
+    # letter a colour, and `.` where the page's own stone shows. The page
+    # draws them as squares, so they need no picture file to show.
+    for name, wide, tall in [("weeping-face", 220, 125), ("weeping-profile", 130, 140)]:
+        head, _, rest = (
+            (KEPT / f"{name}.txt").read_text(encoding="utf-8").partition("\n\n")
+        )
+        colours = dict(line.split() for line in head.splitlines())
+        assert all(re.fullmatch(r"#[0-9a-f]{6}", colour) for colour in colours.values())
+        rows = rest.splitlines()
+        assert len(rows) == tall, name
+        assert {len(row) for row in rows} == {wide}, name
+        assert set("".join(rows)) <= set(colours) | {"."}, name
+        # The blood is the colour the owner chose for it, and is among the
+        # squares.
+        blood = [letter for letter, colour in colours.items() if colour == "#3c0606"]
+        assert len(blood) == 1, name
+        assert blood[0] in "".join(rows), name
+    assert draw_readme.page(ROOT).shown == ["weeping-face", "weeping-profile"]
+    assert draw_readme.HERO == "weeping-face"
+    assert "<!-- picture weeping-profile -->" in TEXT
+
+
+def test_readme_pictures_check_fails_on_a_missing_statue(copy_of_repository):
+    (copy_of_repository / "assets" / "readme" / "weeping-profile.txt").unlink()
+    result = draw("--check", str(copy_of_repository))
+    assert result.returncode != 0
+    assert "assets/readme/weeping-profile.txt: missing" in result.stderr
+
+
+def test_readme_credits_the_photographs():
+    # The statue's pictures are made from another's photographs, offered on
+    # the condition that he is named, the licence is named, and the changes
+    # are told.
+    flowed = " ".join(TEXT.split())
+    assert "photographs by Jörg Bittner Unna" in flowed
+    for number in ("005", "014"):
+        assert (
+            f"[JBU {number}](https://commons.wikimedia.org/wiki/File:%27David%27_by_"
+            f"Michelangelo_FI_Acca_JBU_{number}.jpg)" in TEXT
+        )
+    assert "[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)" in TEXT
+    assert (
+        "cut from its ground, darkened, given tears of blood and reduced to" in flowed
+    )
+    assert "are offered under CC BY 4.0 as well" in flowed
+    assert "They are not part of a release." in flowed
 
 
 def words_of(text: str) -> list[str]:
@@ -163,8 +218,15 @@ def test_readme_picture_says_every_word():
     added = [draw_readme.LOOK, draw_readme.NOTE]
     for family in faces.families():
         added += [family, *draw_readme.STYLES]
-    drawn = collections.Counter(" ".join(draw_readme.page(ROOT).said).split())
-    expected = collections.Counter(words_of(TEXT) + " ".join(added).split())
+
+    # The page draws a line in runs, a new run wherever the setting changes,
+    # so a comma after a link is a run of its own. Each run is cut at its
+    # marks to compare word with word.
+    def words(texts: list[str]) -> collections.Counter:
+        return collections.Counter(re.findall(r"[^\W_]+|[^\w\s]|_", " ".join(texts)))
+
+    drawn = words(draw_readme.page(ROOT).said)
+    expected = words(words_of(TEXT) + added)
     assert drawn == expected, (drawn - expected, expected - drawn)
 
 
