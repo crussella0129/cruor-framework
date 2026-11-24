@@ -182,3 +182,31 @@ How each review is made:
   [45336850401](https://github.com/crussella0129/cruor-framework/actions/runs/45336850401)
   for `6d6b4250222b78ef77630011d2657d773edb7b2d` concluded `success`.
 
+### 6. 24 November 2026, in Build, when a release carries the look
+
+- **Commits covered:** `3d3eb0787b2f9e7b5c382669cb151bc751490d5a` and
+  `4fe2f95e27d31715df5e2d0f288be5802c493b7a`, two commits: T-212 and the
+  commit the helper makes to record it. The commit that recorded entry 5
+  (`c5ee661`) changes this file alone and was pushed with it.
+- **Also covered:** nothing; no font file is in the commits.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The release's notes
+  were read: they name the fonts, the look and the theme file.
+- **Files against tasks:** T-212 changes the files its task lists, and one
+  more: `src/main.rs`, where the help for `--tag` gave `v0.1.0` as the tag
+  of the framework's version. It now says what such a tag is and names no
+  version.
+- **Out of the queue's order.** T-212 was built before T-210. The plan
+  holds T-210, T-213, T-214, T-217 and T-218 until the owner has seen the
+  showroom and answered; T-212 depends on T-208 alone and is not among
+  them.
+- **Tests renamed.** Two of Sprint 0's tests of the bundle took the names
+  this sprint's test plan gives them: the test of what a bundle holds, and
+  the test that two bundles are the same bytes. What each asserts is what
+  it asserted, and more.
+- **CI for the fourth push.** Run
+  [45338815032](https://github.com/crussella0129/cruor-framework/actions/runs/45338815032)
+  for `c5ee6617abde6e333f3200988444c6ce6d7c3025` was still running when
+  this was written. Its end is told in the next entry.
+
