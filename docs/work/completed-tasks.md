@@ -209,3 +209,10 @@
 - **Completed:** 2026-11-24T12:51:15Z
 - **Files modified:** assets/readme/text.md, assets/readme/page.svg, tests/test_readme.py
 - **Commit:** `4f6f2adc86a0d12bdb3a4099dcedc759d6070c73`
+
+## T-218 (sprint 1)
+- **Description:** Have the front page's script take the look's colours and its four families from the theme file; only the briar's squares are written out in it.
+- **Intent:** [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md)
+- **Completed:** 2026-11-24T13:21:08Z
+- **Files modified:** tools/draw_readme.py, assets/readme/page.svg, tests/test_readme_pictures.py
+- **Commit:** PENDING

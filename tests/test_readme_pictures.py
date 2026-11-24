@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tomllib
 
 import pytest
 
@@ -33,6 +34,7 @@ def copy_of_repository(tmp_path):
     without harm."""
     shutil.copy(ROOT / "README.md", tmp_path / "README.md")
     shutil.copytree(ROOT / "fonts", tmp_path / "fonts")
+    shutil.copytree(ROOT / "look", tmp_path / "look")
     shutil.copytree(KEPT, tmp_path / "assets" / "readme")
     return tmp_path
 
@@ -230,14 +232,99 @@ def test_readme_picture_says_every_word():
     assert drawn == expected, (drawn - expected, expected - drawn)
 
 
-def test_readme_picture_is_set_in_the_three_families():
-    # The title is Cruor Thornamental Regular, the headings Cruor Lite
-    # Regular, and the text Cruor Sans Regular with Cruor Sans Mono for code.
-    assert draw_readme.TITLE == "Cruor Thornamental Regular"
-    assert draw_readme.HEADINGS == "Cruor Lite Regular"
-    assert draw_readme.RUNNING == "Cruor Sans Regular"
-    assert draw_readme.FIXED == "Cruor Sans Mono"
+def theme() -> dict:
+    return tomllib.loads((ROOT / "look" / "theme.toml").read_text(encoding="utf-8"))
+
+
+def test_front_page_takes_its_families_from_the_theme():
+    # The title, the headings, the text and code are set in the families the
+    # theme file names for them, and the script names no family of its own.
+    look = draw_readme.Look(ROOT)
+    assert look.font == theme()["font"]
+    assert set(look.font) == {"title", "heading", "text", "code"}
+    assert look.name == draw_readme.LOOK == theme()["name"]
+    faces = draw_readme.Faces(ROOT)
+    assert faces.of("code") is faces.face(look.font["code"])
+    assert faces.of("plain") is faces.face(look.font["text"])
+    script = (ROOT / "tools" / "draw_readme.py").read_text(encoding="utf-8")
+    for family in faces.families():
+        assert family not in script, family
     assert draw_readme.PROSE[0] >= 24
+
+
+def test_front_page_writes_out_only_the_briars_colours():
+    script = (ROOT / "tools" / "draw_readme.py").read_text(encoding="utf-8")
+    written = re.findall(r"#[0-9a-fA-F]{6}\b", script)
+    assert sorted(written) == sorted(draw_readme.BRIAR_COLOURS.values())
+    start = script.index("BRIAR_COLOURS = {")
+    end = script.index("}", start)
+    for colour in written:
+        assert start < script.index(colour) < end, colour
+    # Nor is a colour written out in another form.
+    assert not re.findall(r"rgba?\(\s*\d", script)
+    assert not re.findall(
+        r'(?:fill|stroke|color)="[a-z]+"', script.replace('"none"', "")
+    )
+    # Every colour the page paints with is one of the theme file's, or one of
+    # the briar's, or one of a statue's own.
+    look = draw_readme.Look(ROOT)
+    own = {colour.lower() for colour in draw_readme.BRIAR_COLOURS.values()}
+    themed = {
+        draw_readme.Look.solid(role, value)[0]
+        for role, value in {
+            **theme()["colour"],
+            "candle": theme()["stone"]["candle"],
+        }.items()
+    }
+    statues = set()
+    for name in ("weeping-face", "weeping-profile"):
+        head = (KEPT / f"{name}.txt").read_text(encoding="utf-8").partition("\n\n")[0]
+        statues |= {line.split()[1] for line in head.splitlines()}
+    painted = set(
+        re.findall(r'(?:fill|stroke|stop-color|flood-color)="(#[0-9a-f]{6})"', PICTURE)
+    )
+    assert painted and painted <= own | themed | statues, (
+        painted - own - themed - statues
+    )
+    assert look.heading_foot in painted and look.inscription in painted
+
+
+def test_front_page_takes_a_colour_from_the_theme(copy_of_repository):
+    # A role changed in a copy of the theme file changes the copy's picture.
+    was = theme()["colour"]["inscription"]
+    now = "#12ab34"
+    assert was in PICTURE and now not in PICTURE
+    change(
+        copy_of_repository / "look" / "theme.toml",
+        f'inscription = "{was}"',
+        f'inscription = "{now}"',
+    )
+    result = draw(str(copy_of_repository))
+    assert result.returncode == 0, result.stderr
+    drawn = (copy_of_repository / "assets" / "readme" / "page.svg").read_text(
+        encoding="utf-8"
+    )
+    assert f'fill="{now}"' in drawn
+    # The blood's edge and the void's channel are other roles of the same
+    # crimson; the briar keeps its own. The inscription's is gone.
+    assert drawn.count(f'fill="{was}"') < PICTURE.count(f'fill="{was}"')
+
+    # And a family: code set in another fixed-pitch family is other letters.
+    change(
+        copy_of_repository / "look" / "theme.toml",
+        f'code = "{theme()["font"]["code"]}"',
+        'code = "Cruor Sans Mono"',
+    )
+    assert draw(str(copy_of_repository)).returncode == 0
+    again = (copy_of_repository / "assets" / "readme" / "page.svg").read_text(
+        encoding="utf-8"
+    )
+    assert again != drawn
+
+    # Without a theme file there is no page.
+    (copy_of_repository / "look" / "theme.toml").unlink()
+    result = draw(str(copy_of_repository))
+    assert result.returncode != 0 and "look/theme.toml: missing" in result.stderr
 
 
 def test_readme_picture_has_one_ground():

@@ -61,25 +61,44 @@ WIDTH = 880
 MARGIN = 44
 COLUMN = WIDTH - 2 * MARGIN
 
-# The look's colours, by role.
-GROUND = "#0a0708"
-PANEL = "#110b0c"
-SUNKEN = "#170e0f"
-BONE = "#cbb5ab"
-WEATHERED = "#9d8a82"
-CLOTTED = "#5a1a1c"
-INSCRIPTION = "#d50210"
-VEIN = "#ff3b2f"
-ARTERIAL = "#ff2a1a"
-POOLED = "#ba1a1a"
-SCORED = "#3a0a0b"
-SALMON = ("#ff9a8a", "#ec5658")
+# The look is read from its theme file: every colour by its role, and the
+# four families by what they set. Nothing of the look is written out here
+# but the briar's own squares, further down.
+THEME = "look/theme.toml"
 
-# The families: the title, the headings, the text, and code.
-TITLE = "Cruor Thornamental Regular"
-HEADINGS = "Cruor Lite Regular"
-RUNNING = "Cruor Sans Regular"
-FIXED = "Cruor Sans Mono"
+
+class Look:
+    """The look's colours and families, as its theme file gives them."""
+
+    def __init__(self, root: Path):
+        path = root / THEME
+        if not path.is_file():
+            raise SystemExit(f"{THEME}: missing")
+        theme = tomllib.loads(path.read_text(encoding="utf-8"))
+        # The families that set the title, the headings, the text and code.
+        self.font: dict[str, str] = theme["font"]
+        self.name: str = theme["name"]
+        colours = dict(theme["colour"])
+        colours["candle"] = theme["stone"]["candle"]
+        for role, written in colours.items():
+            colour, share = self.solid(role, written)
+            setattr(self, role.replace("-", "_"), colour)
+            setattr(self, role.replace("-", "_") + "_share", share)
+        self.candle_share = number_fine(theme["stone"]["candle-opacity"])
+        self.sheen_share = number_fine(theme["stone"]["sheen-opacity"])
+
+    @staticmethod
+    def solid(role: str, written: str) -> tuple[str, str]:
+        """A colour as a picture takes it: its six figures, and how much of
+        it is laid on."""
+        if re.fullmatch(r"#[0-9a-f]{6}", written):
+            return written, "1"
+        parts = re.fullmatch(r"rgba\((\d+), (\d+), (\d+), ([0-9.]+)\)", written)
+        if not parts:
+            raise SystemExit(f"{THEME}: colour.{role} is not a colour: {written}")
+        red, green, blue = (int(parts.group(index)) for index in (1, 2, 3))
+        return f"#{red:02x}{green:02x}{blue:02x}", parts.group(4)
+
 
 STYLES = ["Regular", "Bold", "Italic", "Bold Italic"]
 
@@ -109,11 +128,11 @@ BRIAR_COLOURS = {
     "a": "#ff4b4b",
     "b": "#5c1416",
     "c": "#8a1c1c",
-    "d": POOLED,
+    "d": "#ba1a1a",
     "e": "#6e1012",
-    "f": SCORED,
-    "g": VEIN,
-    "h": INSCRIPTION,
+    "f": "#3a0a0b",
+    "g": "#ff3b2f",
+    "h": "#d50210",
 }
 BRIAR_SQUARE = 3
 
@@ -258,6 +277,7 @@ class Faces:
         )["family"]
         self.stems = {family["name"]: family["stem"] for family in listed}
         self.opened: dict[str, Face] = {}
+        self.look = Look(root)
 
     def families(self) -> list[str]:
         return list(self.stems)
@@ -271,9 +291,10 @@ class Faces:
     def of(self, style: str) -> Face:
         """The face a piece of text is set in."""
         if style == "code":
-            return self.face(FIXED)
+            return self.face(self.look.font["code"])
         return self.face(
-            RUNNING, {"bold": "Bold", "italic": "Italic"}.get(style, "Regular")
+            self.look.font["text"],
+            {"bold": "Bold", "italic": "Italic"}.get(style, "Regular"),
         )
 
 
@@ -287,6 +308,7 @@ class Page:
 
     def __init__(self, faces: Faces, folder: Path):
         self.faces = faces
+        self.look = faces.look
         # Where the pictures are kept, and which of them the page shows.
         self.folder = folder
         self.shown: list[str] = []
@@ -342,12 +364,12 @@ class Page:
             'color-interpolation-filters="sRGB">'
             + (
                 '<feDropShadow dx="0" dy="1" stdDeviation="0" '
-                'flood-color="#000000" flood-opacity="0.9"/>'
+                f'flood-color="{self.look.shadow}" flood-opacity="0.9"/>'
                 if cut
                 else ""
             )
             + f'<feDropShadow dx="0" dy="0" stdDeviation="{number(size * strength)}" '
-            f'flood-color="{INSCRIPTION}" flood-opacity="0.22"/>'
+            f'flood-color="{self.look.inscription}" flood-opacity="0.22"/>'
             "</filter>",
         )
         return name
@@ -359,15 +381,16 @@ class Page:
             "pour",
             '<linearGradient id="pour" gradientUnits="userSpaceOnUse" '
             f'x1="0" y1="{face.ascent}" x2="0" y2="{face.descent}">'
-            f'<stop offset="0" stop-color="{ARTERIAL}"/>'
-            f'<stop offset="0.48" stop-color="{INSCRIPTION}"/>'
-            f'<stop offset="1" stop-color="{POOLED}"/>'
+            f'<stop offset="0" stop-color="{self.look.heading_top}"/>'
+            f'<stop offset="0.48" stop-color="{self.look.inscription}"/>'
+            f'<stop offset="1" stop-color="{self.look.heading_foot}"/>'
             "</linearGradient>",
         )
         edge = number(0.5 * face.units / size)
         self.body.append(
             f'<g filter="url(#{self.glow("cut", size, 0.15, True)})" '
-            f'fill="url(#pour)" stroke="{POOLED}" stroke-opacity="0.45" '
+            f'fill="url(#pour)" stroke="{self.look.heading_foot}" '
+            'stroke-opacity="0.45" '
             f'stroke-width="{edge}">' + self.letters(face, text, size, x, y) + "</g>"
         )
 
@@ -458,7 +481,8 @@ class Page:
                         f'<rect x="{number(at - 3)}" '
                         f'y="{number(baseline - code_size)}" '
                         f'width="{number(wide + 6)}" '
-                        f'height="{number(code_size * 1.3)}" fill="{SUNKEN}"/>'
+                        f'height="{number(code_size * 1.3)}" '
+                        f'fill="{self.look.sunken}"/>'
                     )
                     code.append(self.letters(face, said, code_size, at, baseline))
                 elif style == "link":
@@ -474,24 +498,26 @@ class Page:
         if ink and inscription:
             light = self.glow("light", size, 0.3, False)
             self.body.append(
-                f'<g filter="url(#{light})" fill="{INSCRIPTION}">'
+                f'<g filter="url(#{light})" fill="{self.look.inscription}">'
                 + "".join(ink)
                 + "</g>"
             )
         elif ink:
-            self.body.append(f'<g fill="{BONE}">' + "".join(ink) + "</g>")
+            self.body.append(f'<g fill="{self.look.text}">' + "".join(ink) + "</g>")
         if code:
             self.define(
                 "salmon",
                 '<linearGradient id="salmon" gradientUnits="userSpaceOnUse" '
                 f'x1="0" y1="{self.faces.of("code").cap}" x2="0" y2="0">'
-                f'<stop offset="0" stop-color="{SALMON[0]}"/>'
-                f'<stop offset="1" stop-color="{SALMON[1]}"/>'
+                f'<stop offset="0" stop-color="{self.look.chip_top}"/>'
+                f'<stop offset="1" stop-color="{self.look.chip_foot}"/>'
                 "</linearGradient>",
             )
             self.body.append('<g fill="url(#salmon)">' + "".join(code) + "</g>")
         if links:
-            self.body.append(f'<g fill="{VEIN}">' + "".join(links) + "</g>")
+            self.body.append(
+                f'<g fill="{self.look.inscription_link}">' + "".join(links) + "</g>"
+            )
         return len(rows) * leading
 
     # -- the parts of the page ----------------------------------------------
@@ -547,31 +573,37 @@ class Page:
             "candle",
             '<radialGradient id="candle" cx="0" cy="0" r="1" '
             'gradientTransform="translate(0.5 -0.08) scale(0.8 0.55)">'
-            '<stop offset="0" stop-color="#ff3c28" stop-opacity="0.03"/>'
-            '<stop offset="0.7" stop-color="#ff3c28" stop-opacity="0"/>'
+            f'<stop offset="0" stop-color="{self.look.candle}" '
+            f'stop-opacity="{self.look.candle_share}"/>'
+            f'<stop offset="0.7" stop-color="{self.look.candle}" stop-opacity="0"/>'
             "</radialGradient>",
         )
         self.body.append(f'<rect width="{WIDTH}" height="900" fill="url(#candle)"/>')
-        title = self.faces.face(TITLE)
+        title = self.faces.face(self.look.font["title"])
         size = 76
         self.carved(
             title, words, size, (WIDTH - title.width(words, size)) / 2, top + 142
         )
 
-        look = self.faces.face(HEADINGS)
+        look = self.faces.face(self.look.font["heading"])
         size = 30
         light = self.glow("light", size, 0.3, False)
         self.body.append(
-            f'<g filter="url(#{light})" fill="{INSCRIPTION}">'
+            f'<g filter="url(#{light})" fill="{self.look.inscription}">'
             + self.letters(
                 look, LOOK, size, (WIDTH - look.width(LOOK, size)) / 2, top + 202
             )
             + "</g>"
         )
-        note = self.faces.face(RUNNING)
+        note = self.faces.face(self.look.font["text"])
         size = 16
         self.plain(
-            note, NOTE, size, (WIDTH - note.width(NOTE, size)) / 2, top + 240, WEATHERED
+            note,
+            NOTE,
+            size,
+            (WIDTH - note.width(NOTE, size)) / 2,
+            top + 240,
+            self.look.text_subdued,
         )
 
         squares = []
@@ -608,7 +640,7 @@ class Page:
         if level == 1:
             self.masthead(words)
             return
-        face = self.faces.face(HEADINGS)
+        face = self.faces.face(self.look.font["heading"])
         size, above, below = {2: (40, 26, 30), 3: (30, 12, 28)}[level]
         self.y += above
         baseline = self.y + size * face.cap / face.units
@@ -625,10 +657,10 @@ class Page:
         self.define(
             "hairline",
             '<linearGradient id="hairline">'
-            f'<stop offset="0" stop-color="{INSCRIPTION}" stop-opacity="0"/>'
-            f'<stop offset="0.18" stop-color="{INSCRIPTION}"/>'
-            f'<stop offset="0.82" stop-color="{POOLED}"/>'
-            f'<stop offset="1" stop-color="{POOLED}" stop-opacity="0"/>'
+            f'<stop offset="0" stop-color="{self.look.inscription}" stop-opacity="0"/>'
+            f'<stop offset="0.18" stop-color="{self.look.inscription}"/>'
+            f'<stop offset="0.82" stop-color="{self.look.heading_foot}"/>'
+            f'<stop offset="1" stop-color="{self.look.heading_foot}" stop-opacity="0"/>'
             "</linearGradient>",
         )
         self.define(
@@ -638,11 +670,12 @@ class Page:
         )
         line = f'x="{MARGIN}" width="{COLUMN}" height="1"'
         self.body.append(
-            f'<rect {line} y="{number(y)}" fill="{INSCRIPTION}" opacity="0.45" '
+            f'<rect {line} y="{number(y)}" fill="{self.look.inscription}" '
+            'opacity="0.45" '
             'filter="url(#haze)"/>'
         )
         self.body.append(
-            f'<rect {line} y="{number(y + 1)}" fill="{SCORED}" opacity="0.9"/>'
+            f'<rect {line} y="{number(y + 1)}" fill="{self.look.blood}" opacity="0.9"/>'
         )
         self.body.append(f'<rect {line} y="{number(y)}" fill="url(#hairline)"/>')
 
@@ -655,7 +688,7 @@ class Page:
             middle = self.y + PROSE[2] / 2
             self.body.append(
                 f'<path d="M{MARGIN + 10} {number(middle - 5)}l5 5l-5 5l-5 -5z" '
-                f'fill="{POOLED}"/>'
+                f'fill="{self.look.heading_foot}"/>'
             )
             self.y += self.set(
                 pieces(item), PROSE, MARGIN + indent, self.y, COLUMN - indent, True
@@ -667,12 +700,13 @@ class Page:
         """Code is small, so it speaks in bone, on a sunken ground."""
         size, _, leading = CODE
         pad = 18
-        face = self.faces.face(FIXED)
+        face = self.faces.face(self.look.font["code"])
         tall = len(lines) * leading + 2 * pad
         self.body.append(
             f'<rect x="{MARGIN + 0.5}" y="{number(self.y + 0.5)}" '
-            f'width="{COLUMN - 1}" height="{number(tall - 1)}" fill="{SUNKEN}" '
-            f'stroke="{CLOTTED}"/>'
+            f'width="{COLUMN - 1}" height="{number(tall - 1)}" '
+            f'fill="{self.look.sunken}" '
+            f'stroke="{self.look.border}"/>'
         )
         cap = size * face.cap / face.units
         runs = []
@@ -684,7 +718,7 @@ class Page:
                 inset = len(line) - len(line.lstrip(" "))
                 x = MARGIN + pad + face.width(" " * inset, size)
                 runs.append(self.letters(face, line.strip(), size, x, baseline))
-        self.body.append(f'<g fill="{BONE}">' + "".join(runs) + "</g>")
+        self.body.append(f'<g fill="{self.look.text}">' + "".join(runs) + "</g>")
         self.y += tall + 24
 
     def table(self, rows: list[list[str]]) -> None:
@@ -708,7 +742,7 @@ class Page:
         top = self.y
         self.body.append(
             f'<rect x="{MARGIN}" y="{number(top)}" width="{COLUMN}" '
-            f'height="{leading + 2 * pad_y}" fill="{PANEL}"/>'
+            f'height="{leading + 2 * pad_y}" fill="{self.look.panel}"/>'
         )
         rules = []
         for one, other in zip(first, second, strict=True):
@@ -729,10 +763,13 @@ class Page:
             rules.append(f"M{MARGIN} {number(self.y - 0.5)}h{COLUMN}")
         rules.pop()
         rules.append(f"M{number(MARGIN + left - 0.5)} {number(top)}V{number(self.y)}")
-        self.body.append(f'<path d="{"".join(rules)}" stroke="{CLOTTED}" fill="none"/>')
+        self.body.append(
+            f'<path d="{"".join(rules)}" stroke="{self.look.border}" fill="none"/>'
+        )
         self.body.append(
             f'<rect x="{MARGIN + 0.5}" y="{number(top + 0.5)}" width="{COLUMN - 1}" '
-            f'height="{number(self.y - top - 1)}" fill="none" stroke="{CLOTTED}"/>'
+            f'height="{number(self.y - top - 1)}" fill="none" '
+            f'stroke="{self.look.border}"/>'
         )
         self.y += 24
 
@@ -744,14 +781,14 @@ class Page:
             baseline = self.y + 30
             light = self.glow("light", 28, 0.3, False)
             self.body.append(
-                f'<g filter="url(#{light})" fill="{INSCRIPTION}">'
+                f'<g filter="url(#{light})" fill="{self.look.inscription}">'
                 + self.letters(self.faces.face(family), family, 28, MARGIN, baseline)
                 + "</g>"
             )
             x = MARGIN + 430.0
             for style in STYLES:
                 face = self.faces.face(family, style)
-                self.plain(face, style, 18, x, baseline, BONE)
+                self.plain(face, style, 18, x, baseline, self.look.text)
                 x += face.width(style, 18) + 22
             self.y += pitch
         self.y += 18
@@ -761,14 +798,14 @@ class Page:
         self.define(
             "clotted",
             '<linearGradient id="clotted">'
-            f'<stop offset="0" stop-color="{CLOTTED}" stop-opacity="0"/>'
-            f'<stop offset="0.18" stop-color="{CLOTTED}"/>'
-            f'<stop offset="0.44" stop-color="{CLOTTED}"/>'
-            f'<stop offset="0.44" stop-color="{CLOTTED}" stop-opacity="0"/>'
-            f'<stop offset="0.56" stop-color="{CLOTTED}" stop-opacity="0"/>'
-            f'<stop offset="0.56" stop-color="{CLOTTED}"/>'
-            f'<stop offset="0.82" stop-color="{CLOTTED}"/>'
-            f'<stop offset="1" stop-color="{CLOTTED}" stop-opacity="0"/>'
+            f'<stop offset="0" stop-color="{self.look.border}" stop-opacity="0"/>'
+            f'<stop offset="0.18" stop-color="{self.look.border}"/>'
+            f'<stop offset="0.44" stop-color="{self.look.border}"/>'
+            f'<stop offset="0.44" stop-color="{self.look.border}" stop-opacity="0"/>'
+            f'<stop offset="0.56" stop-color="{self.look.border}" stop-opacity="0"/>'
+            f'<stop offset="0.56" stop-color="{self.look.border}"/>'
+            f'<stop offset="0.82" stop-color="{self.look.border}"/>'
+            f'<stop offset="1" stop-color="{self.look.border}" stop-opacity="0"/>'
             "</linearGradient>",
         )
         middle = self.y + 26
@@ -778,12 +815,14 @@ class Page:
         )
         self.body.append(
             f'<g transform="translate({number(WIDTH / 2 - 14)} '
-            f'{number(middle - 14)}) scale(0.875)" fill="none" stroke="{POOLED}" '
+            f'{number(middle - 14)}) scale(0.875)" fill="none" '
+            f'stroke="{self.look.heading_foot}" '
             'stroke-width="1.3" stroke-linecap="round">'
             '<circle cx="16" cy="16" r="11.5"/>'
             '<path d="M6.6 10.6h18.8L16 27z"/>'
             '<path d="M16 1.5v29M11.5 6.5h9"/>'
-            f'<circle cx="16" cy="15.2" r="1.9" fill="{POOLED}" stroke="none"/>'
+            f'<circle cx="16" cy="15.2" r="1.9" fill="{self.look.heading_foot}" '
+            'stroke="none"/>'
             "</g>"
         )
         self.y += 52 + 20
@@ -802,7 +841,7 @@ class Page:
             'numOctaves="4" seed="7" stitchTiles="stitch" result="swell"/>'
             '<feSpecularLighting in="swell" surfaceScale="20" '
             'specularConstant="1.2" specularExponent="18" '
-            'lighting-color="#ffffff" result="lit">'
+            'result="lit">'
             '<feDistantLight azimuth="235" elevation="38"/>'
             "</feSpecularLighting>"
             '<feComponentTransfer in="lit" result="glint">'
@@ -822,16 +861,18 @@ class Page:
             f'<rect width="{tile}" height="{tile}" filter="url(#glints)"/>'
             "</pattern>"
             '<linearGradient id="sides">'
-            '<stop offset="0" stop-color="#000000" stop-opacity="0.72"/>'
-            '<stop offset="0.16" stop-color="#000000" stop-opacity="0"/>'
-            '<stop offset="0.84" stop-color="#000000" stop-opacity="0"/>'
-            '<stop offset="1" stop-color="#000000" stop-opacity="0.72"/>'
+            f'<stop offset="0" stop-color="{self.look.vignette}" '
+            f'stop-opacity="{self.look.vignette_share}"/>'
+            f'<stop offset="0.16" stop-color="{self.look.vignette}" stop-opacity="0"/>'
+            f'<stop offset="0.84" stop-color="{self.look.vignette}" stop-opacity="0"/>'
+            f'<stop offset="1" stop-color="{self.look.vignette}" '
+            f'stop-opacity="{self.look.vignette_share}"/>'
             "</linearGradient>",
         )
         whole = f'width="{WIDTH}" height="{height}"'
         return [
-            f'<rect {whole} fill="{GROUND}"/>',
-            f'<rect {whole} fill="url(#stone)" opacity="0.3"/>',
+            f'<rect {whole} fill="{self.look.page}"/>',
+            f'<rect {whole} fill="url(#stone)" opacity="{self.look.sheen_share}"/>',
             f'<rect {whole} fill="url(#sides)"/>',
         ]
 
