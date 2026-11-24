@@ -340,5 +340,7 @@ def test_showroom_sets_the_fixed_pitch_families_side_by_side(engine, address):
     # Side by side: at least two of them stand on one row.
     tops = [line["top"] for line in found]
     assert len(set(tops)) < len(tops)
-    # And the first of them is the family code is set in.
-    assert found[0]["family"] == LOOK["font"]["code"]
+    # One of them is the family code is set in, and the page says which.
+    assert LOOK["font"]["code"] in fixed
+    said = re.search(r'<p id="code-family">(.*?)</p>', PAGE, re.S).group(1)
+    assert f"<em>{LOOK['font']['code']}</em>" in said

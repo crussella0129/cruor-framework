@@ -181,3 +181,10 @@
 - **Completed:** 2026-11-24T06:19:40Z
 - **Files modified:** src/bundle.rs, src/main.rs, Cargo.toml, Cargo.lock, tests/bundle.rs, tests/common/mod.rs, tests/test_repository.py, tests/test_fetch_release.py, tests/test_release_look.py, tests/test_release.py, .github/workflows/release.yml
 - **Commit:** `3d3eb0787b2f9e7b5c382669cb151bc751490d5a`
+
+## T-219 (sprint 1)
+- **Description:** Take the owner's answers into the look: code set in Cruor Sans Pixelated, and the foot of a carved heading lifted so that the theme file promises it on the stone.
+- **Intent:** [INT-0003](../intents/INT-0003-cruentous-atonement-look.md), [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md)
+- **Completed:** 2026-11-24T12:35:25Z
+- **Files modified:** look/theme.toml, look/tokens.css, showroom/index.html, tests/test_showroom.py, tests/test_furniture.py, docs/intents/INT-0003-cruentous-atonement-look.md, docs/intents/INT-0007-the-showroom.md
+- **Commit:** PENDING

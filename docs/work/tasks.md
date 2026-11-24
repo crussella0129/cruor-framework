@@ -1,5 +1,7 @@
 # Agent Tasks (Persistent Backlog)
 
+- [ ] T-220 (sprint 1) [intent: INT-0007, INT-0003]: Bring the front page's world into the showroom: the statue weeping blood from two angles, and the stem of thorns — touches: showroom/, tools/, tests/
+- [ ] T-221 (sprint 1) [intent: INT-0007, INT-0001]: Make a second statue, the thinker, darker, pixelated and weeping blood, for the showroom and the front page, once the owner has chosen its photographs — touches: assets/readme/, showroom/, tools/, tests/
 - [ ] T-210 (sprint 1) [intent: INT-0007, INT-0001]: Add play to the showroom, in script — touches: showroom/, tests/
 - [ ] T-213 (sprint 1) [intent: INT-0007]: Publish the showroom on GitHub Pages from the default branch — touches: tools/build-site.sh, .github/workflows/pages.yml, tests/
 - [ ] T-214 (sprint 1) [intent: INT-0001, INT-0006, INT-0005]: Bring the front page's words up to date — touches: assets/readme/, tests/

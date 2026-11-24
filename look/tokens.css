@@ -22,7 +22,7 @@
   --cruor-inscription: #d50210;
   --cruor-inscription-link: #ff3b2f;
   --cruor-heading-top: #ff2a1a;
-  --cruor-heading-foot: #ba1a1a;
+  --cruor-heading-foot: #c31b1b;
   --cruor-selection: #7a2226;
   --cruor-chip-top: #ff9a8a;
   --cruor-chip-foot: #ec5658;
@@ -45,7 +45,7 @@
   --cruor-font-title: "Cruor Thornamental Regular";
   --cruor-font-heading: "Cruor Lite Regular";
   --cruor-font-text: "Cruor Sans Regular";
-  --cruor-font-code: "Cruor Sans Mono";
+  --cruor-font-code: "Cruor Sans Pixelated";
   --cruor-inscription-size: 1.5rem;
   --cruor-interface-size: 1.125rem;
   --cruor-line: 1.5;

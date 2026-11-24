@@ -501,7 +501,9 @@ def test_masthead_carries_the_briar(engine, address):
     assert briar["image"].startswith('url("data:image/svg+xml,')
     assert briar["repeat"] == "repeat-x" and briar["rendering"] == "pixelated"
     assert briar["pointer"] == "none"
-    assert role("heading-foot")[:3] in set(foot), "the stem of pooled blood"
+    # The briar keeps the reds it was drawn in. Its stem is the pooled red a
+    # heading's foot first had, which the theme file has since lifted.
+    assert browser.colour("#ba1a1a")[:3] in set(foot), "the stem of pooled blood"
     # The masthead has no ground of its own: it lies on the stone.
     assert browser.colour(briar["ground"])[3] == 0 and briar["picture"] == "none"
 

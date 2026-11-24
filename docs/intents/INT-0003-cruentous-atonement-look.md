@@ -48,7 +48,9 @@ What the look is made of:
   ("the title should be thornamental, the headings should be cruor lite,
   and the text should be cruor sans"). This replaces what the owner named on
   21 November 2026 ("cruor thornamented for the titles and cruor lite for
-  the body text"). Code is set in Cruor Sans Mono, as on the front page.
+  the body text"). Code is set in Cruor Sans Pixelated, which the owner
+  chose on 24 November 2026 from Cruor's five fixed-pitch families set side
+  by side in the showroom ("cruor sans pixelated").
   Each of these is a line in the theme file
   ([INT-0004](INT-0004-the-look-as-a-theme-file.md)) and can be changed
   there.
@@ -87,10 +89,8 @@ Settled in Sprint 1's Plan, 24 November 2026:
    the brightest sheen of the stone included, and is set at 24 pixels or
    more, where the large-text threshold of WCAG AA (3:1) applies. Interface
    text meets at least 4.5:1 on the same grounds. Large carved letters meet
-   at least 3:1 on the page as it lies, and the stop at their top on the
-   stone at its brightest as well; the stop at their foot, the pooled red
-   the owner approved, stands at 2.80 there, and that is told and not
-   hidden. Lettering in the void meets at least 4.5:1 on each ground it is
+   at least 3:1 from their top to their foot, on the page as it lies and on
+   the stone at its brightest. Lettering in the void meets at least 4.5:1 on each ground it is
    set on there, and its crimson structure at least 3:1. The void's
    subdued lettering is not set on the tinted row of the current item,
    where it would fall short. The edge that a part filled with blood
@@ -99,8 +99,11 @@ Settled in Sprint 1's Plan, 24 November 2026:
    lowers those ratios.
 5. All motion stops under `prefers-reduced-motion: reduce`. In print the
    page is black on white with no ornament.
-6. Set beside Tome's theme, the framework's page is the same look, in
-   Cruor. The owner judges this by eye.
+6. A page in the look takes after two things: Tome's theme, and the
+   framework's own front page, whose manner the owner named a "renaissance
+   grotesque": a statue weeping blood, seen from dramatic angles, and a
+   stem of bloody thorns. The owner judges by eye that a page made with the
+   kit is a place of that kind.
 
 ## Rationale
 
@@ -127,9 +130,11 @@ look's name now says whose it is.
 - Tome's theme may keep or change its own label when Tome takes the
   framework in; that is Tome's to record. Its riddle is answered with
   "Sanguine", which is a quoted line and stays as it is.
-- Which fixed-pitch family sets code is chosen by eye, from a side by side,
-  in the sprint that builds the look. Sprint 1 begins from Cruor Sans Mono
-  and shows the others beside it when the owner judges the look.
+- Which fixed-pitch family sets code was chosen by eye, from a side by
+  side in the showroom. Sprint 1 began from Cruor Sans Mono; the owner
+  chose Cruor Sans Pixelated. The front page's picture sets its code in
+  the family the theme file names once its script reads that file
+  (Sprint 1, T-218).
 - The furniture ([INT-0006](INT-0006-the-furniture.md)) is dressed by a
   stylesheet of its own, so that a page of plain HTML can take the look
   without the parts.
@@ -146,7 +151,15 @@ look's name now says whose it is.
   there, which is short of 3:1 when nothing is rounded, as nothing is. The
   figure was corrected the same day, when the showroom first stood, and
   the owner was shown the heading both ways and asked (Sprint 1, T-209).
-  Criterion 3 is amended to what they then say.
+  They had it lifted ("Lift to #c31b1b"). The pooled red of a heading's
+  foot is `#c31b1b` from then on, the theme file promises it on the stone,
+  and criterion 3 no longer tells of a shortfall. The briar keeps the
+  colours it was drawn in, the first pooled red among them.
+- The statue and the stem of thorns are pictures, and a stylesheet cannot
+  hold a visitor's pictures for them. What the kit gives toward a place of
+  that kind is the stone, the letters, the blood and the briar; the
+  framework's own pictures are shown in its showroom
+  ([INT-0007](INT-0007-the-showroom.md)) and on its front page.
 
 ## Transition history
 - 2026-11-23: created as `proposed` in Sprint 0's Research, from the owner's
@@ -165,3 +178,12 @@ look's name now says whose it is.
 - 2026-11-24: corrected, still `active`. The Consequences named `#c21b1b` as the
   lift that brings a carved heading's foot to 3:1 on the stone at its
   brightest. Worked out again with nothing rounded, it is `#c31b1b`.
+- 2026-11-24: revised at the owner's word, still `active`. Shown the
+  showroom, the owner chose Cruor Sans Pixelated for code and had the foot
+  of a carved heading lifted to `#c31b1b`. Asked whether the page is the
+  same look as Tome's, they answered: "I want you to take inspriation from
+  the sanguine atonement theme, but also look at what we're going for with
+  the readme, this sort of 'renaissance grotesque" theme I'm going for in
+  the readme with the david statue crying blood from dramatic angles and
+  the stem of bloody thorns. We want a place with that kind of aesthetic".
+  Criterion 6 is rewritten to that; criterion 3 loses its one shortfall.

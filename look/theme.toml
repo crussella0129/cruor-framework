@@ -15,7 +15,7 @@ class = "cruentous-atonement"
 title = "Cruor Thornamental Regular"
 heading = "Cruor Lite Regular"
 text = "Cruor Sans Regular"
-code = "Cruor Sans Mono"
+code = "Cruor Sans Pixelated"
 
 # The colours, by role. Blood's path gives the reds their names: arterial
 # where light catches it, the inscription's crimson, pooled at the foot of a
@@ -35,7 +35,7 @@ link = "#ff5c4d"               # fresh blood, in interface text
 inscription = "#d50210"        # running text, at 24 pixels or more
 inscription-link = "#ff3b2f"   # a link within running text
 heading-top = "#ff2a1a"        # light catching the top of a carved letter
-heading-foot = "#ba1a1a"       # pooled: the darkest stop of a carved letter
+heading-foot = "#c31b1b"       # pooled: the darkest stop of a carved letter
 selection = "#7a2226"          # the ground of selected text
 chip-top = "#ff9a8a"           # inline code, a salmon gradient
 chip-foot = "#ec5658"
@@ -134,17 +134,12 @@ text = ["text", "text-subdued", "link", "accent"]
 grounds = ["page", "stone", "panel", "sunken"]
 at-least = 4.5
 
-# A carved heading is promised on the page as it lies, and its top on the
-# stone as well. At the very foot of a letter, where the stone's sheen is at
-# its brightest behind it, the pooled red stands at 2.80.
+# A carved heading is promised on the page as it lies and on the stone at
+# its brightest, from its top to its foot. The pooled red of the foot was
+# lifted for this: it stands at 3.01 on the stone.
 [[contrast]]
 text = ["heading-top", "heading-foot"]
-grounds = ["page"]
-at-least = 3.0
-
-[[contrast]]
-text = ["heading-top"]
-grounds = ["stone"]
+grounds = ["page", "stone"]
 at-least = 3.0
 
 [[contrast]]

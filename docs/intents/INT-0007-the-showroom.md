@@ -34,12 +34,18 @@ What it holds:
   such a part would be used; the states a hand brings about are the
   visitor's to bring about ([INT-0006](INT-0006-the-furniture.md)
   criterion 2);
-- how each is written, close by, so that a visitor can take it.
+- how each is written, close by, so that a visitor can take it;
+- the framework's own world, as its front page has it: the statue weeping
+  blood, seen from more than one angle, and the stem of bloody thorns. The
+  owner named this manner a "renaissance grotesque" on 24 November 2026.
 
 Boundaries:
 
 - It links the framework's stylesheets as any page would, and adds none of
   its own beyond what lays out the showroom itself.
+- Its pictures are its own, kept in its folder and drawn from the same
+  maps as the front page's. They are no part of the kit or of a release,
+  and the photographs they were made from are credited on the page.
 - It may hold script for the sake of play, which the kit itself may not.
   The owner settled this on 24 November 2026 ("Wherever it helps"). The
   script is the showroom's own and is no part of a release. With script
@@ -66,6 +72,9 @@ Settled in Sprint 1's Plan, 24 November 2026:
 7. With script on, a visitor can play: there is at least one thing in it
    that answers the hand as matter would, and a part's HTML can be taken
    with one press.
+8. It carries the front page's world: the statue weeping blood from at
+   least two angles, and the stem of thorns. The owner judges by eye that
+   it is a place of that kind.
 
 ## Rationale
 
@@ -89,6 +98,11 @@ wants to see a page made with it and to try its parts, before reading how.
   that it is live.
 - What a visitor sees on the web is the showroom of the default branch, not
   of a release.
+- The owner named a second statue for the showroom and the front page on
+  24 November 2026: the thinker, "darker, pixelated, and crying blood",
+  for its pose and the angles it offers. It is made as the first was, from
+  photographs whose licence allows it, once the owner has chosen them
+  (Sprint 1, T-221).
 - The front page's picture is drawn from words
   (`assets/readme/text.md`); a picture of the showroom in it is a new kind
   of thing for `tools/draw_readme.py` to place.
@@ -108,3 +122,11 @@ wants to see a page made with it and to try its parts, before reading how.
   criterion 2, and the Consequences name what the owner must do for it to
   be served.
 - 2026-11-24: `planned` to `active`. Sprint 1's Build reached T-209, and the showroom stands: one page built from the kit alone, which opens from a copy of the repository.
+- 2026-11-24: revised at the owner's word, still `active`. Shown the
+  showroom, the owner judged it a place and not a list ("Yes, a place"),
+  which is criterion 6. Of its look they said: "We want a place with that
+  kind of aesthetic", meaning the front page's "renaissance grotesque":
+  "the david statue crying blood from dramatic angles and the stem of
+  bloody thorns". Criterion 8 is new, and the showroom is given pictures of
+  its own (Sprint 1, T-220). The same day they named a second statue, the
+  thinker (T-221).
