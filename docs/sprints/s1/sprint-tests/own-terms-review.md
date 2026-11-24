@@ -238,3 +238,48 @@ How each review is made:
   supersedes it in the same way; the run for this push holds every commit
   of all three, and its end is told in the next entry.
 
+### 8. 24 November 2026, in Build, after the owner's answers
+
+- **Commits covered:** `650af02bf67140619dd4b3cf173dff8273c6a877` to
+  `e5ccda4a98870a16d8043355b6e13ae6249f8fb1`, four commits: T-219 and
+  T-220, each with the commit the helper makes to record it. The commit
+  that recorded entry 7 (`48eced2`) changes this file alone and was pushed
+  with it.
+- **Also covered:** nothing; no font file is in the commits. Three
+  pictures are new, each an SVG of squares with no letters in it. The
+  statue's two carry a comment that names the sculptor, the statue and the
+  photographer, and no typeface.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** the owner's words, as the intents now quote
+  them, name Tome's theme and the manner of the front page ("renaissance
+  grotesque"); they liken the place to those and Cruor's letters to
+  nothing. The showroom's new words were read whole.
+- **Work the locked plan does not hold.** Shown the showroom, the owner
+  answered the plan's four questions. Three were answers the plan had
+  ready: it is a place; code is set in Cruor Sans Pixelated; the foot of a
+  carved heading is lifted. The fourth was a direction, not a yes or a no:
+  the place should take after the front page as well as Tome's theme, with
+  the statue weeping blood and the stem of thorns. Three tasks were added
+  to the queue for this, with the owner's words in INT-0003 and INT-0007:
+  T-219 (the answers, taken into the look), T-220 (the front page's world
+  in the showroom) and T-221 (a second statue, which the owner named the
+  same day, and which waits for photographs to be chosen). The plans stay
+  as they were locked; the test report tells of these as work beyond them.
+- **Files against tasks.** T-219 changes the theme file, its tokens, the
+  showroom's words on which family sets code, and two tests: the
+  showroom's, and the test of the masthead's briar, which had held the
+  briar's stem to the colour of a heading's foot. The briar keeps the reds
+  it was drawn in, and the test now says so. T-220 adds
+  `tools/draw_showroom.py`, the three pictures it draws, and
+  `tests/test_showroom_world.py`, and changes the showroom's page, its
+  stylesheet and its first tests.
+- **A fault found on the way.** On a window as narrow as a telephone's
+  the ledger's table was wider than the page and pushed it sideways. It
+  now moves within a place of its own, and a test holds the page still.
+- **CI.** Run
+  [45339913288](https://github.com/crussella0129/cruor-framework/actions/runs/45339913288)
+  for `48eced2bc79ed9eb656a8c0b6b0bbc6558a0cce9`, which holds every commit
+  of the fourth, fifth and sixth pushes, concluded `success`. The run for
+  the fifth push (45339687942) was superseded by it, as entry 7 expected.
+
