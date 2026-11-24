@@ -202,3 +202,10 @@
 - **Completed:** 2026-11-24T12:48:29Z
 - **Files modified:** tools/build-site.sh, .github/workflows/pages.yml, tests/test_pages.py, tests/test_release.py
 - **Commit:** `763946444c7460e6443524f9d94735d25c52fe7f`
+
+## T-214 (sprint 1)
+- **Description:** Bring the front page's words up to date: the look and its furniture are in the kit, how a page takes them on, every part named, the theme file, what a release holds, and the showroom's address.
+- **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md), [INT-0006](../intents/INT-0006-the-furniture.md), [INT-0005](../intents/INT-0005-versioned-releases.md)
+- **Completed:** 2026-11-24T12:51:15Z
+- **Files modified:** assets/readme/text.md, assets/readme/page.svg, tests/test_readme.py
+- **Commit:** PENDING

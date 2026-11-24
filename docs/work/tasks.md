@@ -2,7 +2,6 @@
 
 - [ ] T-221 (sprint 1) [intent: INT-0007, INT-0001]: Make a second statue, the thinker, darker, pixelated and weeping blood, for the showroom and the front page, once the owner has chosen its photographs — touches: assets/readme/, showroom/, tools/, tests/
 - [ ] T-210 (sprint 1) [intent: INT-0007, INT-0001]: Add play to the showroom, in script — touches: showroom/, tests/
-- [ ] T-214 (sprint 1) [intent: INT-0001, INT-0006, INT-0005]: Bring the front page's words up to date — touches: assets/readme/, tests/
 - [ ] T-217 (sprint 1) [intent: INT-0007]: Put a door to the showroom on the front page — touches: tools/draw_readme.py, assets/readme/, README.md, tests/
 - [ ] T-218 (sprint 1) [intent: INT-0004]: Have the front page's script take its colours and families from the theme file — touches: tools/draw_readme.py, assets/readme/, tests/
 - [ ] T-101 (backlog) [intent: INT-0002]: take in a build of Cruor whose fonts carry their own copyright and licence text and an installable embedding field — touches: fonts/

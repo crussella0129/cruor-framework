@@ -6,6 +6,7 @@ import re
 import subprocess
 import tomllib
 
+import parts
 from helpers import ROOT
 
 README = (ROOT / "assets" / "readme" / "text.md").read_text(encoding="utf-8")
@@ -36,20 +37,77 @@ def sentences() -> list[str]:
 def test_readme_says_what_the_kit_is():
     assert README.startswith("# The Cruor Framework\n")
     assert "gives a web page the look called **Cruentous Atonement**" in FLOWED
-    assert "Cruentous Atonement" in FLOWED
-    assert "is not in the kit yet" in FLOWED
+    # The look is in the kit, with the fonts and the furniture, and the kit
+    # holds no script.
+    assert "is not in the kit yet" not in FLOWED
+    assert "The look is in the kit" in FLOWED
+    for held in ("Cruor's web fonts", "one theme file", "the look's furniture"):
+        assert held in FLOWED, held
+    assert "the kit holds no script" in FLOWED
     assert "The first release, 0.1.0, holds the fonts alone" in FLOWED
+    assert "a release from 0.2.0 holds the look as well" in FLOWED
 
 
-def test_readme_says_of_the_look_only_its_name():
-    # Until the look is in the kit, the paragraph that first names it says
-    # its name and what it is set in, and stops. The sprint that builds the
-    # look changes this test with the README.
-    first = " ".join(README.split("\n\n")[1].split())
-    assert first == (
-        "A kit that gives a web page the look called **Cruentous Atonement**, "
-        "set in Cruor."
-    )
+LOOK = ["fonts.css", "tokens.css", "cruentous-atonement.css", "furniture.css"]
+
+
+def test_readme_shows_taking_the_look_on():
+    # One block of HTML links the four stylesheets, in the order they are
+    # read, and sets the class on the body.
+    pages = [block for block in code_blocks() if "cruentous-atonement.css" in block]
+    assert len(pages) == 1
+    linked = re.findall(r'<link rel="stylesheet" href="([^"]+)">', pages[0])
+    assert [address.rsplit("/", 1)[-1] for address in linked] == LOOK
+    for address in linked:
+        assert (ROOT / address).is_file(), address
+    assert '<body class="cruentous-atonement">' in pages[0]
+    assert "A page that does not set the class is not touched" in FLOWED
+
+
+def test_readme_names_every_part():
+    spans = code_spans()
+    assert len(parts.PARTS) == 25
+    for part in parts.PARTS:
+        assert part.css_class in spans, part.name
+    # And no class that is not a part's.
+    named = {span for span in spans if re.fullmatch(r"cruor-[a-z]+", span)}
+    assert named == set(parts.classes())
+
+
+def test_readme_shows_a_parts_html():
+    # One block holds parts as a page would write them: each class it uses
+    # is a part's, and is set on the element the furniture dresses.
+    shown = [block for block in code_blocks() if 'class="cruor-' in block]
+    assert len(shown) == 1
+    used = re.findall(r'<(\w+) class="(cruor-[a-z]+)"', shown[0])
+    assert ("button", "cruor-button") in used and ("input", "cruor-field") in used
+    for _, css_class in used:
+        assert css_class in parts.classes(), css_class
+    # A state is asked for as HTML asks for it.
+    assert 'aria-invalid="true"' in shown[0]
+    assert "A state is asked for as HTML asks for it" in FLOWED
+
+
+def test_readme_says_what_a_release_holds():
+    about = [sentence for sentence in sentences() if "from 0.2.0" in sentence]
+    held = [sentence for sentence in about if "`manifest.json`" in sentence]
+    assert len(held) == 1
+    for name in ("theme.toml", *LOOK[1:]):
+        assert f"`{name}`" in held[0], name
+        assert (ROOT / "look" / name).is_file(), name
+    assert "The showroom is no part of a release" in FLOWED
+
+
+SHOWROOM = "https://crussella0129.github.io/cruor-framework/showroom/"
+
+
+def test_readme_points_to_the_showroom():
+    assert f"]({SHOWROOM})" in README
+    # The address is the one the site is published at: the repository's
+    # pages, and the folder the site keeps the showroom in.
+    assert (ROOT / "showroom" / "index.html").is_file()
+    assert "That address answers once the showroom is published" in FLOWED
+    assert "serve a copy of the repository and open `showroom/index.html`" in FLOWED
 
 
 def test_readme_lists_eight_families():
@@ -60,7 +118,9 @@ def test_readme_lists_eight_families():
 
 
 def test_readme_shows_linking_page():
-    pages = [block for block in code_blocks() if "<link" in block]
+    # A page that takes the fonts alone: it links their stylesheet and names
+    # a family for itself.
+    pages = [block for block in code_blocks() if "<style>" in block]
     assert len(pages) == 1
     page = pages[0]
     assert re.search(r'<link rel="stylesheet" href="[^"]*fonts\.css">', page)
@@ -149,6 +209,8 @@ def test_readme_names_existing_paths_and_commands():
     # Every path of the repository that the README gives in code marks.
     roots = (
         "fonts/",
+        "look/",
+        "showroom/",
         "examples/",
         "src/",
         "tools/",
@@ -166,6 +228,17 @@ def test_readme_names_existing_paths_and_commands():
         "fonts/fonts.css",
         "examples/fetch-release.mjs",
         "tools/draw_readme.py",
+        "tools/draw_showroom.py",
+        "tools/build-site.sh",
+        "look/",
+        "look/theme.toml",
+        "look/tokens.css",
+        "look/cruentous-atonement.css",
+        "look/furniture.css",
+        "look/THEME.md",
+        "showroom/",
+        "showroom/index.html",
+        ".github/workflows/pages.yml",
         "assets/readme/",
         "assets/readme/text.md",
         "LICENSE-MIT",
@@ -183,12 +256,11 @@ def test_readme_names_existing_paths_and_commands():
     ).stdout
     commands = re.findall(r"^\s+([a-z]+)\s", help_text.split("Commands:")[1], re.M)
     shown = re.findall(r"cargo run --release -- ([a-z]+)", README)
-    assert sorted(shown) == ["bundle", "check", "css", "manifest"]
-    for command in shown:
-        assert command in commands, command
-    for span in code_spans():
-        if span in ("css", "manifest", "check", "bundle"):
-            assert span in commands
+    assert sorted(shown) == ["bundle", "check", "css", "look", "manifest"]
+    # Every command the tool has is shown, but the one that prints its help.
+    assert sorted(shown) == sorted(set(commands) - {"help"})
+    for span in ("css", "manifest", "look", "check", "bundle"):
+        assert span in code_spans(), span
 
     # The scripts it tells a reader to run.
     assert "bash tools/run-guards.sh" in README

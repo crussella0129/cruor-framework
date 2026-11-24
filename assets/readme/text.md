@@ -7,10 +7,19 @@ Cruor.
 adjective. Cruor is a typeface family of tall, narrow letters with ornament
 of its own: curled spurs, and thorns that are called thornaments.
 
-**Where it stands.** The kit holds Cruor's web fonts, and a page can set its
-text in them today. The look itself, Cruentous Atonement (its colours, its
-stylesheet and its theme file), is not in the kit yet: it is what is built
-next. The first release, 0.1.0, holds the fonts alone; the
+**What it holds.** The look is in the kit: Cruor's web fonts; Cruentous
+Atonement as stylesheets, made from one theme file; and the look's
+furniture, the parts a page is built from. A page takes all of it on with
+four stylesheets and one class, and the kit holds no script.
+
+**The showroom** is a place built from the kit and from nothing else, where
+the look and every part can be seen and tried:
+[crussella0129.github.io/cruor-framework/showroom/](https://crussella0129.github.io/cruor-framework/showroom/).
+That address answers once the showroom is published. Until then, and at any
+time, serve a copy of the repository and open `showroom/index.html`.
+
+The first release, 0.1.0, holds the fonts alone; a release from 0.2.0 holds
+the look as well. The
 [releases page](https://github.com/crussella0129/cruor-framework/releases)
 shows what has been published.
 
@@ -23,11 +32,75 @@ holds the same words as text.
 | where | what |
 |---|---|
 | `fonts/` | Cruor's web fonts, thirty-two `.woff2` files; `fonts/fonts.css`, which declares them; `fonts/OFL.txt`, their licence; `fonts/specimen.html`, a page that sets a line in every one |
+| `look/` | the look: `look/theme.toml`, where it is written down once; `look/tokens.css`, made from that file; `look/cruentous-atonement.css`, the stone and the dress of plain HTML; `look/furniture.css`, the parts; `look/THEME.md`, the form of the theme file |
+| `showroom/` | the showroom: one page built from the kit alone, with every part in use and the HTML that makes each beside it |
 | `examples/fetch-release.mjs` | a worked example of a build fetching a release and checking it |
 | `src/` | the tool that writes the stylesheet, the manifest and a release |
-| `tools/` | the checks, and `tools/draw_readme.py`, which draws the front page |
+| `tools/` | the checks; `tools/draw_readme.py`, which draws the front page; `tools/draw_showroom.py`, which draws the showroom's pictures; `tools/build-site.sh`, which puts the showroom's site together |
 | `assets/readme/` | the front page's words, its two pictures of a statue, and the picture drawn from them all |
 | `docs/` | the project's record: what it is for, and how each part came to be |
+
+## The look
+
+A page takes Cruentous Atonement on by linking four stylesheets and setting
+one class on its body:
+
+```html
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="look/tokens.css">
+<link rel="stylesheet" href="look/cruentous-atonement.css">
+<link rel="stylesheet" href="look/furniture.css">
+
+<body class="cruentous-atonement">
+```
+
+Plain HTML is then dressed with no further markup: the obsidian stone
+beneath the page, running text as an inscription in crimson, carved
+headings, links, lists, quotations, rules, code and tables. A page that
+does not set the class is not touched. All motion stops for a reader who
+asks for stillness, and in print the page is black on white.
+
+The four stylesheets name no path and none imports another, so they work
+wherever they are served together. The first three are enough for a page
+that wants the look without the parts.
+
+### The furniture
+
+The parts a page is built from. Each is asked for by a class on the element
+HTML already has for it:
+
+| kind | parts |
+|---|---|
+| controls | `cruor-button`, `cruor-field`, `cruor-label`, `cruor-hint`, `cruor-fault`, `cruor-choice`, `cruor-tick`, `cruor-radio`, `cruor-slider`, `cruor-progress`, `cruor-measure` |
+| containers | `cruor-plate`, `cruor-panel`, `cruor-void`, `cruor-notice`, `cruor-fold`, `cruor-rise` |
+| ways through a page | `cruor-masthead`, `cruor-links`, `cruor-trail` |
+| small pieces | `cruor-badge`, `cruor-seal`, `cruor-sigil`, `cruor-hairline`, `cruor-loader` |
+
+A field with its label, the fault it reports, and a button:
+
+```html
+<label class="cruor-label" for="day">The day it was incurred</label>
+<input class="cruor-field" id="day" aria-invalid="true"
+       aria-describedby="day-fault">
+<p class="cruor-fault" id="day-fault">That is no day of the calendar.</p>
+
+<button class="cruor-button">Atone</button>
+```
+
+A state is asked for as HTML asks for it: `disabled`, `aria-invalid="true"`,
+`aria-current`, an open `<details>`. A part's kind is given by `data-kind`,
+as a notice's `note`, `warning` or `fault` is. The showroom shows each part
+in every state, with its HTML.
+
+### The theme file
+
+`look/theme.toml` is the look written down once, by role: its colours, the
+families that set the title, the headings, the text and code, each level of
+heading, its measures, and the contrast it promises between lettering and
+ground. `look/tokens.css` is made from that file by the tool and never by
+hand, and the tool refuses a theme that does not keep the contrast it
+promises. `look/THEME.md` gives the file's form, so that another look can be
+written in it.
 
 ## The fonts
 
@@ -91,9 +164,11 @@ https://github.com/crussella0129/cruor-framework/releases/download/v<version>/<f
 ```
 
 A release holds the thirty-two fonts, `fonts.css`, `OFL.txt`, `LICENSE-MIT`
-and `LICENSE-APACHE`; `manifest.json`, which gives the version and each of
-those files' name, size and SHA-256; one archive of them all,
-`cruor-framework-v<version>.zip`; and the archive's checksum beside it.
+and `LICENSE-APACHE`; from 0.2.0, the look's four files as well,
+`theme.toml`, `tokens.css`, `cruentous-atonement.css` and `furniture.css`;
+`manifest.json`, which gives the version and each of those files' name, size
+and SHA-256; one archive of them all, `cruor-framework-v<version>.zip`; and
+the archive's checksum beside it. The showroom is no part of a release.
 
 `examples/fetch-release.mjs` shows a build fetching a release and checking
 every file against the manifest. It needs Node 20 or newer and nothing else:
@@ -119,6 +194,7 @@ with a fallback font.
 ```sh
 cargo run --release -- css
 cargo run --release -- manifest
+cargo run --release -- look
 cargo run --release -- check
 cargo run --release -- bundle --out dist
 ```
@@ -127,13 +203,17 @@ cargo run --release -- bundle --out dist
   `fonts/families.toml`.
 - `manifest` writes `fonts/manifest.toml`: each font's size and SHA-256,
   and the commit of Cruor the fonts were built at.
-- `check` fails if the stylesheet or the manifest is not current, or if a
-  font has changed.
+- `look` writes `look/tokens.css` from the theme file, `look/theme.toml`.
+- `check` fails if the fonts' stylesheet, the manifest or the look's tokens
+  is not current, if a font has changed, or if the theme file does not keep
+  the contrast it promises.
 - `bundle` puts a release together in a folder, exactly as it would be
   published. The same commit gives the same bytes every time.
 
 A release is published by `.github/workflows/release.yml` when a version tag
-is pushed, and only for a tagged commit on `main`.
+is pushed, and only for a tagged commit on `main`. The showroom is published
+by `.github/workflows/pages.yml` from `main`, once the repository has been
+set to allow it.
 
 ## Checking
 
@@ -162,8 +242,8 @@ subset included, must take another name.
 offered under `MIT OR Apache-2.0`, at your choice: see `LICENSE-MIT` and
 `LICENSE-APACHE`.
 
-**The statue** on the front page is Michelangelo's David, drawn from two
-photographs by Jörg Bittner Unna:
+**The statue** on the front page and in the showroom is Michelangelo's
+David, drawn from two photographs by Jörg Bittner Unna:
 [JBU 005](https://commons.wikimedia.org/wiki/File:%27David%27_by_Michelangelo_FI_Acca_JBU_005.jpg)
 and
 [JBU 014](https://commons.wikimedia.org/wiki/File:%27David%27_by_Michelangelo_FI_Acca_JBU_014.jpg),
@@ -172,8 +252,8 @@ both offered under
 its ground, darkened, given tears of blood and reduced to squares. The two
 pictures made from them, `assets/readme/weeping-face.txt` and
 `assets/readme/weeping-profile.txt`, are offered under CC BY 4.0 as well,
-and so is the front page's picture where it shows them. They are not part of
-a release.
+and so are the front page's picture where it shows them and the showroom's
+pictures drawn from them. They are not part of a release.
 
 <!-- sigil -->
 
