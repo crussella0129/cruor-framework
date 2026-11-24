@@ -96,4 +96,4 @@
 - **Intent:** [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-24T05:10:00Z
 - **Files modified:** docs/sprints/s1/sprint-tests/own-terms-review.md
-- **Commit:** PENDING
+- **Commit:** `b44d52904b02e5b46601f996d12123c4fab9decb`
