@@ -88,3 +88,29 @@ How each review is made:
   were written by hand and are a few minutes out. The ledger is append-only
   and is left as it is.
 
+### 3. 24 November 2026, in Build, when the look's stylesheet is done
+
+- **Commits covered:** `59a231490fffc213cb0aea35b1102b76bc8c3a1b` to
+  `5e6dd5f71e0516d26420b7d7e431293441481635`, six commits: T-211, T-204 and
+  T-205, each with the commit the helper makes to record it. The commit
+  that recorded entry 2 (`8cdd2be`) changes this file alone and was pushed
+  with it.
+- **Also covered:** nothing; no font file is in the commits. The look's
+  stylesheet names no family: each is asked for by a token, with a generic
+  word (`serif`, `sans-serif`, `monospace`) to fall back on.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out. The stylesheet's
+  comments tell what each rule draws (the stone, the candle, a carved
+  heading, the seal, the sigil) and set Cruor beside nothing.
+- **Files against tasks:** T-211 adds `tests/browser.py` and
+  `tests/test_browser_means.py`; it did not need to change
+  `tests/helpers.py`, which its list named. T-204 adds
+  `look/cruentous-atonement.css`, `tests/test_look_css.py`,
+  `tests/test_look_ground.py` and `tests/pages/bare.html`. T-205 changes the
+  stylesheet and `tests/test_look_css.py`, and adds
+  `tests/test_look_page.py` and `tests/pages/plain.html`.
+- **CI for the first push.** Run
+  [45332407479](https://github.com/crussella0129/cruor-framework/actions/runs/45332407479) for
+  `8cdd2be1aa9701542c0c2e48ac19b1aa6b49e07f` concluded `success`.
+
