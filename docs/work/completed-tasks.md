@@ -180,4 +180,4 @@
 - **Intent:** [INT-0005](../intents/INT-0005-versioned-releases.md), [INT-0004](../intents/INT-0004-the-look-as-a-theme-file.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-24T06:19:40Z
 - **Files modified:** src/bundle.rs, src/main.rs, Cargo.toml, Cargo.lock, tests/bundle.rs, tests/common/mod.rs, tests/test_repository.py, tests/test_fetch_release.py, tests/test_release_look.py, tests/test_release.py, .github/workflows/release.yml
-- **Commit:** PENDING
+- **Commit:** `3d3eb0787b2f9e7b5c382669cb151bc751490d5a`
