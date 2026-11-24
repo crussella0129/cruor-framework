@@ -344,3 +344,25 @@ How each review is made:
   [45398309163](https://github.com/crussella0129/cruor-framework/actions/runs/45398309163)
   for `2451d158c90fad93c6d7d16140fbc08938d9021f` concluded `success`.
 
+### 11. 24 November 2026, in Build, the blood on the statue keeps to the face
+
+- **Commits covered:** `b807f72639c053381aaad89db332b6c4ad60d8e4` and
+  `2f077c003d354cd1cb3e578f7db9adc6b4e40244`, two commits: T-222 and the
+  commit the helper makes to record it. The commit that recorded entry 10
+  (`004dff9`) changes this file alone and was pushed with it.
+- **Also covered:** nothing; no font file is in the commits.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out.
+- **Files against tasks:** T-222 changes the statue's two maps in
+  `assets/readme/`, the front page's picture drawn from them, the
+  showroom's two pictures drawn from them, and INT-0007's history, as its
+  task lists.
+- **Not in the plan.** T-222 was added during the Build at the owner's
+  word: the blood did not keep to the face. The way it was worked out
+  stays outside the repository; only the two maps it made are in it, and
+  the scripts draw from them as before.
+- **CI.** Run
+  [45402621356](https://github.com/crussella0129/cruor-framework/actions/runs/45402621356)
+  for `004dff900732aaeca1de8672348758a9ae97a1e0` concluded `success`.
+
