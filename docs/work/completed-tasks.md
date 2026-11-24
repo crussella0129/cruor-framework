@@ -173,4 +173,4 @@
 - **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0006](../intents/INT-0006-the-furniture.md), [INT-0003](../intents/INT-0003-cruentous-atonement-look.md)
 - **Completed:** 2026-11-24T06:12:42Z
 - **Files modified:** showroom/index.html, showroom/showroom.css, tests/test_showroom.py, docs/intents/INT-0007-the-showroom.md
-- **Commit:** PENDING
+- **Commit:** `e559965f7aa7e1fd6b5cce4dc02abc6efee2a2f9`
