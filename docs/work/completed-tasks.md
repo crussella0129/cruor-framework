@@ -201,4 +201,4 @@
 - **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md)
 - **Completed:** 2026-11-24T12:48:29Z
 - **Files modified:** tools/build-site.sh, .github/workflows/pages.yml, tests/test_pages.py, tests/test_release.py
-- **Commit:** PENDING
+- **Commit:** `763946444c7460e6443524f9d94735d25c52fe7f`
