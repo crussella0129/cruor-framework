@@ -149,3 +149,36 @@ How each review is made:
   [45333909481](https://github.com/crussella0129/cruor-framework/actions/runs/45333909481)
   for `b5c2935fd6c3ff454b3a1b494c1d7d2d778d5a65` concluded `success`.
 
+### 5. 24 November 2026, in Build, when the showroom first stands
+
+- **Commits covered:** `e559965f7aa7e1fd6b5cce4dc02abc6efee2a2f9` and
+  `c579a209afa2f600c863cb7c026391f13cb96b23`, two commits: T-209 and the commit
+  the helper makes to record it. The commit that recorded entry 4
+  (`6d6b425`) changes this file alone and was pushed with it.
+- **Also covered:** nothing; no font file is in the commits. The showroom
+  names Cruor's families and no other: the four the look sets, and the five
+  of fixed pitch set side by side.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** the showroom's words were read whole, since
+  they are the first the kit says of itself to a visitor. They tell what
+  Cruor means and where each family is used, and liken it to nothing.
+- **Files against tasks:** T-209 adds `showroom/index.html`,
+  `showroom/showroom.css` and `tests/test_showroom.py`, and moves
+  INT-0007 to `active`. Nothing falls outside the task's list. The look and
+  the theme file are not changed: whether they are waits for the owner's
+  answers, which the plan asks for now.
+- **How the showroom's page is made.** It was written out once by a script
+  kept outside the repository, so that the HTML folded beside each thing is
+  the very text of that thing. The page is the source from here on; a test
+  holds each folded text against the thing it stands beside, attribute for
+  attribute, and sets it alone in a page to see it drawn the same.
+- **Two things the tests settle that the plan left to the build.** A thing
+  that stands in a row of others is as tall as its row; set alone, it is
+  given a row as tall, and what it holds is measured. A thing that rises
+  is raised first in both pages, so that what is compared is the thing
+  open and not a thing put away.
+- **CI for the third push.** Run
+  [45336850401](https://github.com/crussella0129/cruor-framework/actions/runs/45336850401)
+  for `6d6b4250222b78ef77630011d2657d773edb7b2d` concluded `success`.
+
