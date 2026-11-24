@@ -1,5 +1,7 @@
-"""The README's pictures: that they are current, and that each stands alone."""
+"""The front page's picture: that it is current, says every word, and stands
+alone."""
 
+import collections
 import re
 import shutil
 import subprocess
@@ -7,18 +9,13 @@ import sys
 
 import pytest
 
+import draw_readme
 from helpers import ROOT
 
+KEPT = ROOT / "assets" / "readme"
 README = (ROOT / "README.md").read_text(encoding="utf-8")
-PICTURES = ROOT / "assets" / "readme"
-
-# A heading as the README writes it: its level, its picture and its words.
-HEADINGS = re.findall(
-    r'^<h([1-3])><img src="assets/readme/([a-z0-9-]+\.svg)" alt="([^"]+)" '
-    r'width="100%"></h\1>$',
-    README,
-    re.MULTILINE,
-)
+TEXT = (KEPT / "text.md").read_text(encoding="utf-8")
+PICTURE = (KEPT / "page.svg").read_text(encoding="utf-8")
 
 
 def draw(*arguments) -> subprocess.CompletedProcess:
@@ -32,12 +29,18 @@ def draw(*arguments) -> subprocess.CompletedProcess:
 
 @pytest.fixture
 def copy_of_repository(tmp_path):
-    """A copy of what the pictures are drawn from, and of the pictures, to
-    spoil without harm."""
+    """A copy of what the page is drawn from, and of the page, to spoil
+    without harm."""
     shutil.copy(ROOT / "README.md", tmp_path / "README.md")
     shutil.copytree(ROOT / "fonts", tmp_path / "fonts")
-    shutil.copytree(PICTURES, tmp_path / "assets" / "readme")
+    shutil.copytree(KEPT, tmp_path / "assets" / "readme")
     return tmp_path
+
+
+def change(path, old: str, new: str) -> None:
+    text = path.read_text(encoding="utf-8")
+    assert old in text
+    path.write_text(text.replace(old, new), encoding="utf-8", newline="\n")
 
 
 def test_readme_pictures_are_current():
@@ -51,109 +54,150 @@ def test_readme_pictures_check_passes_on_a_copy(copy_of_repository):
 
 
 def test_readme_pictures_check_fails_on_a_changed_picture(copy_of_repository):
-    picture = copy_of_repository / "assets" / "readme" / "the-fonts.svg"
-    picture.write_text(
-        picture.read_text(encoding="utf-8").replace("#0a0708", "#000000"),
-        encoding="utf-8",
-        newline="\n",
-    )
+    change(copy_of_repository / "assets" / "readme" / "page.svg", "#0a0708", "#000000")
     result = draw("--check", str(copy_of_repository))
     assert result.returncode == 1
-    assert result.stderr.splitlines()[0] == "assets/readme/the-fonts.svg: not current"
+    assert result.stderr.splitlines()[0] == "assets/readme/page.svg: not current"
 
 
-def test_readme_pictures_check_fails_on_a_changed_heading(copy_of_repository):
-    readme = copy_of_repository / "README.md"
-    readme.write_text(
-        readme.read_text(encoding="utf-8").replace('alt="Terms"', 'alt="The terms"'),
-        encoding="utf-8",
-        newline="\n",
-    )
+def test_readme_pictures_check_fails_on_changed_words(copy_of_repository):
+    change(copy_of_repository / "assets" / "readme" / "text.md", "## Terms", "## Term")
     result = draw("--check", str(copy_of_repository))
     assert result.returncode == 1
-    assert result.stderr.splitlines()[0] == "assets/readme/terms.svg: not current"
+    assert result.stderr.splitlines()[0] == "assets/readme/page.svg: not current"
+
+
+def test_readme_pictures_check_fails_on_a_changed_readme(copy_of_repository):
+    with (copy_of_repository / "README.md").open("a", encoding="utf-8") as readme:
+        readme.write("\nA line the page does not draw.\n")
+    result = draw("--check", str(copy_of_repository))
+    assert result.returncode == 1
+    assert result.stderr.splitlines()[0] == "README.md: not current"
 
 
 def test_readme_pictures_check_fails_on_a_missing_picture(copy_of_repository):
-    (copy_of_repository / "assets" / "readme" / "sigil.svg").unlink()
+    (copy_of_repository / "assets" / "readme" / "page.svg").unlink()
     result = draw("--check", str(copy_of_repository))
     assert result.returncode == 1
-    assert result.stderr.splitlines()[0] == "assets/readme/sigil.svg: missing"
+    assert result.stderr.splitlines()[0] == "assets/readme/page.svg: missing"
 
 
-def test_readme_pictures_check_fails_on_a_picture_no_heading_names(
+def test_readme_pictures_check_fails_on_a_picture_the_page_does_not_show(
     copy_of_repository,
 ):
     kept = copy_of_repository / "assets" / "readme"
-    shutil.copy(kept / "terms.svg", kept / "left-behind.svg")
+    shutil.copy(kept / "page.svg", kept / "left-behind.svg")
     result = draw("--check", str(copy_of_repository))
     assert result.returncode == 1
     assert result.stderr.splitlines()[0] == (
-        "assets/readme/left-behind.svg: no heading names it"
+        "assets/readme/left-behind.svg: the front page does not show it"
     )
 
 
 def test_readme_pictures_are_drawn_the_same_twice(copy_of_repository):
     result = draw(str(copy_of_repository))
     assert result.returncode == 0, result.stderr
-    for picture in sorted(PICTURES.iterdir()):
-        again = copy_of_repository / "assets" / "readme" / picture.name
-        assert again.read_bytes() == picture.read_bytes(), picture.name
+    for name in ["README.md", "assets/readme/page.svg"]:
+        assert (copy_of_repository / name).read_bytes() == (ROOT / name).read_bytes()
 
 
-def test_readme_headings_are_pictures():
-    # Every heading is a picture, and no heading is left as plain Markdown.
-    outside_blocks = re.sub(r"```.*?```", "", README, flags=re.DOTALL)
-    assert re.findall(r"^#+ ", outside_blocks, re.MULTILINE) == []
-    assert len(re.findall(r"^<h[1-6]", README, re.MULTILINE)) == len(HEADINGS)
-    assert [level for level, _, _ in HEADINGS].count("1") == 1
-    assert HEADINGS[0] == ("1", "masthead.svg", "The Cruor framework")
-    assert [words for _, _, words in HEADINGS[1:]] == [
-        "What is in it",
-        "The fonts",
-        "Using them in a page",
-        "Taking a release into a build",
-        "The tool",
-        "Checking",
-        "Terms",
-    ]
-
-
-def test_readme_shows_every_picture_and_no_other():
-    shown = re.findall(r'<img src="([^"]+)"', README)
-    assert len(shown) == len(set(shown))
-    assert sorted(shown) == sorted(
-        f"assets/readme/{picture.name}" for picture in PICTURES.iterdir()
+def test_readme_refuses_markdown_it_does_not_read(copy_of_repository):
+    # What the script cannot set, it does not set wrongly: it stops.
+    change(
+        copy_of_repository / "assets" / "readme" / "text.md",
+        "## Terms",
+        "## Terms\n\nA line with a `mark left open.",
     )
-    # A picture with words in it says them in its `alt`; the one with none,
-    # the sigil, has an empty one.
-    for tag in re.findall(r"<img [^>]+>", README):
-        said = re.search(r' alt="([^"]*)"', tag)
-        assert said, tag
-        assert bool(said.group(1)) != ("sigil.svg" in tag), tag
+    result = draw("--check", str(copy_of_repository))
+    assert result.returncode != 0
+    assert "this is not read" in result.stderr
 
 
-def test_readme_picture_names_its_words():
-    # Each heading's picture carries the heading's words as its own title.
-    for _, name, words in HEADINGS:
-        picture = (PICTURES / name).read_text(encoding="utf-8")
-        assert f"<title>{words}</title>" in picture, name
+def test_readme_is_the_picture_and_nothing_else():
+    # The front page is one picture, which is a link to its words as text,
+    # and says in its `alt` what it is. Nothing is left for the host to set
+    # in letters of its own.
+    lines = [line for line in README.splitlines() if line]
+    comment = README[: README.index("-->") + 3]
+    assert comment.startswith("<!--")
+    assert "assets/readme/text.md" in comment
+    assert "python -I tools/draw_readme.py" in comment
+    assert README == comment + "\n" + lines[-1] + "\n"
+    shown = re.fullmatch(
+        r'<a href="assets/readme/text\.md"><img src="assets/readme/page\.svg" '
+        r'alt="([^"]+)" width="100%"></a>',
+        lines[-1],
+    )
+    assert shown, lines[-1]
+    alt = shown.group(1)
+    assert alt.startswith("The Cruor Framework: ")
+    assert "Cruentous Atonement" in alt
+    assert "read the same words as text" in alt
+    assert sorted(path.name for path in KEPT.iterdir()) == ["page.svg", "text.md"]
+
+
+def words_of(text: str) -> list[str]:
+    """The words of the page's Markdown, with its marks taken off."""
+    text = re.sub(r"<!--.*?-->", " ", text, flags=re.DOTALL)
+    text = re.sub(r"^```[a-z]*$", " ", text, flags=re.MULTILINE)
+    text = re.sub(r"^\|[-|]+\|$", " ", text, flags=re.MULTILINE)
+    kept = []
+    in_code = False
+    for line in text.split("\n"):
+        if line.startswith("```"):
+            in_code = not in_code
+            continue
+        if not in_code:
+            line = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", line)
+            line = re.sub(r"^#+ |^- |^\||\|$", " ", line)
+            # A `|` between cells, and the marks of code, bold and italic.
+            line = re.sub(r" \| |`|\*", " ", line)
+        kept.extend(line.split())
+    return kept
+
+
+def test_readme_picture_says_every_word():
+    # Everything the page's words say is drawn, and nothing else but what
+    # the masthead and the specimen add.
+    faces = draw_readme.Faces(ROOT)
+    added = [draw_readme.LOOK, draw_readme.NOTE]
+    for family in faces.families():
+        added += [family, *draw_readme.STYLES]
+    drawn = collections.Counter(" ".join(draw_readme.page(ROOT).said).split())
+    expected = collections.Counter(words_of(TEXT) + " ".join(added).split())
+    assert drawn == expected, (drawn - expected, expected - drawn)
+
+
+def test_readme_picture_is_set_in_the_three_families():
+    # The title is Cruor Thornamental Regular, the headings Cruor Lite
+    # Regular, and the text Cruor Sans Regular with Cruor Sans Mono for code.
+    assert draw_readme.TITLE == "Cruor Thornamental Regular"
+    assert draw_readme.HEADINGS == "Cruor Lite Regular"
+    assert draw_readme.RUNNING == "Cruor Sans Regular"
+    assert draw_readme.FIXED == "Cruor Sans Mono"
+    assert draw_readme.PROSE[0] >= 24
+
+
+def test_readme_picture_has_one_ground():
+    # The page is obsidian whoever looks at it: the picture paints its own
+    # ground over its whole size, and asks nothing of the reader's theme.
+    size = re.search(r'viewBox="0 0 (\d+) (\d+)"', PICTURE)
+    whole = f'<rect width="{size.group(1)}" height="{size.group(2)}" fill="#0a0708"/>'
+    assert whole in PICTURE
+    assert PICTURE.index(whole) < PICTURE.index("<use ")
+    assert "prefers-color-scheme" not in PICTURE
 
 
 def test_readme_pictures_stand_alone():
     # A picture shown from another page may fetch nothing and run nothing,
-    # so each is outlines and colours and no more: no text that needs a font,
+    # so it is outlines and colours and no more: no text that needs a font,
     # no stylesheet, no script, and no address but the names within itself.
-    for path in sorted(PICTURES.iterdir()):
-        picture = path.read_text(encoding="utf-8")
-        for refused in ["<text", "<style", "<script", "<image", "<foreignObject"]:
-            assert refused not in picture, (path.name, refused)
-        assert "font-family" not in picture, path.name
-        assert re.findall(r'https?://[^"]+', picture) == [
-            "http://www.w3.org/2000/svg"
-        ], path.name
-        for address in re.findall(r'href="([^"]*)"', picture):
-            assert address.startswith("#"), (path.name, address)
-        for address in re.findall(r"url\(([^)]*)\)", picture):
-            assert address.startswith("#"), (path.name, address)
-        assert "\r" not in picture, path.name
+    for refused in ["<text", "<style", "<script", "<image", "<foreignObject"]:
+        assert refused not in PICTURE, refused
+    assert "font-family" not in PICTURE
+    assert re.findall(r'https?://[^"]+', PICTURE) == ["http://www.w3.org/2000/svg"]
+    for address in re.findall(r'href="([^"]*)"', PICTURE):
+        assert address.startswith("#"), address
+    for address in re.findall(r"url\(([^)]*)\)", PICTURE):
+        assert address.startswith("#"), address
+    assert "\r" not in PICTURE
