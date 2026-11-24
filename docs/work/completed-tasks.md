@@ -103,4 +103,4 @@
 - **Intent:** [INT-0002](../intents/INT-0002-cruor-web-fonts.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-24T05:14:00Z
 - **Files modified:** docs/intents/INT-0002-cruor-web-fonts.md, docs/intents/INT-0001-the-cruor-framework.md
-- **Commit:** PENDING
+- **Commit:** `2155159ec8b3d62c1e6fd462c4979270f18d00f9`
