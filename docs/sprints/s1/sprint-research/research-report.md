@@ -7,6 +7,7 @@
 - [INT-0004](../../../intents/INT-0004-the-look-as-a-theme-file.md) — selected; relevance: the theme file the look's tokens are made from, which the look's contrast tests read; whether it is built in this sprint or the next is for the plan; current state: proposed.
 - [INT-0005](../../../intents/INT-0005-versioned-releases.md) — selected; relevance: a release must carry the stylesheets as it carries the fonts; current state: active.
 - [INT-0001](../../../intents/INT-0001-the-cruor-framework.md) — selected; relevance: the framework is not what it says it is until it holds the look; current state: active.
+- [INT-0002](../../../intents/INT-0002-cruor-web-fonts.md) — selected; relevance: built in Sprint 0 and now on the default branch; this sprint confirms that and moves it to `realized`; current state: active.
 
 ## 1. Sprint Goal
 
@@ -44,7 +45,7 @@ showroom. A release carries the stylesheets with the fonts.
 - [The model kit's components](https://github.com/internet-development/www-sacred/tree/main/components) — the kit the owner named as the model in Sprint 0: the list of parts a person expects of a kit of this kind, and that it holds playthings.
 - [The popover attribute, MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover) — a part that comes up over the page with no script; the base of the kit's "rise".
 - [The details element, MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details) — a part that opens and closes, and several sharing a name that open one at a time.
-- [@scope, MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope) — one way to keep every rule beneath the look's class; to be weighed against plain nesting for the engines Tome's readers use.
+- [Invoker Commands, MDN](https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API) — a button that opens a dialog as a modal one with no script (`commandfor`, `command="show-modal"`); the newest thing the furniture rests on. Read during the Plan, after the first review, in place of a source on `@scope`: plain nesting was chosen to keep rules beneath the class, as INT-0003 records.
 - [WCAG 2.2, contrast (minimum)](https://www.w3.org/TR/WCAG22/#contrast-minimum) — the bounds INT-0003 holds each text role to, and the large-text threshold the inscription relies on.
 
 ## 4. Risks, Unknowns, Dependencies
@@ -57,7 +58,7 @@ showroom. A release carries the stylesheets with the fonts.
 - **Unknown:** where the showroom is served from. Serving it on the web needs the owner to turn that on for the repository.
 - **Unknown:** whether the theme file (INT-0004) is built now or after. The contrast tests want the colours as data either way.
 - **Unknown:** the class a page sets, and how the stylesheets are named and divided in a release.
-- **Unknown:** what the designer meant by "rex".
+- **Unknown:** what the designer meant by "rex". Left to the owner to ask; nothing in the sprint waits on it.
 - **Dependency:** the release path of Sprint 0 has never run; the first tag, `v0.1.0`, still waits for the owner's word. A version that holds the look would be the second.
 - **Dependency:** Tome's INT-0027 takes the framework in; it expects tokens that begin `--cruor-` and a class to set.
 

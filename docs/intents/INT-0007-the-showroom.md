@@ -2,8 +2,8 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0007
-- **State:** proposed
-- **Work evidence:** none
+- **State:** planned
+- **Work evidence:** [T-209, T-210, T-213 and T-217, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
 - **Test evidence:** none
@@ -30,22 +30,26 @@ What it holds:
 
 - the look on a whole page: the stone, the inscription, carved headings and
   the ornaments;
-- every part of the furniture, in every state, used where such a part
-  would be used;
+- every part of the furniture, in every state it has at rest, used where
+  such a part would be used; the states a hand brings about are the
+  visitor's to bring about ([INT-0006](INT-0006-the-furniture.md)
+  criterion 2);
 - how each is written, close by, so that a visitor can take it.
 
 Boundaries:
 
 - It links the framework's stylesheets as any page would, and adds none of
   its own beyond what lays out the showroom itself.
-- Whether it may hold script for the sake of play, which the kit itself may
-  not, is the owner's to settle when a sprint plans it.
-- Where it is served from is the owner's to settle too: it can always be
-  opened from a copy of the repository.
+- It may hold script for the sake of play, which the kit itself may not.
+  The owner settled this on 24 November 2026 ("Wherever it helps"). The
+  script is the showroom's own and is no part of a release. With script
+  turned off the page still shows every part.
+- It is served on the web by GitHub Pages, which the owner chose the same
+  day, and can always be opened from a copy of the repository as well.
 
 ## Acceptance criteria
 
-To be settled when a sprint plans it. The outline:
+Settled in Sprint 1's Plan, 24 November 2026:
 
 1. One page in the repository shows the look and every part of the
    furniture in use, and opens from a copy of the repository with no build
@@ -55,8 +59,13 @@ To be settled when a sprint plans it. The outline:
 3. Beside each part is the HTML that makes it.
 4. A check opens it in a browser and finds every font loaded, no failed
    request, and every part present.
-5. The front page points to it and shows a picture of it.
+5. The front page points to it through a door: a picture that is a link
+   to it. The door is a drawing in the look's colours, made by the script
+   that draws the front page; it is not a capture of the showroom.
 6. The owner judges by eye that it is a place and not a list.
+7. With script on, a visitor can play: there is at least one thing in it
+   that answers the hand as matter would, and a part's HTML can be taken
+   with one press.
 
 ## Rationale
 
@@ -72,8 +81,14 @@ wants to see a page made with it and to try its parts, before reading how.
 
 ## Consequences
 
-- If it is served on the web, the repository needs that turned on by the
-  owner, and each version's showroom should be the one a visitor sees.
+- Serving it on the web needs two things only the owner can do: GitHub
+  Pages turned on for the repository, and the repository variable
+  `SHOWROOM` set to `published`. Until both are done the workflow runs its
+  checks and publishes nothing, and the door on the front page leads to an
+  address that does not yet answer. Backlog task T-104 carries the check
+  that it is live.
+- What a visitor sees on the web is the showroom of the default branch, not
+  of a release.
 - The front page's picture is drawn from words
   (`assets/readme/text.md`); a picture of the showroom in it is a new kind
   of thing for `tools/draw_readme.py` to place.
@@ -81,3 +96,14 @@ wants to see a page made with it and to try its parts, before reading how.
 ## Transition history
 - 2026-11-24: created as `proposed` in Sprint 1's Research, from a
   designer's reading of the front page and the owner's choice that day.
+- 2026-11-24: `proposed` to `planned`. The owner settled that the showroom
+  may hold script and is served by GitHub Pages, and approved Sprint 1's
+  plan, which builds the page (T-209), its play (T-210), its publishing
+  (T-213) and the front page's door to it (T-214).
+- 2026-11-24: revised after the plan's first review, still `planned`.
+  Criterion 5 says what the door is; criterion 7, for play, is new.
+- 2026-11-24: revised after the plan's second review, still `planned`. The
+  door to the showroom is task T-217 of the plan as rewritten, not T-214 as
+  the entry above says. What the showroom holds follows INT-0006's
+  criterion 2, and the Consequences name what the owner must do for it to
+  be served.

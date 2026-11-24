@@ -3,7 +3,7 @@
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0005
 - **State:** active
-- **Work evidence:** [T-008 to T-012, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-102 backlog](../work/tasks.md)
+- **Work evidence:** [T-008 to T-012, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-102 backlog](../work/tasks.md), [T-212 and T-214, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** [T-008 to T-012, completed tasks](../work/completed-tasks.md)
 - **Code evidence:** [src/bundle.rs](../../src/bundle.rs), [examples/fetch-release.mjs](../../examples/fetch-release.mjs), [.github/workflows/release.yml](../../.github/workflows/release.yml), [tools/release-gate.sh](../../tools/release-gate.sh)
 - **Test evidence:** [Sprint 0 test report](../sprints/s0/sprint-tests/test-report.md)
@@ -22,7 +22,18 @@ on its own and all together as one archive, with a manifest of SHA-256
 checksums. A build names the version it wants, fetches the files, and can
 check each against the manifest. A page that builds this way keeps no font
 file in its own repository. The first release, 0.1.0, holds the fonts
-alone.
+alone. From 0.2.0 a release also holds `tokens.css`,
+`cruentous-atonement.css`, `furniture.css` and `theme.toml`
+([INT-0003](INT-0003-cruentous-atonement-look.md),
+[INT-0004](INT-0004-the-look-as-a-theme-file.md),
+[INT-0006](INT-0006-the-furniture.md)), in the same flat set of names. The
+showroom ([INT-0007](INT-0007-the-showroom.md)) is no part of a release.
+
+Version 0.1.0 has not been tagged. If the default branch moves on to
+0.2.0 before it is, and the owner then wants the release of the fonts
+alone, its tag is placed on the last commit of `main` whose version is
+0.1.0, `625a9bdef6414680aa5c9bb057d8eb4430fcb172`, which the release
+workflow allows.
 
 Boundaries:
 
@@ -101,3 +112,6 @@ checking shows only that the files and the manifest agree with each other.
   short of a real release; the release's own check of itself cannot run
   until `v0.1.0` is pushed on the owner's word (backlog task T-102), and
   the intent is not `realized` before that run has passed.
+- 2026-11-24: revised during Sprint 1's Plan, still `active`. The Intent
+  says what a release holds from 0.2.0, that the showroom is no part of
+  one, and where the tag of 0.1.0 is placed now that `main` moves on.

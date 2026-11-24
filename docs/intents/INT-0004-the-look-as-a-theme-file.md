@@ -2,8 +2,8 @@
 
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0004
-- **State:** proposed
-- **Work evidence:** none
+- **State:** planned
+- **Work evidence:** [T-201 to T-205, T-212 and T-218, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** none
 - **Code evidence:** none
 - **Test evidence:** none
@@ -24,8 +24,11 @@ maybe".
 
 The theme file names, by role:
 
-- the fonts: titles, running text and code; and for each heading level its
-  font, whether it is bold, italic or underlined, and its size;
+- the fonts, in four roles: the title, the headings, running text and
+  code; and for each heading level its font, whether it is bold, italic or
+  underlined, and its size. A heading's font is one of the four roles or,
+  by name, any family the kit holds, so that each level can be set as the
+  owner said. A family the kit does not hold is refused;
 - the colours: the page and its panels, interface text, the inscription,
   links, the stops of a carved heading, the void and its lettering;
 - the look's other measures that a page might want to change: the size of
@@ -41,7 +44,7 @@ Boundaries:
 
 ## Acceptance criteria
 
-To be settled when a sprint plans it. The outline:
+Settled in Sprint 1's Plan, 24 November 2026:
 
 1. One TOML file in the repository states Cruentous Atonement's fonts,
    colours and measures by role, and the form is written up so a person can
@@ -56,6 +59,13 @@ To be settled when a sprint plans it. The outline:
    again.
 5. The theme file is in each release from the one that first holds the
    look ([INT-0005](INT-0005-versioned-releases.md)).
+6. Everything in the repository that shows the look takes its colours from
+   the theme file: the stylesheets name colours by the tokens made from it,
+   and the script that draws the front page reads the file, for its colours
+   and for the four families it sets. A drawing's own colours are the only
+   ones written out: the briar's squares, the statue's two pictures, and
+   the drawings a stylesheet holds in a `data:` address (the stone's
+   surface, the sigil, the briar), which cannot read a token.
 
 ## Rationale
 
@@ -82,3 +92,15 @@ cannot drift from it, and another program can read the same file.
   answer that day.
 - 2026-11-23: revised after Sprint 0's plan review, still `proposed`.
   Criterion 5 now allows for the first release, which holds the fonts alone.
+- 2026-11-24: `proposed` to `planned`. The owner chose that day to build the
+  whole theme file in Sprint 1 ("The whole theme file"), and approved the
+  plan: the file and its form (T-201), the tokens made from it (T-202), its
+  contrast tested (T-203), headings driven by it (T-205), and the file in
+  each release (T-212). The acceptance criteria are settled as they were
+  outlined.
+- 2026-11-24: revised after the plan's first review, still `planned`. The
+  Intent names the four font roles and says what a heading's font may be.
+- 2026-11-24: revised after the plan's second review, still `planned`.
+  Criterion 6 is new: it states a promise the plans had made on their own,
+  that what shows the look takes its colours and families from this file.
+  The task that brings the front page's script under it is T-218.

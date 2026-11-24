@@ -3,7 +3,7 @@
 <!-- sprint-loop-intent-v2 -->
 - **Intent ID:** INT-0001
 - **State:** active
-- **Work evidence:** [T-002, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-103 backlog](../work/tasks.md)
+- **Work evidence:** [T-002, T-011 and T-013, Sprint 0 build plan](../sprints/s0/sprint-plans/build-plan.md), [T-103 backlog](../work/tasks.md), [T-207, T-210, T-212 and T-214 to T-216, Sprint 1 build plan](../sprints/s1/sprint-plans/build-plan.md)
 - **Completion evidence:** [T-002, T-011 and T-013, completed tasks](../work/completed-tasks.md)
 - **Code evidence:** [LICENSE-MIT](../../LICENSE-MIT), [LICENSE-APACHE](../../LICENSE-APACHE)
 - **Test evidence:** [Sprint 0 test report](../sprints/s0/sprint-tests/test-report.md)
@@ -30,10 +30,13 @@ The owner's decisions, all of 23 November 2026:
   public, kept locally in a folder of the same name.
 - **What the first version holds.** Cruor's web fonts with their
   `@font-face` rules ([INT-0002](INT-0002-cruor-web-fonts.md)); the look, as
-  colour and type tokens and one stylesheet that plain HTML takes on
-  ([INT-0003](INT-0003-cruentous-atonement-look.md)); a page that shows it;
-  and the look written as a theme file
-  ([INT-0004](INT-0004-the-look-as-a-theme-file.md)).
+  colour and type tokens and a stylesheet that plain HTML takes on
+  ([INT-0003](INT-0003-cruentous-atonement-look.md)); a page that shows it
+  ([INT-0007](INT-0007-the-showroom.md)); and the look written as a theme
+  file ([INT-0004](INT-0004-the-look-as-a-theme-file.md)). On
+  24 November 2026 the owner added the furniture, the parts a page is built
+  from ([INT-0006](INT-0006-the-furniture.md)), which has a stylesheet of
+  its own.
 - **How pages take it in.** As versioned releases whose files a build
   fetches ([INT-0005](INT-0005-versioned-releases.md)).
 - **Terms for the code.** The stylesheets, tokens, theme files and tools are
@@ -47,8 +50,11 @@ look and its theme file.
 
 Boundaries:
 
-- The first version has no scripted components. A page takes the look on
-  with stylesheets alone.
+- The kit has no scripted components. A page takes the look on, and uses
+  every part of the furniture, with stylesheets alone. The showroom, which
+  is the kit's own page and no part of a release, may hold script of its
+  own for the sake of play; the owner settled that on 24 November 2026. It
+  still shows everything with script turned off.
 - The framework describes Cruor in its own terms. No file, comment, commit
   message or record here names another typeface or describes Cruor by
   comparison with one.
@@ -63,11 +69,13 @@ Boundaries:
 1. The public repository `crussella0129/cruor-framework` holds this Project
    Book and a README that says what the kit is, what is in it, and how a
    page takes it in.
-2. The first version holds the fonts, the tokens, the stylesheet, the page
-   that shows the look and the theme file, each proven by its own intent.
+2. The first version holds the fonts, the tokens, the stylesheets of the
+   look and of the furniture, the page that shows them and the theme file,
+   each proven by its own intent.
 3. `LICENSE-MIT` and `LICENSE-APACHE` stand at the root, and the README says
    which terms cover the code and which cover the fonts.
-4. The first version runs no script in the page that takes it on.
+4. A page that takes the kit on needs no script: nothing the kit gives a
+   page holds any, and every part works with script turned off.
 5. Nothing in the repository or its history names another typeface or
    describes Cruor by comparison with one.
 
@@ -87,7 +95,8 @@ the kit be public while the project that draws Cruor is not.
 - **Scripted components in the first version** (a theme picker, a dialog, a
   transformation between themes). Left out: the first version is fonts and
   stylesheets, and a larger first version would have meant writing those
-  parts again from Tome's.
+  parts again from Tome's. A dialog has since become a thing a browser
+  opens with no script, and is among the furniture on those terms.
 - **An npm package.** See [INT-0005](INT-0005-versioned-releases.md).
 
 ## Consequences
@@ -136,3 +145,9 @@ the kit be public while the project that draws Cruor is not.
   typeface, but for three pushes the review's entry came after the push.
   Criterion 1 is not yet true of the default branch, which waits for the
   sprint's pull request to be merged. Criteria 2 and 4 wait for the look.
+- 2026-11-24: revised during Sprint 1's Plan, still `active`. The owner
+  added the furniture and settled that the showroom may hold script. The
+  boundary and criterion 4 now say what "no script" is held to: the kit and
+  any page that takes it on, not the showroom's own play. Criterion 2 and
+  the list of what the first version holds name the furniture and the
+  showroom.

@@ -50,7 +50,7 @@ kind is allowed to play.
 |---|---|
 | a part that opens and closes | `<details>` and `<summary>`; several sharing a `name` open one at a time |
 | a part that comes up over the page | the `popover` attribute, opened by a button's `popovertarget` |
-| a dialog | `<dialog>` shown as a popover; a true modal one needs script |
+| a dialog | `<dialog>` shown as a popover; or opened as a true modal one by a button's `commandfor` with `command="show-modal"`, in engines that have it |
 | a tooltip | a popover, or a rule on `:hover` and `:focus-visible` |
 | a choice from a list | `<select>`; its open list is the system's own and cannot be dressed everywhere |
 | tick boxes and radio buttons | `<input>` with `appearance: none`, drawn by rules on `:checked` |
@@ -61,8 +61,8 @@ kind is allowed to play.
 | rules kept beneath one class | nesting, or `@scope` |
 | motion | animations and transitions, stopped under `prefers-reduced-motion` |
 
-What cannot be had without script: a true modal dialog, a combo box that
-filters as it is typed in, a date picker beyond the system's own, a tree
+What cannot be had without script: a combo box that filters as it is typed
+in, a date picker beyond the system's own, a tree
 that remembers what was open, and playthings such as a game.
 
 ## A first set
