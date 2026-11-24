@@ -317,3 +317,30 @@ How each review is made:
   [45396756696](https://github.com/crussella0129/cruor-framework/actions/runs/45396756696)
   for `51aa570b56a46ec6396b6b52393bad8ea94d80d6` concluded `success`.
 
+### 10. 24 November 2026, in Build, the front page takes its look from the theme file
+
+- **Commits covered:** `52ab0c6286dbba07707d25b1a91453adf15fec0b` and
+  `0ee2be2faa9e0075ff4dadfb99d9d6dfb57d46ce`, two commits: T-218 and the
+  commit the helper makes to record it. The commit that recorded entry 9
+  (`2451d15`) changes this file alone and was pushed with it.
+- **Also covered:** nothing; no font file is in the commits. The script
+  now names no family at all: it reads the four from the theme file.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out.
+- **Files against tasks:** T-218 changes `tools/draw_readme.py`,
+  `assets/readme/page.svg` and `tests/test_readme_pictures.py`, as its
+  task lists.
+- **Out of the plan's order.** The plan sets T-218 after T-217, since both
+  change the script. T-218 was built first, so that the door is drawn from
+  the theme file from its first line. T-217 is still queued.
+- **What changed in the picture.** Code on the front page is now set in
+  the family the owner chose for code, and the foot of a carved heading
+  takes the lifted colour; both come from the theme file. One line of the
+  stone's drawing no longer names white as its light, since white is what
+  that light is when none is named. The dark line beneath a hairline takes
+  the colour of shed blood, which is the nearest role to what it was.
+- **CI.** Run
+  [45398309163](https://github.com/crussella0129/cruor-framework/actions/runs/45398309163)
+  for `2451d158c90fad93c6d7d16140fbc08938d9021f` concluded `success`.
+
