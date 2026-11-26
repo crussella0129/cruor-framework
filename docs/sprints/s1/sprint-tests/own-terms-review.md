@@ -410,3 +410,29 @@ How each review is made:
   [45513607745](https://github.com/crussella0129/cruor-framework/actions/runs/45513607745)
   for `309724287f5b73e4dbdcb579bbb7dd59a1ad3cdb` concluded `success`.
 
+### 14. 26 November 2026, in Build, the door to the showroom and its entrance
+
+- **Commits covered:** `f79219226a33133b5888cafca99abc762a997ca1`, `92b6c577f1cb878cfde8ae95acad0446dc5222c4`, `ba8533597c45ae3f07f332489bb605003faa8ab9`, `7c7485da1a88dc6410522fa544e9e1ffecb151f4`, 4 commits: T-217 and T-225,
+  each with the commit the helper makes to record it. The commit that
+  recorded entry 13 (`1a062f5`) changes this file alone and was pushed with
+  it.
+- **Also covered:** nothing; no font file is in the commits.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out.
+- **Files against tasks:** T-217 changes the front page's script, its
+  words, its two pictures and the head's map in `assets/readme/`, the
+  front page's tests and INT-0007's history, as its task lists. T-225
+  adds the showroom's script, its entrance's layout, the door and where its
+  parts lie beside the showroom, the showroom's credits, the showroom's
+  drawing script and its tests, and INT-0007's history.
+- **Not in the plan.** The door's look was shaped by the owner during the
+  Build. T-225 was added during the Build at the owner's word: the
+  showroom opens with the door, which bleeds and opens to let the visitor
+  in. The head over the door is drawn from a photograph of a plaster cast
+  by Palnatoke, offered under CC BY-SA 3.0; the front page and the
+  showroom say so.
+- **CI.** Run
+  [45867516742](https://github.com/crussella0129/cruor-framework/actions/runs/45867516742)
+  for `1a062f5c67a208725149057fc87bdf27309f286d` concluded `success`.
+
