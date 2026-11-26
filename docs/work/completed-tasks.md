@@ -237,3 +237,10 @@
 - **Completed:** 2026-11-26T17:19:40Z
 - **Files modified:** assets/readme/weeping-face.txt, assets/readme/weeping-profile.txt, assets/readme/page.svg, showroom/weeping-face.svg, showroom/weeping-profile.svg, docs/intents/INT-0007-the-showroom.md
 - **Commit:** `ced4b7ae90042a0b22a5836a6dcd9db3781cf94d`
+
+## T-217 (sprint 1)
+- **Description:** Put a door to the showroom on the front page: a second picture, drawn by the front page's script, that is a link to the showroom; an arch of the damned with David's head as its crest, split down its middle, on a winged ledge between two candelabras.
+- **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-26T19:10:44Z
+- **Files modified:** tools/draw_readme.py, assets/readme/door.svg, assets/readme/door-crest.txt, assets/readme/text.md, assets/readme/page.svg, README.md, tests/test_readme_pictures.py, docs/intents/INT-0007-the-showroom.md
+- **Commit:** PENDING

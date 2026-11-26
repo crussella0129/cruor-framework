@@ -150,3 +150,11 @@ wants to see a page made with it and to try its parts, before reading how.
   said: "the old ones look great". The statue's two maps are again those
   on `main`, and the pictures drawn from them are as they were before
   T-222 (Sprint 1, T-224).
+- 2026-11-26: criterion 5 built, still `active`. The front page is now two
+  pictures: the page, and beneath it a door that is a link to the showroom.
+  The owner shaped the door: an arch carved of the damned, with David's
+  head face on as its crest and a split down its middle; blood boiling
+  through the doorway, and the door and two candelabras with skulls on
+  floating stone ledges with bats' wings. "No this is the direction"
+  (Sprint 1, T-217). The head is drawn from a photograph of a plaster cast
+  by Palnatoke, offered under CC BY-SA 3.0, and the front page says so.

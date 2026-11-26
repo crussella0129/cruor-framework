@@ -17,6 +17,7 @@ KEPT = ROOT / "assets" / "readme"
 README = (ROOT / "README.md").read_text(encoding="utf-8")
 TEXT = (KEPT / "text.md").read_text(encoding="utf-8")
 PICTURE = (KEPT / "page.svg").read_text(encoding="utf-8")
+DOOR = (KEPT / "door.svg").read_text(encoding="utf-8")
 
 
 def draw(*arguments) -> subprocess.CompletedProcess:
@@ -99,7 +100,7 @@ def test_readme_pictures_check_fails_on_a_picture_the_page_does_not_show(
 def test_readme_pictures_are_drawn_the_same_twice(copy_of_repository):
     result = draw(str(copy_of_repository))
     assert result.returncode == 0, result.stderr
-    for name in ["README.md", "assets/readme/page.svg"]:
+    for name in ["README.md", "assets/readme/page.svg", "assets/readme/door.svg"]:
         assert (copy_of_repository / name).read_bytes() == (ROOT / name).read_bytes()
 
 
@@ -115,32 +116,80 @@ def test_readme_refuses_markdown_it_does_not_read(copy_of_repository):
     assert "this is not read" in result.stderr
 
 
-def test_readme_is_the_picture_and_nothing_else():
-    # The front page is one picture, which is a link to its words as text,
-    # and says in its `alt` what it is. Nothing is left for the host to set
-    # in letters of its own.
+def test_readme_is_two_pictures():
+    # The front page is two pictures and nothing else: the page, a link to
+    # its words as text, and the door, a link to the showroom. Each says in
+    # its `alt` what it is. Nothing is left for the host to set in letters
+    # of its own.
     lines = [line for line in README.splitlines() if line]
     comment = README[: README.index("-->") + 3]
     assert comment.startswith("<!--")
     assert "assets/readme/text.md" in comment
     assert "python -I tools/draw_readme.py" in comment
-    assert README == comment + "\n" + lines[-1] + "\n"
+    assert README == comment + "\n" + "\n".join(lines[-2:]) + "\n"
     shown = re.fullmatch(
         r'<a href="assets/readme/text\.md"><img src="assets/readme/page\.svg" '
         r'alt="([^"]+)" width="100%"></a>',
-        lines[-1],
+        lines[-2],
     )
-    assert shown, lines[-1]
+    assert shown, lines[-2]
     alt = shown.group(1)
     assert alt.startswith("The Cruor Framework: ")
     assert "Cruentous Atonement" in alt
     assert "read the same words as text" in alt
+    door = re.fullmatch(
+        r'<a href="([^"]+)"><img src="assets/readme/door\.svg" '
+        r'alt="([^"]+)" width="100%"></a>',
+        lines[-1],
+    )
+    assert door, lines[-1]
+    assert door.group(1) == "https://crussella0129.github.io/cruor-framework/showroom/"
+    assert door.group(1) in TEXT
+    assert door.group(2).startswith("A door to the showroom")
+    assert "Follow it to open the showroom" in door.group(2)
     assert sorted(path.name for path in KEPT.iterdir()) == [
+        "door-crest.txt",
+        "door.svg",
         "page.svg",
         "text.md",
         "weeping-face.txt",
         "weeping-profile.txt",
     ]
+
+
+def test_readme_door_is_a_drawing():
+    # The door is drawn by the script in the look's colours: the showroom's
+    # name and a few shapes, not a capture of the showroom.
+    assert "<title>The door to the showroom</title>" in DOOR
+    look = draw_readme.Look(ROOT)
+    painted = set(re.findall(r'(?:fill|stroke|stop-color)="(#[0-9a-f]{6})"', DOOR))
+    themed = {
+        draw_readme.Look.solid(role, value)[0]
+        for role, value in {
+            **theme()["colour"],
+            "candle": theme()["stone"]["candle"],
+        }.items()
+    }
+    own = {colour.lower() for colour in draw_readme.BRIAR_COLOURS.values()}
+    # And the head over it, in the colours of its own map.
+    head = (KEPT / "door-crest.txt").read_text(encoding="utf-8").partition("\n\n")[0]
+    own |= {line.split()[1] for line in head.splitlines()}
+    assert painted and painted <= themed | own, painted - themed - own
+    assert look.heading_foot in painted and look.inscription in painted
+    drawn = draw_readme.door(ROOT)
+    assert drawn.said == [
+        draw_readme.DOOR_NAME,
+        draw_readme.DOOR_WORDS,
+        draw_readme.DOOR_NOTE,
+    ]
+    assert "Showroom" in draw_readme.DOOR_NAME
+
+
+def test_readme_pictures_check_fails_on_a_changed_door(copy_of_repository):
+    change(copy_of_repository / "assets" / "readme" / "door.svg", "#0a0708", "#000000")
+    result = draw("--check", str(copy_of_repository))
+    assert result.returncode == 1
+    assert result.stderr.splitlines()[0] == "assets/readme/door.svg: not current"
 
 
 def test_readme_statue_pictures_are_maps_of_squares():
@@ -191,6 +240,17 @@ def test_readme_credits_the_photographs():
     )
     assert "are offered under CC BY 4.0 as well" in flowed
     assert "They are not part of a release." in flowed
+    # The head over the door is made from another's photograph, offered on
+    # the condition that the maker and the licence are named, the changes
+    # told, and what is made from it offered on the same terms.
+    assert "plaster cast of David's head by Palnatoke" in flowed
+    assert (
+        "[Fra statuen af David](https://commons.wikimedia.org/wiki/File:"
+        "Fra_statuen_af_David_DSCF0465.JPG)" in TEXT
+    )
+    assert "[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)" in TEXT
+    assert "cut from its ground, darkened and reduced to squares" in flowed
+    assert "`assets/readme/door-crest.txt`, is offered under CC BY-SA 3.0" in flowed
 
 
 def words_of(text: str) -> list[str]:
@@ -341,12 +401,13 @@ def test_readme_pictures_stand_alone():
     # A picture shown from another page may fetch nothing and run nothing,
     # so it is outlines and colours and no more: no text that needs a font,
     # no stylesheet, no script, and no address but the names within itself.
-    for refused in ["<text", "<style", "<script", "<image", "<foreignObject"]:
-        assert refused not in PICTURE, refused
-    assert "font-family" not in PICTURE
-    assert re.findall(r'https?://[^"]+', PICTURE) == ["http://www.w3.org/2000/svg"]
-    for address in re.findall(r'href="([^"]*)"', PICTURE):
-        assert address.startswith("#"), address
-    for address in re.findall(r"url\(([^)]*)\)", PICTURE):
-        assert address.startswith("#"), address
-    assert "\r" not in PICTURE
+    for drawn in [PICTURE, DOOR]:
+        for refused in ["<text", "<style", "<script", "<image", "<foreignObject"]:
+            assert refused not in drawn, refused
+        assert "font-family" not in drawn
+        assert re.findall(r'https?://[^"]+', drawn) == ["http://www.w3.org/2000/svg"]
+        for address in re.findall(r'href="([^"]*)"', drawn):
+            assert address.startswith("#"), address
+        for address in re.findall(r"url\(([^)]*)\)", drawn):
+            assert address.startswith("#"), address
+        assert "\r" not in drawn

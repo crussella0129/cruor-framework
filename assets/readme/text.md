@@ -255,6 +255,16 @@ pictures made from them, `assets/readme/weeping-face.txt` and
 and so are the front page's picture where it shows them and the showroom's
 pictures drawn from them. They are not part of a release.
 
+**The head** over the door to the showroom is drawn from a photograph of a
+plaster cast of David's head by Palnatoke,
+[Fra statuen af David](https://commons.wikimedia.org/wiki/File:Fra_statuen_af_David_DSCF0465.JPG),
+offered under
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). It was cut
+from its ground, darkened and reduced to squares. The picture made from it,
+`assets/readme/door-crest.txt`, is offered under CC BY-SA 3.0, and so is the
+door's picture, `assets/readme/door.svg`, which shows it. Neither is part of
+a release.
+
 <!-- sigil -->
 
 Copyright (c) 2026 Charles Russella.

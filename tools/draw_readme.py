@@ -1,8 +1,9 @@
 """Draws the repository's front page from its words and the fonts.
 
 A page of Markdown cannot link a stylesheet, name a font or colour its own
-ground, so README.md shows one picture: the page's words set in Cruor on the
-stone, in the look's colours. The words are kept as text in
+ground, so README.md shows a picture: the page's words set in Cruor on the
+stone, in the look's colours. Beneath it a second picture, a door drawn in
+the briar, is a link to the showroom. The words are kept as text in
 assets/readme/text.md, and the picture is a link to them, since no one can
 copy a command out of a picture. The letters are drawn as outlines taken
 from the font files, so the picture needs no font, no stylesheet and no
@@ -22,6 +23,7 @@ code, lists, and the marks `<!-- specimen -->`, `<!-- sigil -->` and
 `<name>.txt`: a map of squares, one letter a square.
 """
 
+import math
 import re
 import sys
 import tomllib
@@ -41,12 +43,36 @@ ALT = (
     "Cruentous Atonement, set in Cruor. This page is a picture, drawn in "
     "Cruor. Follow it to read the same words as text."
 )
+# The door to the showroom: a second picture, a link to where the showroom
+# is published.
+DOOR = "door.svg"
+SHOWROOM = "https://crussella0129.github.io/cruor-framework/showroom/"
+DOOR_ALT = (
+    "A door to the showroom of the Cruor framework, where every part of the "
+    "look is shown in use. Follow it to open the showroom."
+)
 README = (
     "<!-- This page is drawn. Its words are kept in assets/readme/text.md:\n"
     "     change them there, then run `python -I tools/draw_readme.py`. -->\n"
     f'<a href="{FOLDER}/{TEXT}"><img src="{FOLDER}/{PICTURE}" alt="{ALT}" '
     'width="100%"></a>\n'
+    f'<a href="{SHOWROOM}"><img src="{FOLDER}/{DOOR}" alt="{DOOR_ALT}" '
+    'width="100%"></a>\n'
 )
+
+# The crest of the door: David's head, face on, kept beside the words as a
+# map of squares like the statue's; how many squares wide it is, and where
+# its head is set, above the door, which is drawn this much lower to make
+# room for it.
+CREST = "door-crest"
+CREST_WIDE = 46
+CREST_TOP = -90
+DOOR_DROP = 96
+
+# What the door says.
+DOOR_NAME = "The Showroom"
+DOOR_WORDS = "Every part of the look, in use"
+DOOR_NOTE = "Select this picture to go in."
 
 # The picture at the head of the page, and the side of one of its squares.
 HERO = "weeping-face"
@@ -135,6 +161,197 @@ BRIAR_COLOURS = {
     "h": "#d50210",
 }
 BRIAR_SQUARE = 3
+
+# The door's furniture, in letters the door gives colours to: Z and S are
+# bone, F, G and H are flame.
+FINIAL = [
+    ".Z.",
+    "ZSZ",
+    ".Z.",
+]
+CANDELABRA = [
+    "..G.....G.....G..",
+    ".GHG...GHG...GHG.",
+    ".HFH...HFH...HFH.",
+    "..F.....F.....F..",
+    "..Z.....Z.....Z..",
+    "..Z.....Z.....Z..",
+    "..Z.....Z.....Z..",
+    ".SZS...SZS...SZS.",
+    "..S.....S.....S..",
+    "..SS....S....SS..",
+    "...SS...S...SS...",
+    "....SSSSZSSSS....",
+    "........Z........",
+    "......ZZZZZ......",
+    ".....ZZZZZZZ.....",
+    ".....ZKKZKKZ.....",
+    ".....ZKZZZKZ.....",
+    "......ZZKZZ......",
+    "......SZSZS......",
+    ".......SSS.......",
+    "........Z........",
+    "........Z........",
+    "........Z........",
+    "........Z........",
+    ".......SZS.......",
+    "......SSZSS......",
+    ".....SS.Z.SS.....",
+    "....SS..Z..SS....",
+    "...SSSSSZSSSSS...",
+]
+# A bat's wing rising from the end of a ledge, its root at the foot of the
+# first column.
+WING = [
+    "..........K",
+    ".........KT",
+    "........KTK",
+    ".......KTUK",
+    "....K.KTUUK",
+    "...KTKTUUUK",
+    "..KTUTUUUK.",
+    ".KTUUUUUK..",
+    "KTUUUUUK...",
+    "KTUUUUK....",
+    "KTUUUK.....",
+    "KTUK.......",
+]
+# The damned the door is carved of, in bone: a body climbing with its arms
+# up, and a face screaming. K is hollow.
+BODY = [
+    "Z.....Z",
+    "S.....S",
+    ".S.Z.S.",
+    ".SZSZS.",
+    "..SKS..",
+    "..TKT..",
+    ".ZSSSZ.",
+    "ZSTSTSZ",
+    ".UTSTU.",
+    "..TST..",
+    "..UTU..",
+    "..T.T..",
+    ".T...T.",
+    ".T...U.",
+    "U.....U",
+    "U......",
+]
+FACE = [
+    "..ZZZ..",
+    ".ZSSSZ.",
+    "ZSKSKSZ",
+    "ZSKSKSZ",
+    "TSSUSST",
+    ".TSKST.",
+    ".TUKUT.",
+    "..TKT..",
+]
+
+
+def frange(start: float, stop: float, step: float = 0.5) -> list[float]:
+    """Evenly spaced values from start toward stop."""
+    count = max(int(abs(stop - start) / abs(step)), 1)
+    return [start + step * index for index in range(count + 1)]
+
+
+class Squares:
+    """Squares of the briar's colours, laid on a grid one square to a cell."""
+
+    def __init__(self):
+        self.cells: dict[tuple[int, int], str] = {}
+
+    def put(self, x: float, y: float, letter: str, over: bool = True) -> None:
+        key = (round(x), round(y))
+        if over or key not in self.cells:
+            self.cells[key] = letter
+
+    def picture(self, rows: list[str], x: float, y: float) -> None:
+        for row, line in enumerate(rows):
+            for column, letter in enumerate(line):
+                if letter != ".":
+                    self.put(x + column, y + row, letter)
+
+    def vine(self, way: list[tuple[float, float]], sway: float, thorns: int) -> None:
+        """Two stems twisting about a way, with thorns and leaves along
+        them. The light falls from above on the left."""
+        along, last = 0.0, -1
+        for index in range(1, len(way) - 1):
+            (x0, y0), (x1, y1) = way[index - 1], way[index + 1]
+            x, y = way[index]
+            length = math.hypot(x1 - x0, y1 - y0) or 1.0
+            tx, ty = (x1 - x0) / length, (y1 - y0) / length
+            nx, ny = -ty, tx
+            along += math.hypot(x - way[index - 1][0], y - way[index - 1][1])
+            mark = int(along)
+            new, last = mark != last, mark
+            for strand, phase in ((1, 0.0), (-1, math.pi)):
+                bend = sway * math.sin(along / 4.0 + phase)
+                px, py = x + nx * bend, y + ny * bend
+                self.put(px + 1, py + 1, "e", over=False)
+                self.put(px, py, "d")
+                if not new:
+                    continue
+                if mark % thorns == 0:
+                    side = strand if (mark // thorns) % 2 else -strand
+                    dx, dy = nx * side - tx * 0.6, ny * side - ty * 0.6
+                    self.put(px + dx, py + dy, "c")
+                    self.put(px + 2 * dx, py + 2 * dy, "c")
+                    self.put(px + 3 * dx, py + 3 * dy, "a")
+                elif mark % (thorns * 3) == thorns // 2 and strand == 1:
+                    self.put(px - nx * 1.5, py - ny * 1.5, "f")
+                    self.put(px - nx * 2.5 + tx, py - ny * 2.5 + ty, "f")
+                    self.put(px - nx * 2.5, py - ny * 2.5, "b")
+
+    def drip(self, x: float, y: float, length: int) -> None:
+        """Blood running down from (x, y), and the drop at its end."""
+        for down in range(length):
+            self.put(x, y + down, "h")
+        self.put(x, y + length, "g")
+        self.put(x + 1, y + length, "h")
+        self.put(x, y + length + 1, "h")
+        self.put(x + 1, y + length + 1, "b")
+
+    def markup(self, side: int, palette: dict | None = None) -> str:
+        """The squares, `side` wide. A letter the briar does not hold is
+        painted as `palette` gives it: (colour, how much of it is laid on)."""
+        palette = {
+            **{letter: (colour, "1") for letter, colour in BRIAR_COLOURS.items()},
+            **(palette or {}),
+        }
+        runs: dict[str, list[str]] = {}
+        rows: dict[int, dict[int, str]] = {}
+        for (x, y), letter in self.cells.items():
+            rows.setdefault(y, {})[x] = letter
+        for y in sorted(rows):
+            row = rows[y]
+            columns = sorted(row)
+            index = 0
+            while index < len(columns):
+                x, letter = columns[index], row[columns[index]]
+                run = 1
+                while (
+                    index + run < len(columns)
+                    and columns[index + run] == x + run
+                    and row[x + run] == letter
+                ):
+                    run += 1
+                runs.setdefault(letter, []).append(f"M{x} {y}h{run}v1h-{run}z")
+                index += run
+        return (
+            f'<g transform="scale({side})" shape-rendering="crispEdges">'
+            + "".join(
+                f'<path fill="{palette[letter][0]}"'
+                + (
+                    f' fill-opacity="{palette[letter][1]}"'
+                    if palette[letter][1] != "1"
+                    else ""
+                )
+                + f' d="{"".join(found)}"/>'
+                for letter, found in sorted(runs.items())
+            )
+            + "</g>"
+        )
+
 
 # Within a line: code, bold, italic, and a link.
 INLINE = re.compile(r"`([^`]+)`|\*\*([^*]+)\*\*|\*([^*]+)\*|\[([^\]]+)\]\(([^)\s]+)\)")
@@ -522,10 +739,13 @@ class Page:
 
     # -- the parts of the page ----------------------------------------------
 
-    def picture(self, name: str, top: float) -> float:
-        """A picture kept as a map of squares, set in the middle of the page
-        with its head at `top`. Says how tall it is. Where the map has a
-        `.` the stone shows."""
+    def picture(
+        self, name: str, top: float, left: float | None = None, side: int = SQUARE
+    ) -> float:
+        """A picture kept as a map of squares, its head at `top`, set in the
+        middle of the page or with its left edge at `left`, each square
+        `side` wide. Says how tall it is. Where the map has a `.` the stone
+        shows."""
         kept = self.folder / f"{name}.txt"
         if not kept.is_file():
             raise SystemExit(f"{FOLDER}/{name}.txt: missing")
@@ -546,9 +766,10 @@ class Page:
                 if letter != ".":
                     runs[letter].append(f"M{column} {row}h{run}v1h-{run}z")
                 column += run
-        left = (WIDTH - wide * SQUARE) / 2
+        if left is None:
+            left = (WIDTH - wide * side) / 2
         self.body.append(
-            f'<g transform="translate({number(left)} {number(top)}) scale({SQUARE})" '
+            f'<g transform="translate({number(left)} {number(top)}) scale({side})" '
             'shape-rendering="crispEdges">'
             + "".join(
                 f'<path fill="{colours[letter]}" d="{"".join(found)}"/>'
@@ -558,7 +779,7 @@ class Page:
             + "</g>"
         )
         self.shown.append(name)
-        return len(rows) * SQUARE
+        return len(rows) * side
 
     def plate(self, name: str) -> None:
         """A picture between two parts of the page."""
@@ -606,6 +827,12 @@ class Page:
             self.look.text_subdued,
         )
 
+        tall = self.briar(top + 262)
+        self.y = top + 262 + tall + 30
+
+    def briar(self, y: float) -> float:
+        """The briar the width of the page, its head at y. Says how tall it
+        is."""
         squares = []
         for row, line in enumerate(BRIAR):
             column = 0
@@ -631,10 +858,424 @@ class Page:
             + "</pattern>",
         )
         self.body.append(
-            f'<g transform="translate(0 {number(top + 262)})"><rect width="{WIDTH}" '
+            f'<g transform="translate(0 {number(y)})"><rect width="{WIDTH}" '
             f'height="{tall}" fill="url(#briar)"/></g>'
         )
-        self.y = top + 262 + tall + 30
+        return tall
+
+    def doorway(self) -> None:
+        """The door to the showroom: a pointed arch of carved stone with
+        tracery in its head and light within, wound with the briar, hung
+        with drapes tied back, between two candelabras, up two carpeted
+        steps; blood runs off the edge of the floor. The name is carved
+        beside it."""
+        look = self.look
+        cell = BRIAR_SQUARE
+        # All the door is drawn lower by this much, to leave room for the
+        # head above it.
+        start = len(self.body)
+        # Where the door stands, in squares: its middle, the half width of
+        # its opening, where its arch springs, where the steps begin and
+        # where the floor is.
+        middle, half, spring, steps, floor = 84, 20, 64, 116, 124
+        frame = 6
+        apex = spring - half * 3**0.5
+
+        def inside(x: float, y: float, wide: float) -> bool:
+            """Within a pointed arch `wide` either side of the middle."""
+            if y >= steps:
+                return False
+            if y >= spring:
+                return abs(x - middle) <= wide
+            return (
+                math.hypot(x - (middle - wide), y - spring) <= 2 * wide
+                and math.hypot(x - (middle + wide), y - spring) <= 2 * wide
+            )
+
+        def outline(wide: float) -> str:
+            """The same arch as a path, in the picture's own units."""
+            left, right = (middle - wide) * cell, (middle + wide) * cell
+            radius = number(2 * wide * cell)
+            return (
+                f"M{number(left)} {steps * cell}V{spring * cell}"
+                f"A{radius} {radius} 0 0 1 {number(middle * cell)} "
+                f"{number((spring - wide * 3**0.5) * cell)}"
+                f"A{radius} {radius} 0 0 1 {number(right)} {spring * cell}"
+                f"V{steps * cell}Z"
+            )
+
+        self.define(
+            "candle",
+            '<radialGradient id="candle" cx="0" cy="0" r="1" '
+            'gradientTransform="translate(0.5 -0.08) scale(0.8 0.55)">'
+            f'<stop offset="0" stop-color="{look.candle}" '
+            f'stop-opacity="{look.candle_share}"/>'
+            f'<stop offset="0.7" stop-color="{look.candle}" stop-opacity="0"/>'
+            "</radialGradient>",
+        )
+        self.define(
+            "within",
+            '<linearGradient id="within" x1="0" y1="0" x2="0" y2="1">'
+            f'<stop offset="0" stop-color="{look.heading_foot}"/>'
+            f'<stop offset="0.3" stop-color="{look.blood}"/>'
+            f'<stop offset="0.55" stop-color="{look.shadow}"/>'
+            f'<stop offset="1" stop-color="{look.heading_foot}"/>'
+            "</linearGradient>",
+        )
+        self.define(
+            "spill",
+            '<radialGradient id="spill">'
+            f'<stop offset="0" stop-color="{look.candle}" stop-opacity="0.32"/>'
+            f'<stop offset="1" stop-color="{look.candle}" stop-opacity="0"/>'
+            "</radialGradient>",
+        )
+        self.body.append(f'<rect width="{WIDTH}" height="460" fill="url(#candle)"/>')
+        self.body.append(
+            f'<ellipse cx="{middle * cell}" cy="{steps * cell}" '
+            f'rx="{half * cell * 3}" ry="30" fill="url(#spill)"/>'
+        )
+        # The void the door hangs in glows the colour of old blood.
+        self.define(
+            "void",
+            '<radialGradient id="void">'
+            f'<stop offset="0" stop-color="{look.blood}" stop-opacity="0.95"/>'
+            f'<stop offset="0.6" stop-color="{look.blood}" stop-opacity="0.5"/>'
+            f'<stop offset="1" stop-color="{look.blood}" stop-opacity="0"/>'
+            "</radialGradient>",
+        )
+        self.body.append(
+            f'<ellipse cx="{middle * cell}" cy="{70 * cell}" rx="250" ry="210" '
+            'fill="url(#void)"/>'
+        )
+        # The light within, and through the tracery.
+        self.body.append(f'<path d="{outline(half)}" fill="url(#within)"/>')
+        # Each flame's light about it.
+        flames = []
+
+        squares = Squares()
+
+        # Through the doorway, and spreading about it, blood boils: cells
+        # packed close, lit at their hearts, with dark crevices between.
+        def boil(x: int, y: int) -> tuple[float, float]:
+            """How far a square is from the nearest cell's heart, and how
+            far from the crevice between it and the next."""
+            found = []
+            for i in (-1, 0, 1):
+                for j in (-1, 0, 1):
+                    gx, gy = x // 6 + i, y // 6 + j
+                    seed = ((gx * 73856093) ^ (gy * 19349663)) & 0xFFFFFF
+                    px = gx * 6 + seed % 6
+                    py = gy * 6 + (seed >> 6) % 6
+                    found.append(math.hypot(x - px, y - py))
+            found.sort()
+            return found[0], found[1] - found[0]
+
+        for y in range(0, steps):
+            for x in range(middle - 64, middle + 65):
+                heart, crevice = boil(x, y)
+                # The mass is ragged at its edge, and darkens toward it.
+                angle = math.atan2(y - 66, x - middle)
+                edge = 52 + 5 * math.sin(5 * angle) + 3 * math.sin(11 * angle + 1)
+                far = math.hypot((x - middle) / 1.1, y - 66) / edge
+                if inside(x, y, half):
+                    far = 0.0
+                elif far > 1:
+                    continue
+                if crevice < 0.9:
+                    letter = "X"
+                elif far > 0.8:
+                    letter = "W"
+                elif crevice < 1.8 or far > 0.62:
+                    letter = "V"
+                elif heart < 1.6 and far < 0.4:
+                    letter = "O"
+                else:
+                    letter = "Y"
+                squares.put(x, y, letter)
+
+        # The stone: blocks of the arch laid about its middle, courses up
+        # the sides. Each block is lit where the doorway's light falls on
+        # it and along its upper and left edges.
+        def block(x: int, y: int) -> tuple:
+            if y < spring:
+                return (
+                    "arch",
+                    int(math.degrees(math.atan2(spring - y, x - middle)) // 11),
+                )
+            return (
+                "side",
+                (y - spring) // 6,
+                x < middle,
+                (x + 3 * ((y - spring) // 6 % 2)) // 7,
+            )
+
+        for y in range(int(apex - frame * 2), steps):
+            for x in range(middle - half - frame - 1, middle + half + frame + 2):
+                if not inside(x, y, half + frame) or inside(x, y, half):
+                    continue
+                here = block(x, y)
+                if block(x + 1, y) != here or block(x, y + 1) != here:
+                    squares.put(x, y, "K")
+                elif (
+                    inside(x - 1, y, half)
+                    or inside(x + 1, y, half)
+                    or inside(x, y + 1, half)
+                ):
+                    squares.put(x, y, "T")
+                elif block(x - 1, y) != here or block(x, y - 1) != here:
+                    squares.put(x, y, "T")
+                elif not inside(x, y - 2, half + frame) or not inside(
+                    x - 2, y, half + frame
+                ):
+                    squares.put(x, y, "K")
+                else:
+                    squares.put(x, y, "U")
+
+        # Tracery in the arch's head, above a bar across the doorway: two
+        # lancets and a roundel with four foils.
+        bar = spring + 2
+        for y in range(int(apex), bar + 2):
+            for x in range(middle - half, middle + half + 1):
+                if not inside(x, y, half):
+                    continue
+                stone = y >= bar
+                for side in (-1, 1):
+                    centre = middle + side * half / 2
+                    lancet = inside(x - (centre - middle), y - 2, half / 2 - 0.5)
+                    within = inside(x - (centre - middle), y - 2, half / 2 - 1.7)
+                    stone = stone or (lancet and not within)
+                stone = stone or (abs(x - middle) < 1 and y >= spring - 4)
+                ring = math.hypot(x - middle, y - (spring - 21))
+                stone = stone or 4.6 <= ring <= 5.9
+                for dx, dy in ((2.4, 0), (-2.4, 0), (0, 2.4), (0, -2.4)):
+                    foil = math.hypot(x - middle - dx, y - (spring - 21) - dy)
+                    stone = stone or (1.6 <= foil <= 2.5 and ring < 4.6)
+                if stone:
+                    lit = not inside(x, y - 1, half) or y == bar
+                    squares.put(x, y, "S" if lit else "T")
+
+        def ledge(centre: int, top: int, reach: int) -> None:
+            """A floating ledge: a slab of pale stone with a carved band
+            along its face, a bat's wing rising at each end, and a bracket
+            hanging beneath each end. Blood runs off it."""
+            for x in range(centre - reach, centre + reach + 1):
+                knot = (x - centre) % 6
+                squares.put(x, top, "S")
+                squares.put(x, top + 1, "T")
+                squares.put(x, top + 2, "U" if knot in (2, 3) else "S")
+                squares.put(x, top + 3, "S" if knot in (2, 3) else "U")
+                squares.put(x, top + 4, "T")
+                squares.put(x, top + 5, "K")
+            for side in (-1, 1):
+                end = centre + side * reach
+                foot = end - side * 3
+                for down in range(6, 11):
+                    squares.put(foot, top + down, "T")
+                    squares.put(foot - side, top + down, "U")
+                    squares.put(foot + side, top + down, "K")
+                squares.put(foot - side * 2, top + 6, "U")
+                squares.put(foot - side * 2, top + 10, "S")
+                squares.put(foot + side, top + 10, "S")
+                for row, line in enumerate(WING):
+                    for column, letter in enumerate(line):
+                        if letter != ".":
+                            squares.put(
+                                end + side * column, top - len(WING) + row, letter
+                            )
+            squares.drip(centre - reach // 2, top + 6, 3 + reach % 4)
+            squares.drip(centre + reach // 3, top + 6, 2 + reach % 3)
+
+        ledge(middle, steps, half + frame + 10)
+        # The door is split down its middle, and light shows through.
+        for y in range(spring + 4, steps):
+            squares.put(middle - 1, y, "K")
+            squares.put(middle, y, "F")
+            squares.put(middle + 1, y, "K")
+
+        # Drapes either side, hung from a rod and tied back.
+        rod = int(apex - frame * 2) - 6
+        tie = 90
+        for side in (-1, 1):
+            outer = middle + side * (half + frame + 9)
+            for y in range(rod + 1, steps):
+                if y < tie:
+                    width = 16 - 11 * (y - rod) / (tie - rod)
+                else:
+                    width = 5 + 7 * ((y - tie) / (steps - tie)) ** 0.7
+                for step in range(round(width) + 1):
+                    x = outer - side * step
+                    fold = math.cos(2 * math.pi * 2.5 * step / max(width, 1) + y / 40)
+                    if step == round(width):
+                        letter = "X"
+                    elif fold > 0.75:
+                        letter = "Y"
+                    elif fold > 0.1:
+                        letter = "V"
+                    elif fold > -0.5:
+                        letter = "W"
+                    else:
+                        letter = "X"
+                    squares.put(x, y, letter)
+            # The cord that ties it back, and its tassel.
+            for step in range(0, 6):
+                squares.put(outer - side * step, tie, "Z")
+                squares.put(outer - side * step, tie + 1, "S")
+            for drop in range(2, 8):
+                squares.put(outer - side * 2, tie + drop, "Z" if drop < 4 else "S")
+            for spread in (-1, 0, 1):
+                squares.put(outer - side * (2 + spread), tie + 8, "S")
+        for x in range(middle - half - frame - 12, middle + half + frame + 13):
+            squares.put(x, rod, "Z")
+            squares.put(x, rod + 1, "U")
+        for side in (-1, 1):
+            end = middle + side * (half + frame + 13)
+            squares.picture(FINIAL, end - 1, rod - 2)
+
+        # A candelabra either side, the door's middle between them, each on
+        # a ledge of its own.
+        stand = steps - 8
+        for centre in (middle - 56, middle + 56):
+            left = centre - len(CANDELABRA[0]) // 2
+            ledge(centre, stand, 7)
+            squares.picture(CANDELABRA, left, stand - len(CANDELABRA))
+            for row, line in enumerate(CANDELABRA):
+                for column, letter in enumerate(line):
+                    if letter == "F":
+                        flames.append(
+                            (
+                                (left + column + 0.5) * cell,
+                                (stand - len(CANDELABRA) + row) * cell,
+                            )
+                        )
+
+        # The briar winds about the frame, and blood runs from the arch
+        # into the doorway.
+        way = []
+        wide = half + frame / 2
+        way += [(middle - wide, steps - 1 - t) for t in frange(0, steps - 1 - spring)]
+        radius = 2 * wide
+        way += [
+            (middle + wide - radius * math.cos(a), spring - radius * math.sin(a))
+            for a in frange(0, math.pi / 3, 0.5 / radius)
+        ]
+        way += [
+            (middle - wide + radius * math.cos(a), spring - radius * math.sin(a))
+            for a in frange(math.pi / 3, 0, -0.5 / radius)
+        ]
+        way += [(middle + wide, spring + t) for t in frange(0, steps - 1 - spring)]
+        squares.vine(way, sway=2.4, thorns=7)
+        self.writhing(squares, middle, half, frame, spring, steps)
+        for across, length in ((-9, 6), (-4, 10), (5, 4), (11, 8)):
+            x = middle + across
+            centre = middle + half if across < 0 else middle - half
+            y = spring - math.sqrt(max((2 * half) ** 2 - (x - centre) ** 2, 0))
+            squares.drip(x, y + 1, length)
+
+        words = 450
+        name = self.faces.face(look.font["heading"])
+        self.carved(name, DOOR_NAME, 56, words, 210)
+        wide = name.width(DOOR_NAME, 56)
+        squares.vine(
+            [(x, 228 / cell) for x in frange(words / cell, (words + wide) / cell)],
+            sway=1.0,
+            thorns=5,
+        )
+        hang = [(274 + 3 * math.sin(t / 9), t) for t in frange(-34, 40)]
+        squares.vine(hang, sway=1.0, thorns=6)
+        squares.drip(274 + 3 * math.sin(40 / 9), 41, 6)
+        hang = [(256 + 2 * math.sin(t / 7 + 1), t) for t in frange(-34, 22)]
+        squares.vine(hang, sway=0.8, thorns=6)
+        # Blood runs off the edge of the floor, under the briar.
+        under = floor + len(BRIAR) - 1
+        for x, length in (
+            (9, 5),
+            (40, 8),
+            (71, 3),
+            (97, 7),
+            (143, 4),
+            (188, 9),
+            (231, 5),
+            (284, 6),
+        ):
+            squares.drip(x, under, length)
+
+        self.define(
+            "flame",
+            '<radialGradient id="flame">'
+            f'<stop offset="0" stop-color="{look.candle}" stop-opacity="0.45"/>'
+            f'<stop offset="1" stop-color="{look.candle}" stop-opacity="0"/>'
+            "</radialGradient>",
+        )
+        for x, y in flames:
+            self.body.append(
+                f'<circle cx="{number(x)}" cy="{number(y)}" r="16" fill="url(#flame)"/>'
+            )
+        self.body.append(
+            squares.markup(
+                cell,
+                {
+                    # Stone, in weathered bone laid thin over the obsidian.
+                    "S": (look.text_subdued, "0.85"),
+                    "T": (look.text_subdued, "0.42"),
+                    "U": (look.text_subdued, "0.22"),
+                    "K": (look.shadow, "1"),
+                    # Velvet, in the look's reds.
+                    "Y": (look.heading_foot, "1"),
+                    "V": (look.selection, "1"),
+                    "W": (look.border, "1"),
+                    "X": (look.blood, "1"),
+                    # Cords and candlesticks, in bone.
+                    "Z": (look.text, "1"),
+                    # Flames.
+                    "F": (look.chip_top, "1"),
+                    "O": (look.chip_foot, "1"),
+                    "G": (look.heading_top, "1"),
+                    "H": (look.accent, "1"),
+                },
+            )
+        )
+        # David's head is the crest, its chin on the top of the arch.
+        crest_left, crest_top = middle * cell - CREST_WIDE * cell / 2, CREST_TOP
+        self.picture(CREST, crest_top, crest_left, cell)
+
+        text = self.faces.face(look.font["text"])
+        light = self.glow("light", 24, 0.3, False)
+        self.body.append(
+            f'<g filter="url(#{light})" fill="{look.inscription}">'
+            + self.letters(text, DOOR_WORDS, 24, words, 270)
+            + "</g>"
+        )
+        self.plain(text, DOOR_NOTE, 16, words, 300, look.text_subdued)
+        self.briar(floor * cell)
+        self.body[start:] = [
+            f'<g transform="translate(0 {DOOR_DROP})">'
+            + "".join(self.body[start:])
+            + "</g>"
+        ]
+        self.y = (floor + len(BRIAR) + 12) * cell + DOOR_DROP
+
+    @staticmethod
+    def writhing(
+        squares: "Squares", middle: int, half: int, frame: int, spring: int, steps: int
+    ) -> None:
+        """The door's frame is the damned: bodies climbing over one another
+        up each side, some fallen head down, faces screaming about the arch,
+        and the greatest at the keystone, all weeping blood."""
+        wide = half + frame / 2
+        for side in (-1, 1):
+            centre = middle + side * wide
+            for turn, y in enumerate(range(steps - 16, spring - 12, -9)):
+                shape = BODY if turn % 3 != 1 else BODY[::-1]
+                if (turn + (side > 0)) % 2:
+                    shape = [line[::-1] for line in shape]
+                lean = (turn * 5 + side) % 3 - 1
+                squares.picture(shape, centre - 3 + lean, y)
+            radius = 2 * wide
+            for a in (0.2, 0.45, 0.7):
+                x = middle - side * wide + side * radius * math.cos(a)
+                y = spring - radius * math.sin(a)
+                squares.picture(FACE, x - 3, y - 4)
+                squares.drip(x - 1 + (side > 0), y, 2 + round(a * 4))
 
     def heading(self, level: int, words: str) -> None:
         if level == 1:
@@ -876,14 +1517,14 @@ class Page:
             f'<rect {whole} fill="url(#sides)"/>',
         ]
 
-    def markup(self) -> str:
+    def markup(self, title: str = "The Cruor Framework") -> str:
         height = round(self.y + 24)
         ground = self.stone(height)
         return (
             '<svg xmlns="http://www.w3.org/2000/svg" '
             f'viewBox="0 0 {WIDTH} {height}" width="{WIDTH}" '
             f'height="{height}" role="img">\n'
-            "<title>The Cruor Framework</title>\n"
+            f"<title>{title}</title>\n"
             "<defs>\n"
             + "\n".join(self.defs)
             + "\n</defs>\n"
@@ -922,6 +1563,13 @@ def page(root: Path) -> Page:
     return drawn
 
 
+def door(root: Path) -> Page:
+    """The door to the showroom."""
+    drawn = Page(Faces(root), root / FOLDER)
+    drawn.doorway()
+    return drawn
+
+
 def main(arguments: list[str]) -> int:
     check = "--check" in arguments
     places = [argument for argument in arguments if argument != "--check"]
@@ -934,8 +1582,14 @@ def main(arguments: list[str]) -> int:
     made = {
         root / "README.md": ("README.md", README),
         folder / PICTURE: (f"{FOLDER}/{PICTURE}", drawn.markup()),
+        folder / DOOR: (
+            f"{FOLDER}/{DOOR}",
+            door(root).markup("The door to the showroom"),
+        ),
     }
-    shown = {TEXT, PICTURE} | {f"{name}.txt" for name in drawn.shown}
+    shown = {TEXT, PICTURE, DOOR} | {
+        f"{name}.txt" for name in drawn.shown + door(root).shown
+    }
 
     if not check:
         for path, (name, content) in made.items():
@@ -960,7 +1614,7 @@ def main(arguments: list[str]) -> int:
             file=sys.stderr,
         )
         return 1
-    print(f"README.md and {FOLDER}/{PICTURE} are current")
+    print(f"README.md, {FOLDER}/{PICTURE} and {FOLDER}/{DOOR} are current")
     return 0
 
 
