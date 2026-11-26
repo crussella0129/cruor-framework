@@ -243,4 +243,4 @@
 - **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-26T19:10:44Z
 - **Files modified:** tools/draw_readme.py, assets/readme/door.svg, assets/readme/door-crest.txt, assets/readme/text.md, assets/readme/page.svg, README.md, tests/test_readme_pictures.py, docs/intents/INT-0007-the-showroom.md
-- **Commit:** PENDING
+- **Commit:** `f79219226a33133b5888cafca99abc762a997ca1`
