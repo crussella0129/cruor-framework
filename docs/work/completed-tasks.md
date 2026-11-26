@@ -230,3 +230,10 @@
 - **Completed:** 2026-11-24T23:45:49Z
 - **Files modified:** assets/readme/weeping-face.txt, assets/readme/weeping-profile.txt, assets/readme/page.svg, showroom/weeping-face.svg, showroom/weeping-profile.svg, docs/intents/INT-0007-the-showroom.md
 - **Commit:** `d9e2186cca8ee1aa504baa4a6e348903f0224991`
+
+## T-224 (sprint 1)
+- **Description:** Put back the statue's two maps as they are on main, at the owner's word that the old pictures look great, and draw the front page's and the showroom's pictures again from them.
+- **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-26T17:19:40Z
+- **Files modified:** assets/readme/weeping-face.txt, assets/readme/weeping-profile.txt, assets/readme/page.svg, showroom/weeping-face.svg, showroom/weeping-profile.svg, docs/intents/INT-0007-the-showroom.md
+- **Commit:** PENDING

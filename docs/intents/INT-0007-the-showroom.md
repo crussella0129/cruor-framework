@@ -145,3 +145,8 @@ wants to see a page made with it and to try its parts, before reading how.
   a run from the lid's stream and a run from the inner corner's stream
   meet. Shown the result, the owner said: "looks good in the after photo"
   (Sprint 1, T-223).
+- 2026-11-26: revised at the owner's word, still `active`. Set beside the
+  pictures on `main`, the new ones were busier and darker, and the owner
+  said: "the old ones look great". The statue's two maps are again those
+  on `main`, and the pictures drawn from them are as they were before
+  T-222 (Sprint 1, T-224).
