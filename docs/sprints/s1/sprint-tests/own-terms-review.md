@@ -388,3 +388,25 @@ How each review is made:
   [45496486733](https://github.com/crussella0129/cruor-framework/actions/runs/45496486733)
   for `22e235ca018e52226eb12b481d084ced85fcc381` concluded `success`.
 
+### 13. 26 November 2026, in Build, the statue's pictures put back
+
+- **Commits covered:** `ced4b7ae90042a0b22a5836a6dcd9db3781cf94d` and
+  `3406548f16c324c44a30963c00fee5f3194fb89e`, two commits: T-224 and the
+  commit the helper makes to record it. The commit that recorded entry 12
+  (`3097242`) changes this file alone and was pushed with it.
+- **Also covered:** nothing; no font file is in the commits.
+- **Pull requests:** as entry 1 tells.
+- **Found:** none.
+- **Read for comparisons:** no line was picked out.
+- **Files against tasks:** T-224 changes the statue's two maps in
+  `assets/readme/`, the front page's picture drawn from them, the
+  showroom's two pictures drawn from them, and INT-0007's history, as its
+  task lists.
+- **Not in the plan.** T-224 was added during the Build at the owner's
+  word: set beside the pictures on `main`, the old ones were preferred.
+  The two maps are again those on `main`, byte for byte, and the pictures
+  drawn from them are as they were before T-222.
+- **CI.** Run
+  [45513607745](https://github.com/crussella0129/cruor-framework/actions/runs/45513607745)
+  for `309724287f5b73e4dbdcb579bbb7dd59a1ad3cdb` concluded `success`.
+
