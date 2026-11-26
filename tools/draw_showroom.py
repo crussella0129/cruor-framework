@@ -6,6 +6,10 @@ from a file, so each is written out as one here: the two pictures of the
 statue from their maps of squares in assets/readme, and the briar turned
 upright, as a stem that climbs.
 
+The front page's door is written out here as well, the same picture, with
+door.json beside it: where the doorway, and the eyes and the mouth of the
+head over it, lie in the picture, for the showroom's entrance to open it by.
+
     python -I tools/draw_showroom.py           writes the pictures
     python -I tools/draw_showroom.py --check   fails if one is not current
     python -I tools/draw_showroom.py --check <folder>
@@ -16,6 +20,7 @@ The pictures are the showroom's own. They are no part of the kit, and no
 release holds them.
 """
 
+import json
 import sys
 from pathlib import Path
 
@@ -32,6 +37,11 @@ STATUE = {"weeping-face": 4, "weeping-profile": 4}
 # The stem of thorns: the front page's briar, turned a quarter.
 STEM = "briar-stem"
 STEM_SQUARE = draw_readme.BRIAR_SQUARE
+
+# The door to the showroom, as the front page draws it, and where its parts
+# lie: the doorway, the eyes and the mouth of the head over it.
+DOOR = "door.svg"
+DOOR_PARTS = "door.json"
 
 CREDIT = (
     "Michelangelo's David, from a photograph by Jörg Bittner Unna offered "
@@ -111,6 +121,11 @@ def pictures(root: Path) -> dict[str, str]:
         STEM_SQUARE,
         "The framework's briar, as a stem that climbs.",
     )
+    # The front page's door, the same picture, and beside it where its parts
+    # lie, for the showroom's entrance to open it by.
+    door = draw_readme.door(root)
+    made[DOOR] = door.markup(draw_readme.DOOR_TITLE)
+    made[DOOR_PARTS] = json.dumps(door.door, indent=2, sort_keys=True) + "\n"
     return made
 
 

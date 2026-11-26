@@ -54,12 +54,15 @@ def test_showroom_pictures_are_current(tmp_path):
     assert result.returncode == 0, result.stderr
     # They are the only pictures the showroom keeps.
     assert sorted(path.name for path in SHOWROOM.glob("*.svg")) == sorted(
-        [*STATUE, STEM]
+        [*STATUE, STEM, draw_showroom.DOOR]
     )
 
     # A map that changes leaves its picture behind, and the check says which.
     shutil.copytree(ROOT / "assets" / "readme", tmp_path / "assets" / "readme")
     shutil.copytree(SHOWROOM, tmp_path / "showroom")
+    # The door is drawn in the fonts and the look's colours.
+    shutil.copytree(ROOT / "fonts", tmp_path / "fonts")
+    shutil.copytree(ROOT / "look", tmp_path / "look")
     kept = tmp_path / "assets" / "readme" / "weeping-profile.txt"
     head, gap, rest = kept.read_text(encoding="utf-8").partition("\n\n")
     letter = head.splitlines()[0].split()[0]

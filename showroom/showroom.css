@@ -217,3 +217,39 @@ body {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* While the entrance is made ready, the place is not yet shown. */
+.entrance-waits body {
+  visibility: hidden;
+}
+
+/* The entrance, which the showroom's script lays over the place when a
+   visitor arrives and takes away when they are in. Its colours are the
+   look's, given by the script; here it is only laid out. */
+.entrance {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.entrance-door {
+  width: min(100vw, calc(100vh * 880 / 564));
+  height: auto;
+}
+
+.entrance-grows,
+.entrance-opens {
+  transform-box: fill-box;
+}
+
+.entrance-grows {
+  transform-origin: top;
+}
+
+.entrance-opens {
+  transform-origin: center;
+}

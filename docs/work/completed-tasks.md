@@ -244,3 +244,10 @@
 - **Completed:** 2026-11-26T19:10:44Z
 - **Files modified:** tools/draw_readme.py, assets/readme/door.svg, assets/readme/door-crest.txt, assets/readme/text.md, assets/readme/page.svg, README.md, tests/test_readme_pictures.py, docs/intents/INT-0007-the-showroom.md
 - **Commit:** `f79219226a33133b5888cafca99abc762a997ca1`
+
+## T-225 (sprint 1)
+- **Description:** Open the showroom with the front page's door: its head's eyes bleed, its mouth opens and pours, it splits open and the view goes in; only with script, never for less motion or a visit to a room, and ended by a press, a key or the wheel.
+- **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
+- **Completed:** 2026-11-26T19:27:17Z
+- **Files modified:** showroom/showroom.js, showroom/showroom.css, showroom/index.html, showroom/door.svg, showroom/door.json, tools/draw_showroom.py, tools/draw_readme.py, tests/test_showroom_entrance.py, tests/test_showroom_world.py, docs/intents/INT-0007-the-showroom.md
+- **Commit:** PENDING

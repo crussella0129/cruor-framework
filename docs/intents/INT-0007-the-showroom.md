@@ -158,3 +158,11 @@ wants to see a page made with it and to try its parts, before reading how.
   floating stone ledges with bats' wings. "No this is the direction"
   (Sprint 1, T-217). The head is drawn from a photograph of a plaster cast
   by Palnatoke, offered under CC BY-SA 3.0, and the front page says so.
+- 2026-11-26: revised at the owner's word, still `active`. The showroom
+  now opens with the same door: the head's eyes bleed, its mouth opens and
+  pours, the door splits open on the light and the view goes in. A picture
+  on GitHub cannot answer a press, so the front page's door stays still
+  and the showroom plays this on arrival. It runs only with script, never
+  for a visitor who asks for less motion or who is sent to a room, and a
+  press, a key or the wheel ends it; without it the showroom is as it was
+  (Sprint 1, T-225).

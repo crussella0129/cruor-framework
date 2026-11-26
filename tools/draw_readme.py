@@ -68,6 +68,10 @@ CREST = "door-crest"
 CREST_WIDE = 46
 CREST_TOP = -90
 DOOR_DROP = 96
+# Where the head's eyes and mouth are, in squares of its map.
+CREST_EYES = [(15.9, 27.7), (29.9, 27.7)]
+CREST_MOUTH = (22.0, 43.0)
+DOOR_TITLE = "The door to the showroom"
 
 # What the door says.
 DOOR_NAME = "The Showroom"
@@ -537,6 +541,8 @@ class Page:
         self.said: list[str] = []
         # How far down the page is filled.
         self.y = 0.0
+        # Where a door's parts lie, once one is drawn.
+        self.door: dict = {}
 
     def define(self, name: str, markup: str) -> None:
         if name not in self.defined:
@@ -1253,6 +1259,27 @@ class Page:
             + "</g>"
         ]
         self.y = (floor + len(BRIAR) + 12) * cell + DOOR_DROP
+        # Where the door's parts lie in the picture, for the showroom's
+        # entrance: the doorway, and the head's eyes and mouth.
+        drop = DOOR_DROP
+
+        def at(x: float, y: float) -> list[float]:
+            return [
+                round(crest_left + x * cell, 1),
+                round(crest_top + drop + y * cell, 1),
+            ]
+
+        self.door = {
+            "width": WIDTH,
+            "height": round(self.y + 24),
+            "middle": middle * cell,
+            "half": half * cell,
+            "spring": spring * cell + drop,
+            "apex": round(apex * cell + drop, 2),
+            "foot": steps * cell + drop,
+            "eyes": [at(x, y) for x, y in CREST_EYES],
+            "mouth": at(*CREST_MOUTH),
+        }
 
     @staticmethod
     def writhing(
@@ -1584,7 +1611,7 @@ def main(arguments: list[str]) -> int:
         folder / PICTURE: (f"{FOLDER}/{PICTURE}", drawn.markup()),
         folder / DOOR: (
             f"{FOLDER}/{DOOR}",
-            door(root).markup("The door to the showroom"),
+            door(root).markup(DOOR_TITLE),
         ),
     }
     shown = {TEXT, PICTURE, DOOR} | {
