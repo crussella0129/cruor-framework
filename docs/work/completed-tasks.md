@@ -250,4 +250,4 @@
 - **Intent:** [INT-0007](../intents/INT-0007-the-showroom.md), [INT-0001](../intents/INT-0001-the-cruor-framework.md)
 - **Completed:** 2026-11-26T19:27:17Z
 - **Files modified:** showroom/showroom.js, showroom/showroom.css, showroom/index.html, showroom/door.svg, showroom/door.json, tools/draw_showroom.py, tools/draw_readme.py, tests/test_showroom_entrance.py, tests/test_showroom_world.py, docs/intents/INT-0007-the-showroom.md
-- **Commit:** PENDING
+- **Commit:** `ba8533597c45ae3f07f332489bb605003faa8ab9`
